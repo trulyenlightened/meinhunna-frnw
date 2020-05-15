@@ -1,4 +1,5 @@
 import PlatformStorage from '../storage';
+import { createApi } from './api';
 
 export const TOKEN_SAVED = 'auth/TOKEN_SAVED';
 export const RETRIEVE_TOKEN_STARTED = 'auth/RETRIEVE_TOKEN_STARTED';
@@ -18,6 +19,9 @@ export const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 export const LOGIN_FORM_SUBMITTED = 'auth/SIGNUP_FORM_SUBMITTED';
 export const RESET_PASSWORD_SUCCESS = 'auth/RESET_PASSWORD_SUCCESS';
+export const UPDATE_LOGIN_MOBILENO = 'auth/UPDATE_LOGIN_MOBILENO';
+export const UPDATE_LOGIN_PASSWORD = 'auth/UPDATE_LOGIN_PASSWORD';
+export const UPDATE_REGISTER_MOBILENO = 'auth/UPDATE_REGISTER_MOBILENO'
 
 
 export const retrieveAuthToken = () => async (dispatch) => {
@@ -76,13 +80,15 @@ export const authenticate = isValid => async (dispatch, getState) => {
   }
 
   const {
-    email,
-    password,
+    loginMobileNo,
+    loginPassword,
   } = getState().auth;
+  console.log(loginMobileNo);
 
+  
   const authData = {
-    email,
-    password,
+    phone_number:loginMobileNo,
+    password:loginPassword,
   };
   let response = null;
 
@@ -92,12 +98,13 @@ export const authenticate = isValid => async (dispatch, getState) => {
 
   try {
     response = await createApi()
-      .post('/', authData).then(res => res)
+      .post('/auth', authData).then(res => res)
       .catch((err) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
 
-
+      console.log(response);
+      
     dispatch({
       type: LOGIN_SUCCESS,
       payload: response.data.access_token,
@@ -174,3 +181,47 @@ export const signup = () => async (dispatch, getState) => {
 
   return null;
 };
+
+export const updateLoginMobileNo = (val) => dispatch =>{
+  dispatch({
+    type:UPDATE_LOGIN_MOBILENO,
+    payload:val
+  })
+}
+
+export const updateLoginPassword = (val) => dispatch =>{
+  dispatch({
+    type:UPDATE_LOGIN_PASSWORD,
+    payload:val
+  })
+}
+
+export const updateRegisterMobileNo = val => dispatch =>{
+  dispatch({
+    type:UPDATE_REGISTER_MOBILENO,
+    payload:val
+  })
+}
+
+export const onSendOtp = val => async(dispatch,getState) =>{
+  const {registerMobileno} = getState().auth;
+  console.log(registerMobileno);
+  const authData = {
+    phone_number:registerMobileno,
+  };
+  let response = null;
+  try {
+    response = await createApi()
+      .post('/otp', authData).then(res => res)
+      .catch((err) => {
+        throw new Error(err.response ? err.response.data.message : err.message);
+      });
+      console.log(response);
+      
+    }
+    catch(err)
+    {
+      console.log(err);
+      
+    }
+}

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getEnvironment } from '../utils';
+// import { getEnvironment } from '../utils';
 
 export const REQUEST_SUCCESS = 'api/REQUEST_SUCCESS';
 export const REQUEST_FAILURE = 'api/REQUEST_FAILURE';
