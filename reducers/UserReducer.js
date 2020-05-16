@@ -8,7 +8,13 @@ import {
   UPDATE_PHONE,
   UPDATE_REGISTER_MOBILENO,
   ON_SEND_OTP_SUCCESS,
-  ON_CHANGE_OTP
+  ON_CHANGE_OTP,
+  SELECTED_MURCHANT,
+  GET_NEARBY_SUCCESS,
+  ON_ADD_ITEMS,
+  ON_SELECTED_ITEM,
+  ON_CHANGE_TEXT_ITEM_SELECT,
+  UPDATE_QTY
 } from '../actions/user';
 
 import { SIGNUP_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth';
@@ -27,7 +33,15 @@ const initialState = {
   fullAddress: null,
   registerMobileno:'',
   otp:'',
-  otpCode:''
+  otpCode:'',
+  murchantList:[],
+selectedMurchant:"",
+isModalItem:false,
+finalItem:"",
+finalQty:"",
+orderItem:[],
+orderQty:[]
+
 };
 
 export default (state = initialState, action) => {
@@ -116,6 +130,62 @@ export default (state = initialState, action) => {
       return {
         ...state,
         otpCode:action.payload
+      }
+    }
+    
+    case SELECTED_MURCHANT:
+    {
+      return {
+        ...state,
+        selectedMurchant:action.payload
+      }
+    }
+
+    case GET_NEARBY_SUCCESS:
+    {
+      return {
+        ...state,
+        murchantList:action.payload
+      }
+    }
+
+    case ON_ADD_ITEMS:
+    {
+      return {
+        ...state,
+        isModalItem:true
+      }
+    }
+
+    case ON_SELECTED_ITEM:
+    {
+      var items = state.orderItem
+      items.push(action.payload.finalItem)
+      var qty = state.orderQty
+      qty.push(action.payload.finalQty)
+      console.log(qty);
+      
+      return {
+        ...state,
+        isModalItem:false,
+        orderItem:[...items],
+        orderQty:[...qty]
+      }
+    }
+
+    case ON_CHANGE_TEXT_ITEM_SELECT:
+    {
+      return {
+        ...state,
+        finalItem:action.payload
+      }
+    }
+
+    case UPDATE_QTY:
+    {
+      return {
+        ...state,
+        finalQty:action.payload
       }
     }
 
