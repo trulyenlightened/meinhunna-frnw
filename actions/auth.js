@@ -26,6 +26,7 @@ export const UPDATE_LOGIN_PASSWORD = 'auth/UPDATE_LOGIN_PASSWORD';
 
 
 export const retrieveAuthToken = () => async (dispatch) => {
+
   dispatch({
     type: RETRIEVE_TOKEN_STARTED,
   });
@@ -86,7 +87,7 @@ export const authenticate = isValid => async (dispatch, getState) => {
   } = getState().auth;
   console.log(loginMobileNo);
 
-  
+
   const authData = {
     phone_number:loginMobileNo,
     password:loginPassword,
@@ -104,14 +105,13 @@ export const authenticate = isValid => async (dispatch, getState) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
       console.log(response);
-      
+
     if(response.data.access_token){
       dispatch({
         type: LOGIN_SUCCESS,
         payload: response.data.access_token,
       });
       Navigation.navigate('OrderForm')
-  
       await PlatformStorage.set('authToken', response.data.access_token);
       dispatch({
         type: TOKEN_SAVED,
@@ -121,7 +121,7 @@ export const authenticate = isValid => async (dispatch, getState) => {
   } catch (err) {
     console.log(err);
     alert(err)
-    
+
     if (err.message === 'Email is not verified.') {
       dispatch({
         type: LOGIN_FAILURE,
@@ -174,7 +174,7 @@ export const signup = () => async (dispatch, getState) => {
         });
         Navigation.navigate('Login')
       }
-    
+
   } catch (err) {
     dispatch({
       type: SIGNUP_FAILURE,
@@ -198,5 +198,3 @@ export const updateLoginPassword = (val) => dispatch =>{
     payload:val
   })
 }
-
-

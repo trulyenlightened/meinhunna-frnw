@@ -4,11 +4,15 @@ import Card from 'react-navigation/src/views/CardStack/Card';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
-import {updateLoginMobileNo,updateLoginPassword,authenticate} from "../actions/auth";
+import {updateLoginMobileNo,updateLoginPassword,authenticate,retrieveAuthToken} from "../actions/auth";
 import Navigation from "../navigation/NavigationService";
 
 
 class Login extends Component {
+
+  componentDidMount(){
+    this.props.retrieveAuthToken();
+  }
   render(){
     const { loginMobileNo,loginPassword } = this.props;
   return (
@@ -139,6 +143,7 @@ export default connect(
   {
     updateLoginMobileNo,
     updateLoginPassword,
-    authenticate
+    authenticate,
+    retrieveAuthToken
   }
 )(Login);

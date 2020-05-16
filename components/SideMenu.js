@@ -94,12 +94,7 @@ function SideMenu(props) {
       </View>
       {menuElements}
       <View style={styles.footer}>
-        <StyledButton
-          text="Logout"
-          textStyle={styles.textButton}
-          style={styles.button}
-          onPress={props.logout}
-        />
+
       </View>
     </View>
   );
@@ -158,7 +153,7 @@ const styles = StyleSheet.create({
     }),
   },
   text: {
-    fontFamily: 'circular-black',
+  
     fontSize: 22,
     marginTop: 8,
     marginLeft: '12%',
