@@ -28,7 +28,6 @@ class OrderForm extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <MenuButton style={styles.menubutton} onPress={openDrawer} />
         <Text style={styles.headerText}>Order</Text>
         <View style={styles.mainContainer}>
           <TouchableOpacity
@@ -46,10 +45,10 @@ class OrderForm extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    height:200
   },
   menubutton:{
     top:5,

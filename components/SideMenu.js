@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   Platform,
+  TouchableOpacityBase,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -64,6 +65,7 @@ function SideMenu(props) {
     }
     return (
       <View style={styles.itemContainer} key={i.route}>
+        
         <TouchableOpacity
           style={[styles.menuItem, isActiveRoute && styles.menuItemActive]}
           onPress={() => {
@@ -90,11 +92,15 @@ function SideMenu(props) {
           style={styles.closeButtonContainer}
           onPress={closeDrawer}
         >
+          <Text style={styles.bigText}>मैं हूँ ना</Text>
         </TouchableOpacity>
       </View>
+      
       {menuElements}
       <View style={styles.footer}>
-
+        <TouchableOpacity>
+          <Text>Logout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -193,11 +199,18 @@ const styles = StyleSheet.create({
     fontFamily: 'circular-bold',
     fontSize: 10,
   },
+  bigText: {
+    fontSize:45,
+  color:"#BDB76B"
+  },
   closeButtonContainer: {
     zIndex: 101,
     position: 'absolute',
     right: 20,
     top: 35,
+    alignItems:'center',
+    justifyContent:'center',
+    alignContent:'center'
   },
   closeButton: {
     width: 42,

@@ -113,3 +113,29 @@ export const onMatchOtp = () => (dispatch,getState) => {
 
 }
 
+export const getNearby = (location) => async(dispatch,getState) =>{
+  // console.error(location.coords.latitude);
+  const state = getState();
+  
+  const LocationData = {
+    latitude: `${location.coords.latitude}`,
+	  longitude: `${location.coords.longitude}`
+  };
+  try {
+    response = await createApi(state)
+      .post('/nearby ', LocationData).then(res => res)
+      .catch((err) => {
+        throw new Error(err.response ? err.response.data.message : err.message);
+      });
+      console.log(response);
+      if(response.data.message === "success")
+      {
+       
+      }
+    }
+    catch(err)
+    {
+      console.log(err);
+      
+    }
+}
