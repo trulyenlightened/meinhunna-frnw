@@ -8,12 +8,14 @@ class MobileNumber extends Component  {
     const {registerMobileno} = this.props;
     return (
       <View style={styles.container}>
-         <Text style={styles.bigText}>Main Hu Na</Text>
+      <View style={styles.buttonView}>
+      </View>
+         <Text style={styles.bigText}>मैं हूँ ना</Text>
         <View style={styles.cardContainer}>
           <TextInput
                 style={styles.inputStyle}
-                underlineColorAndroid="transparent"
-                placeholder="Mobile No..."
+                underlineColorAndroid="#000000"
+                placeholder="मोबाइल नंबर"
                 placeholderTextColor="#9D9D9D"
                 autoCapitalize="none"
                 secureTextEntry={false}
@@ -22,18 +24,18 @@ class MobileNumber extends Component  {
                    this.props.updateRegisterMobileNo(text);
                 }}
               />
-              
+
           <TouchableOpacity
           style={styles.buttonLogin}
           onPress={()=>{this.props.onSendOtp(true)}}
           >
-            <Text style={styles.buttonText}>Continue</Text>
+            <Text style={styles.buttonText}>आगे बढ़ें</Text>
           </TouchableOpacity>
         </View>
       </View>
     );
   }
- 
+
 }
 
 const styles = StyleSheet.create({
@@ -42,50 +44,64 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#E5E5E5',
   },
   bigText: {
     fontSize:45,
-    color:"#573985"
+  color:"#BDB76B"
   },
   cardContainer:{
     width:'90%',
     alignItems: "center",
     marginTop: 16,
     backgroundColor: "white",
-    borderColor:"#573985",
+    borderColor:"#000000",
     borderWidth:1,
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 20,
     shadowColor: "#000000",
     shadowOffset: { width: 1, height: 3 },
     shadowRadius: 5,
     shadowOpacity: 1.0
   },
+  buttonView:{
+    position:'absolute',right:15,top:20
+
+  },
   inputStyle:{
     width: "93%",
-    borderRadius: 5,
+    borderRadius: 10,
     height: 48,
-    borderColor: "#573985",
-    borderWidth: 1,
+
     marginBottom: 20,
     fontSize: 19,
     paddingLeft: 15,
     paddingRight: 5
   },
   buttonLogin:{
-    backgroundColor: "transparent",
+    backgroundColor: "#E5E5E5",
     height: 44,
-    width: 156,
-    borderRadius: 5,
-    borderColor: "#573985",
+    width: 256,
+    borderRadius: 10,
+    borderColor: "#000000",
     borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10
   },
   buttonText:{
-    fontSize:18
-  }
+    fontSize:18,
+    color:"grey",
+    fontWeight:'bold'
+  },
+  buttonSignUp:{
+  width:100,
+  },
+  buttonSignUpText:{
+    fontSize:18,
+    color:"grey",
+    fontWeight:'bold'
+  },
 });
 
 const mapStateToProps = ({auth}) => ({

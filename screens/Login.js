@@ -13,27 +13,35 @@ class Login extends Component {
     const { loginMobileNo,loginPassword } = this.props;
   return (
     <View style={styles.container}>
-      <Text style={styles.bigText}>Main Hu Na</Text>
+    <View style={styles.buttonView}>
+    <TouchableOpacity
+    style={styles.buttonSignUp}
+      onPress={()=>{Navigation.navigate('MobileNumber')}}
+    >
+      <Text style={styles.buttonSignUpText}>साइन अप करें</Text>
+    </TouchableOpacity>
+    </View>
+      <Text style={styles.bigText}>मैं हूँ ना</Text>
       <View style={styles.cardContainer}>
         <TextInput
-              style={styles.inputStyle}
-              underlineColorAndroid="transparent"
-              placeholder="Mobile No..."
-              placeholderTextColor="#9D9D9D"
-              autoCapitalize="none"
-              secureTextEntry={false}
+        style={styles.inputStyle}
+        underlineColorAndroid="#9D9D9D"
+        placeholder="मोबाइल नंबर"
+        placeholderTextColor="#9D9D9D"
+        autoCapitalize="none"
+        secureTextEntry={false}
               value={loginMobileNo}
               onChangeText={text => {
                  this.props.updateLoginMobileNo(text);
               }}
             />
             <TextInput
-              style={styles.inputStyle}
-              underlineColorAndroid="transparent"
-              placeholder="Password"
-              placeholderTextColor="#9D9D9D"
-              autoCapitalize="none"
-              secureTextEntry={true}
+            style={styles.inputStyle}
+            underlineColorAndroid="#9D9D9D"
+            placeholder="पासवर्ड"
+            placeholderTextColor="#9D9D9D"
+            autoCapitalize="none"
+            secureTextEntry={true}
               value={loginPassword}
               onChangeText={text => {
                 this.props.updateLoginPassword(text);
@@ -43,12 +51,7 @@ class Login extends Component {
         style={styles.buttonLogin}
         onPress={()=>{this.props.authenticate(true)}}
         >
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-        onPress={()=>{Navigation.navigate('MobileNumber')}}
-        >
-          <Text style={styles.buttonText}>Register Here</Text>
+          <Text style={styles.buttonText}>लॉग इन करें</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -62,19 +65,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#E5E5E5',
   },
   bigText: {
-    fontSize:45,
-    color:"#573985"
+    fontSize:55,
+    color:"#BDB76B"
+  },
+  buttonView:{
+    position:'absolute',right:15,top:20
+
   },
   cardContainer:{
     width:'90%',
     alignItems: "center",
     marginTop: 16,
     backgroundColor: "white",
-    borderColor:"#573985",
-    borderWidth:1,
-    borderRadius: 5,
+    borderColor:"#000000",
+    borderWidth:0.5,
+    borderRadius: 10,
     padding: 20,
     shadowColor: "#000000",
     shadowOffset: { width: 1, height: 3 },
@@ -85,8 +93,7 @@ const styles = StyleSheet.create({
     width: "93%",
     borderRadius: 5,
     height: 48,
-    borderColor: "#573985",
-    borderWidth: 1,
+
     marginBottom: 20,
     fontSize: 19,
     paddingLeft: 15,
@@ -95,19 +102,30 @@ const styles = StyleSheet.create({
   buttonLogin:{
     backgroundColor: "transparent",
     height: 44,
-    width: 156,
-    borderRadius: 5,
-    borderColor: "#573985",
+    width: 256,
+    borderRadius: 10,
+      backgroundColor: '#E5E5E5',
     borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10
   },
+  buttonSignUp:{
+  width:100,
+  },
+  buttonSignUpText:{
+    fontSize:18,
+    color:"grey",
+    fontWeight:'bold'
+  },
+
+
   buttonText:{
-    fontSize:18
+    fontSize:18,
+    color:"grey",
+  fontWeight:'bold',
   }
 });
-
 const mapStateToProps = ({auth}) => ({
   loginMobileNo:auth.loginMobileNo,
   loginPassword:auth.loginPassword,
