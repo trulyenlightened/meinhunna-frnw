@@ -6,8 +6,9 @@ import {
   UPDATE_ADDRESS,
   UPDATE_CONFIRM_PASSWORD,
   UPDATE_PHONE,
-
-
+  UPDATE_REGISTER_MOBILENO,
+  ON_SEND_OTP_SUCCESS,
+  ON_CHANGE_OTP
 } from '../actions/user';
 
 import { SIGNUP_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth';
@@ -24,12 +25,13 @@ const initialState = {
   confirmPassword: null,
   phone: null,
   fullAddress: null,
+  registerMobileno:'',
+  otp:'',
+  otpCode:''
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-
-
 
     case UPDATE_FULL_NAME:
       return {
@@ -65,7 +67,7 @@ export default (state = initialState, action) => {
       case UPDATE_ADDRESS:
         return {
           ...state,
-          password: action.payload,
+          fullAddress: action.payload,
           signup: {
             touched: true,
             submitted: false,
@@ -91,6 +93,31 @@ export default (state = initialState, action) => {
           submitted: false,
         },
       };
+    
+    case UPDATE_REGISTER_MOBILENO:
+    {
+      return {
+        ...state,
+        registerMobileno:action.payload
+      }
+    }
+
+
+    case ON_SEND_OTP_SUCCESS:
+    {
+      return {
+        ...state,
+        otp:action.payload
+      }
+    }
+
+    case ON_CHANGE_OTP:
+    {
+      return {
+        ...state,
+        otpCode:action.payload
+      }
+    }
 
     default:
       return state;

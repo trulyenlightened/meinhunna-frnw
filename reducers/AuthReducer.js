@@ -4,7 +4,7 @@ import {
   UPDATE_PASSWORD,
   UPDATE_LOGIN_MOBILENO,
   UPDATE_LOGIN_PASSWORD,
-  UPDATE_REGISTER_MOBILENO
+  
 } from '../actions/auth';
 
 const initialState = {
@@ -23,7 +23,7 @@ const initialState = {
   socialToken: '',
   loginMobileNo:"",
   loginPassword:"",
-  registerMobileno:''
+ 
 };
 
 export default (state = initialState, action) => {
@@ -44,13 +44,7 @@ export default (state = initialState, action) => {
       }
     }
 
-    case UPDATE_REGISTER_MOBILENO:
-    {
-      return {
-        ...state,
-        registerMobileno:action.payload
-      }
-    }
+   
 
     default:
       return state;

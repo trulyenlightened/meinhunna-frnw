@@ -4452,6 +4452,11 @@ react-native-gesture-handler@~1.6.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-otp-inputs@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-otp-inputs/-/react-native-otp-inputs-5.0.1.tgz#59362997a9b32c16a15dde1ede52301c304bc9b9"
+  integrity sha512-mJk6cEuJKcQtfkJOCdQHFTfIoQcz5GEVAbQ3C02UWtqHhDrfokLrnJcFapAdxthVdxx6M1g9hCSbhQ8sNwdewA==
+
 react-native-reanimated@~1.7.0:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.7.1.tgz#6363c7f3ebbabc56a05d5dccaf09d95f3b6a2d69"

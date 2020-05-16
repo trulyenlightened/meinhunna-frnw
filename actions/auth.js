@@ -1,5 +1,6 @@
 import PlatformStorage from '../storage';
 import { createApi } from './api';
+import Navigation from "../navigation/NavigationService";
 
 export const TOKEN_SAVED = 'auth/TOKEN_SAVED';
 export const RETRIEVE_TOKEN_STARTED = 'auth/RETRIEVE_TOKEN_STARTED';
@@ -21,7 +22,7 @@ export const LOGIN_FORM_SUBMITTED = 'auth/SIGNUP_FORM_SUBMITTED';
 export const RESET_PASSWORD_SUCCESS = 'auth/RESET_PASSWORD_SUCCESS';
 export const UPDATE_LOGIN_MOBILENO = 'auth/UPDATE_LOGIN_MOBILENO';
 export const UPDATE_LOGIN_PASSWORD = 'auth/UPDATE_LOGIN_PASSWORD';
-export const UPDATE_REGISTER_MOBILENO = 'auth/UPDATE_REGISTER_MOBILENO'
+
 
 
 export const retrieveAuthToken = () => async (dispatch) => {
@@ -78,7 +79,7 @@ export const authenticate = isValid => async (dispatch, getState) => {
     });
     return null;
   }
-
+  Navigation.navigate('OrderForm')
   const {
     loginMobileNo,
     loginPassword,
@@ -102,23 +103,26 @@ export const authenticate = isValid => async (dispatch, getState) => {
       .catch((err) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
-
       console.log(response);
       
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: response.data.access_token,
-    });
-
-    await PlatformStorage.set('authToken', response.data.access_token);
-
-    dispatch({
-      type: TOKEN_SAVED,
-    });
-    dispatch(retrieveAuthToken());
+    if(response.data.access_token){
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: response.data.access_token,
+      });
+      Navigation.navigate('OrderForm')
+  
+      await PlatformStorage.set('authToken', response.data.access_token);
+      dispatch({
+        type: TOKEN_SAVED,
+      });
+      dispatch(retrieveAuthToken());
+    }
   } catch (err) {
+    console.log(err);
+    alert(err)
+    
     if (err.message === 'Email is not verified.') {
-      Navigation.navigate('VerifyEmail');
       dispatch({
         type: LOGIN_FAILURE,
       });
@@ -140,19 +144,16 @@ export const signup = () => async (dispatch, getState) => {
     fullName,
     email,
     password,
-    confirmPassword,
-    phone,
-    birthDate,
+    registerMobileno,
     fullAddress
   } = getState().user;
 
   const signupData = {
-    fullName,
-    email,
-    password,
-    confirmPassword,
-    phone,
-    fullAddress
+  phone_number: registerMobileno,
+	email: email,
+	name: fullName,
+	address: fullAddress,
+	password: password
   };
   dispatch({
     type: SIGNUP_STARTED,
@@ -161,17 +162,19 @@ export const signup = () => async (dispatch, getState) => {
 
   try {
     const response = await createApi()
-      .post('/', signupData)
+      .post('/users', signupData)
       .catch((err) => {
         throw new Error(err.response.data.message);
       });
-
-    dispatch({
-      type: SIGNUP_SUCCESS,
-      payload: response.data,
-    });
-
-    Navigation.navigate('VerifyEmail');
+      console.log(response.data.access_token);
+      if(response.data.access_token){
+        dispatch({
+          type: SIGNUP_SUCCESS,
+          payload: response.data,
+        });
+        Navigation.navigate('Login')
+      }
+    
   } catch (err) {
     dispatch({
       type: SIGNUP_FAILURE,
@@ -196,32 +199,4 @@ export const updateLoginPassword = (val) => dispatch =>{
   })
 }
 
-export const updateRegisterMobileNo = val => dispatch =>{
-  dispatch({
-    type:UPDATE_REGISTER_MOBILENO,
-    payload:val
-  })
-}
 
-export const onSendOtp = val => async(dispatch,getState) =>{
-  const {registerMobileno} = getState().auth;
-  console.log(registerMobileno);
-  const authData = {
-    phone_number:registerMobileno,
-  };
-  let response = null;
-  try {
-    response = await createApi()
-      .post('/otp', authData).then(res => res)
-      .catch((err) => {
-        throw new Error(err.response ? err.response.data.message : err.message);
-      });
-      console.log(response);
-      
-    }
-    catch(err)
-    {
-      console.log(err);
-      
-    }
-}

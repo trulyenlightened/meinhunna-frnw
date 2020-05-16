@@ -29,6 +29,8 @@ class Login extends Component {
         placeholder="मोबाइल नंबर"
         placeholderTextColor="#9D9D9D"
         autoCapitalize="none"
+        maxLength={10}
+        keyboardType={"phone-pad"}
         secureTextEntry={false}
               value={loginMobileNo}
               onChangeText={text => {

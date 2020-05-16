@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import {updateRegisterMobileNo,onSendOtp} from "../actions/auth"
+
+import {updateRegisterMobileNo,onSendOtp} from "../actions/user";
 
 class MobileNumber extends Component  {
   render(){
@@ -19,6 +20,8 @@ class MobileNumber extends Component  {
                 placeholderTextColor="#9D9D9D"
                 autoCapitalize="none"
                 secureTextEntry={false}
+                maxLength={10}
+                keyboardType={"phone-pad"}
                 value={registerMobileno}
                 onChangeText={text => {
                    this.props.updateRegisterMobileNo(text);
@@ -27,7 +30,14 @@ class MobileNumber extends Component  {
 
           <TouchableOpacity
           style={styles.buttonLogin}
-          onPress={()=>{this.props.onSendOtp(true)}}
+          onPress={()=>{
+            var hh = registerMobileno.length
+            if(hh === 10){
+            this.props.onSendOtp(true)
+            } else {
+              alert('Enter correct Mmobile number')
+            }
+          }}
           >
             <Text style={styles.buttonText}>आगे बढ़ें</Text>
           </TouchableOpacity>
@@ -104,8 +114,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({auth}) => ({
-  registerMobileno:auth.registerMobileno,
+const mapStateToProps = ({user}) => ({
+  registerMobileno:user.registerMobileno,
 });
 
 
