@@ -6,7 +6,8 @@ import * as Permissions from "expo-permissions";
 import { Dropdown } from "react-native-material-dropdown";
 import MenuButton from "../components/MenuButton";
 import ModalItem from "../components/ModalItems";
-import { getNearby, selectedMurchant, onAddItems } from "../actions/order";
+import ModalAddress from "../components/ModalAddress";
+import { getNearby, selectedMurchant, onAddItems,onPlaceOrder,onSelectedItemRemove } from "../actions/order";
 import NavigationService from "../navigation/NavigationService";
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
 
@@ -33,14 +34,17 @@ class OrderForm extends Component {
     const { murchantList, orderItem, orderQty } = this.props;
 
     let data = [];
-
-    murchantList.map((d) => {
-      //console.error(d.merchant.name);
-      data.push({ value: d.merchant.name, d });
-    });
+    if(murchantList.length){
+      murchantList.map((d) => {
+        //console.error(d.merchant.name);
+        data.push({ value: d.merchant.name, d });
+      });
+    }
+    
 
     return (
       <View style={styles.container}>
+        <Text style={{position:'absolute',top:15,fontSize:22}}>Order</Text>
         <MenuButton style={styles.menubutton} onPress={openDrawer} />
         <View style={styles.mainContainer}>
           <Dropdown
@@ -65,13 +69,13 @@ class OrderForm extends Component {
                       Qty: {orderQty[i]} {" " + d.item_unit}
                     </Text>
                     <TouchableOpacity
-                    style={{position:'absolute',backgroundColor:'red',left:'70%'}}
+                    style={{width:35}}
                       onPress={() => {
-                        console.error();
                         alert("sorry!!!!");
+                        this.props.onSelectedItemRemove(i)
                       }}
                     >
-                    <Image style={{position:'absolute',height:30,width:30,top:-12,right:-50}} source={require('../assets/delete.png')} />
+                    <Image style={{height:30,width:30}} source={require('../assets/delete.png')} />
                     </TouchableOpacity>
                   </View>
                 );
@@ -87,13 +91,26 @@ class OrderForm extends Component {
             <Text style={styles.buttonText}>+ Add item</Text>
           </TouchableOpacity>
         </View>
-
+        {
+          orderItem.length > 0?
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => {
+              this.props.onPlaceOrder()
+            }}
+          >
+            <Text style={styles.buttonText}>Place Order</Text>
+          </TouchableOpacity>
+          :null
+        }
+        
 
 
 
         </View>
 
         <ModalItem />
+        <ModalAddress />
       </View>
     );
   }
@@ -144,7 +161,7 @@ const styles = StyleSheet.create({
     padding: 5,
     width: "100%",
     backgroundColor: "#fff",
-    alignItems:'center',
+    justifyContent:'space-between'
 
   },
 });
@@ -159,4 +176,6 @@ export default connect(mapStateToProps, {
   getNearby,
   selectedMurchant,
   onAddItems,
+  onPlaceOrder,
+  onSelectedItemRemove
 })(OrderForm);

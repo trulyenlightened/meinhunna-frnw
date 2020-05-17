@@ -11,6 +11,10 @@ export const ON_ADD_ITEMS = "order/ON_ADD_ITEMS";
 export const ON_SELECTED_ITEM = "order/ON_SELECTED_ITEM";
 export const ON_CHANGE_TEXT_ITEM_SELECT = "order/ON_CHANGE_TEXT_ITEM_SELECT";
 export const UPDATE_QTY = "order/UPDATE_QTY";
+export const UPDATE_ORDER_ADDRESS = "order/UPDATE_ORDER_ADDRESS";
+export const ON_PLACE_ORDER = "order/ON_PLACE_ORDER";
+export const GET_ORDER_SUCCESS = "order/GET_ORDER_SUCCESS";
+export const ON_SELECTED_ITEM_REMOVE = "Order/ON_SELECTED_ITEM_REMOVE"
 
 export const getNearby = (location) => async (dispatch, getState) => {
   // console.error(location.coords.latitude);
@@ -28,7 +32,7 @@ export const getNearby = (location) => async (dispatch, getState) => {
       .catch((err) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
-      console.error(response);
+      //console.error(response);
 
     if (response.status === 200) {
       dispatch({
@@ -79,3 +83,62 @@ export const updateQTY = (val) => (dispatch) => {
     payload: val,
   });
 };
+
+export const updateOrderAddress = val => (dispatch) =>{
+  dispatch({
+    type:UPDATE_ORDER_ADDRESS,
+    payload:val
+  })
+}
+
+export const onSelectedItemRemove = index => (dispatch) =>{
+  alert("456")
+  dispatch({
+    type:ON_SELECTED_ITEM_REMOVE,
+    payload:index
+  })
+}
+
+export const onFinalizeOrder = () => async(dispatch,getState) =>{
+  const state = getState();
+  const {orderItem,orderQty,orderAddress,selectedMurchant} = state.order
+  console.error(selectedMurchant.merchant.merchant_id);
+  var items = []
+  orderItem.map((d)=>{
+    items.push(d.item_name)
+  })
+  const OrderData = {
+    merchant_id: `{selectedMurchant.merchant.merchant_id}`,
+	  items: items,
+	  quantity: orderQty,   
+	  order_address: orderAddress
+  };
+  try {
+    var response = await createApi(state)
+      .post("/users/order", OrderData)
+      .then((res) => res)
+
+      .catch((err) => {
+        throw new Error(err.response ? err.response.data.message : err.message);
+      });
+      console.error(response);
+
+    if (response.status === 200) {
+      alert('Order Successfully Placed.')
+      dispatch({
+        type: GET_ORDER_SUCCESS,
+        payload: response.data,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err)
+  }
+}
+
+export const onPlaceOrder = () => (dispatch) =>{
+  dispatch({
+    type:ON_PLACE_ORDER,
+
+  })
+}

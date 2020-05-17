@@ -8,66 +8,48 @@ import {
   TextInput,
 } from "react-native";
 import { connect } from "react-redux";
-import { Dropdown } from "react-native-material-dropdown";
-import {
-  onSelectedItem,
-  onChangeTextItemSelect,
-  updateQTY,
-} from "../actions/order";
+import {updateOrderAddress,onFinalizeOrder} from "../actions/order"
+import { or } from "react-native-reanimated";
 
-class ModalItem extends Component {
+
+class ModalAddress extends Component {
   render() {
-    const { selectedMurchant, isModalItem, finalItem, finalQty } = this.props;
-    let data = [];
-    let data1 = [];
-    if (selectedMurchant) {
-      selectedMurchant.items.map((d) => {
-        data.push({ value: d.item_name, d });
-        data1.push({ value: d.sub_items?d.sub_items:"", d });
-      });
-    }
+   const {orderAddress,isModalAddres} = this.props;
     return (
       <Modal
-        visible={isModalItem}
+        visible={isModalAddres}
         onRequestClose={() => {}}
         animationType="slide"
         transparent={true}
       >
         <View style={styles.container}>
           <View style={styles.mainContainer}>
-            <Dropdown
-              label="Items "
-              data={data}
-              onChangeText={(value, index) => {
-                this.props.onChangeTextItemSelect(index);
-              }}
-            />
-            <Dropdown style={{width:'100%'}} label="sub Items" data={data1} />
+         
 
             <TextInput
               style={styles.inputStyle}
               underlineColorAndroid="grey"
-              placeholder="Qty."
+              placeholder="Address"
               placeholderTextColor="#9D9D9D"
               autoCapitalize="none"
               secureTextEntry={false}
               maxLength={10}
               fontSize={14}
               keyboardType={"phone-pad"}
-              value={finalQty}
+              value={orderAddress}
               onChangeText={(text) => {
-                this.props.updateQTY(text);
+                this.props.updateOrderAddress(text);
               }}
             />
-            <Text style={{fontSize:19,marginTop:10,marginBottom:10}}> Unit : {finalItem ? finalItem.item_unit : null}</Text>
+            <Text style={{fontSize:19,marginTop:10,marginBottom:10,alignSelf:'center'}}> Or </Text>
+            <Text style={{fontSize:16,marginTop:10,marginBottom:10,alignSelf:'center',color: "grey",}}> Leave it we are place your order in your Register Address </Text>
             <TouchableOpacity
               style={styles.addButton}
-              disabled={finalItem&&finalQty?false:true}
               onPress={() => {
-                this.props.onSelectedItem();
+                  this.props.onFinalizeOrder()
               }}
             >
-              <Text style={styles.buttonText}>+ Add item</Text>
+              <Text style={styles.buttonText}>Finalize Order</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -115,6 +97,7 @@ const styles = StyleSheet.create({
     marginTop:10,
   },
   addButton: {
+    position:'absolute',
     backgroundColor: "transparent",
     height: 44,
     width:'100%',
@@ -124,8 +107,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf:'center',
-    bottom: 2,
-    right: 5,
+    bottom: 10,
   },
   buttonText: {
     fontSize: 18,
@@ -139,14 +121,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ order }) => ({
-  selectedMurchant: order.selectedMurchant,
-  isModalItem: order.isModalItem,
-  finalItem: order.finalItem,
-  finalQty: order.finalQty,
+    orderAddress:order.orderAddress,
+    isModalAddres:order.isModalAddres
 });
 
 export default connect(mapStateToProps, {
-  onSelectedItem,
-  onChangeTextItemSelect,
-  updateQTY,
-})(ModalItem);
+    updateOrderAddress,
+    onFinalizeOrder
+})(ModalAddress);

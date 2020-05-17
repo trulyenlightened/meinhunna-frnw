@@ -20,6 +20,7 @@ export const ON_SEND_OTP_SUCCESS = "user/ON_SEND_OTP_SUCCESS";
 export const ON_CHANGE_OTP = "user/ON_CHANGE_OTP";
 
 
+
 export const updateFullName = val => dispatch =>{
   dispatch({
     type:UPDATE_FULL_NAME,
@@ -111,3 +112,4 @@ export const onMatchOtp = () => (dispatch,getState) => {
   }
 
 }
+

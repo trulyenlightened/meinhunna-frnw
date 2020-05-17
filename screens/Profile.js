@@ -11,74 +11,17 @@ import NavigationService from "../navigation/NavigationService";
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
 
 class Profile extends Component {
-  componentWillMount() {
-    this._getLocationAsync();
-  }
 
-  static navigationOptions = {
-    header: null,
-  };
-
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== "granted") {
-      let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    this.props.getNearby(location);
-  };
   render() {
-    const { murchantList, orderItem, orderQty } = this.props;
-
-    let data = [];
-
-    murchantList.map((d) => {
-      //console.error(d.merchant.name);
-      data.push({ value: d.merchant.name, d });
-    });
+ 
 
     return (
       <View style={styles.container}>
+        <Text style={{position:'absolute',top:15,fontSize:22}}>Profile</Text>
         <MenuButton style={styles.menubutton} onPress={openDrawer} />
         <View style={styles.mainContainer}>
-          <Dropdown
-            label="Merchant "
-            data={data}
-            onChangeText={(value, index) => {
-              this.props.selectedMurchant(index);
-            }}
-          />
-          <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => {
-              this.props.onAddItems();
-            }}
-          >
-            <Text style={styles.buttonText}>+ Add item</Text>
-          </TouchableOpacity>
-          {orderItem.map((d, i) => {
-            return (
-              <View key={i} style={styles.listCard}>
-                <Text style={{ fontSize: 18, right: 10 }}>
-                  Item : {d.item_name}
-                </Text>
-                <Text style={{ fontSize: 12, marginTop: 5 }}>
-                  Qty: {orderQty[i]} {" " + d.item_unit}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    alert("sorry!!!!");
-                  }}
-                >
-                  <Text style={{ color: "red", fontSize: 18 }}>X</Text>
-                </TouchableOpacity>
-              </View>
-            );
-          })}
+         
         </View>
-
-        <ModalItem />
       </View>
     );
   }
