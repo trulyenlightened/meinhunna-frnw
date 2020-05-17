@@ -65,7 +65,7 @@ function SideMenu(props) {
     }
     return (
       <View style={styles.itemContainer} key={i.route}>
-        
+
         <TouchableOpacity
           style={[styles.menuItem, isActiveRoute && styles.menuItemActive]}
           onPress={() => {
@@ -95,10 +95,14 @@ function SideMenu(props) {
           <Text style={styles.bigText}>मैं हूँ ना</Text>
         </TouchableOpacity>
       </View>
-      
+
       {menuElements}
       <View style={styles.footer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+
+
+        props.logout()
+        }}>
           <Text>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -159,7 +163,7 @@ const styles = StyleSheet.create({
     }),
   },
   text: {
-  
+
     fontSize: 22,
     marginTop: 8,
     marginLeft: '12%',

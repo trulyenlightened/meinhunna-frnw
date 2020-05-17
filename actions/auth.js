@@ -66,6 +66,12 @@ export const updatePassword = password => (dispatch) => {
   });
 };
 
+export const logout = password => (dispatch) => {
+  PlatformStorage.clear();
+  Navigation.resetToLogin();
+  dispatch(retrieveAuthToken());
+};
+
 export const updateConfirmPassword = password => (dispatch) => {
   dispatch({
     type: UPDATE_CONFIRM_PASSWORD,
@@ -155,6 +161,7 @@ export const signup = () => async (dispatch, getState) => {
 	address: fullAddress,
 	password: password
   };
+
   dispatch({
     type: SIGNUP_STARTED,
     payload: signupData,

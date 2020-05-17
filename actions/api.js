@@ -11,7 +11,6 @@ export function createApi(state) {
 
   if (state) {
     const { token } = state.auth;
-    
     if (token) {
       options.headers = {
         Authorization: `Bearer ${token}`,

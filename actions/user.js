@@ -18,12 +18,6 @@ export const SIGNUP_FORM_SUBMITTED = 'user/SIGNUP_FORM_SUBMITTED';
 export const UPDATE_REGISTER_MOBILENO = 'user/UPDATE_REGISTER_MOBILENO';
 export const ON_SEND_OTP_SUCCESS = "user/ON_SEND_OTP_SUCCESS";
 export const ON_CHANGE_OTP = "user/ON_CHANGE_OTP";
-export const SELECTED_MURCHANT = "user/SELECTED_MURCHANT";
-export const GET_NEARBY_SUCCESS = "user/GET_NEARBY_SUCCESS"
-export const ON_ADD_ITEMS = "user/ON_ADD_ITEMS";
-export const ON_SELECTED_ITEM = "user/ON_SELECTED_ITEM";
-export const ON_CHANGE_TEXT_ITEM_SELECT = "user/ON_CHANGE_TEXT_ITEM_SELECT";
-export const UPDATE_QTY = "user/UPDATE_QTY"
 
 
 export const updateFullName = val => dispatch =>{
@@ -69,7 +63,7 @@ export const updateRegisterMobileNo = val => dispatch =>{
 }
 
 export const onSendOtp = val => async(dispatch,getState) =>{
-  const {registerMobileno} = getState().user;  
+  const {registerMobileno} = getState().user;
   const authData = {
     phone_number:registerMobileno,
   };
@@ -93,7 +87,7 @@ export const onSendOtp = val => async(dispatch,getState) =>{
     catch(err)
     {
       console.log(err);
-      
+
     }
 }
 
@@ -109,83 +103,11 @@ export const onMatchOtp = () => (dispatch,getState) => {
   const {otp,otpCode} = getState().user;
   console.log("otp"+otp);
   console.log("code :"+otpCode);
-  
+
   if(otp.toString() === otpCode.toString()){
     Navigation.navigate('Register')
   } else {
     alert('OTP Does not match.')
   }
 
-}
-
-export const getNearby = (location) => async(dispatch,getState) =>{
-  // console.error(location.coords.latitude);
-  const state = getState();
-  
-  const LocationData = {
-    latitude: `${location.coords.latitude}`,
-	  longitude: `${location.coords.longitude}`
-  };
-  try {
-    response = await createApi(state)
-      .post('/users/nearby', LocationData).then(res => res)
-      .catch((err) => {
-        throw new Error(err.response ? err.response.data.message : err.message);
-      });
-      console.log(response);
-      if(response.status === 200)
-      {
-       dispatch({
-         type:GET_NEARBY_SUCCESS,
-         payload:response.data
-       })
-      }
-    }
-    catch(err)
-    {
-      console.log(err);
-      
-    }
-}
-
-export const selectedMurchant = (index) => (dispatch,getState) =>{
-  const {murchantList} = getState().user
-  //console.log(murchantList[index]);
-  dispatch({
-    type:SELECTED_MURCHANT,
-    payload:murchantList[index]
-  })
-  
-}
-
-export const onAddItems = () => (dispatch,getState) =>{
-
-  dispatch({
-    type:ON_ADD_ITEMS,
-  })
-  
-}
-
-export const onSelectedItem = () => (dispatch,getState) =>{
-  const {finalItem,finalQty} = getState().user;
-    
-  dispatch({
-    type:ON_SELECTED_ITEM,
-    payload:{finalItem,finalQty}
-  })
-}
-
-export const onChangeTextItemSelect = (index) => (dispatch,getState) =>{
-  const {selectedMurchant} = getState().user
-  dispatch({
-    type:ON_CHANGE_TEXT_ITEM_SELECT,
-    payload:selectedMurchant.items[index]
-  })
-}
-
-export const updateQTY = (val) => (dispatch) =>{
-  dispatch({
-    type:UPDATE_QTY,
-    payload:val
-  })
 }

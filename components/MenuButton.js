@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { TouchableOpacity, StyleSheet, Image,View } from 'react-native';
 import PropTypes from 'prop-types';
 
 
@@ -7,9 +7,16 @@ export default function MenuButton(props) {
   const { onPress, style } = props;
 
   return (
+    <View style={{width:'100%',height:75,  borderWidth:0.2,
+      padding: 20,
+      borderColor:"grey",
+      shadowColor: "#000000",
+      shadowOffset: { width: 1, height: 3 },
+      shadowRadius: 5}}>
     <TouchableOpacity style={[styles.menu, style]} onPress={onPress}>
-      <Image style={styles.menuImage}  />
+      <Image style={styles.menuImage} source={require('../assets/menu.png')} />
     </TouchableOpacity>
+    </View>
   );
 }
 
@@ -28,13 +35,13 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     zIndex: 10,
-    top: 35,
-    right: 20,
-    backgroundColor:'black'
+    top: 20,
+    right: 0,
+
   },
   menuImage: {
     zIndex: 11,
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
   },
 });

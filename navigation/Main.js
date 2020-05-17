@@ -47,6 +47,7 @@ const OrdersStack = StackNavigator(
   {
     initialRouteName: 'OrderForm',
     transitionConfig,
+
   },
 );
 

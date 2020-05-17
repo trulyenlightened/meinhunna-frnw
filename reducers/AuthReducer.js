@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         token:action.payload,
-        loggedIn:true
+        loggedIn:action.payload?true:false
       }
     }
     case UPDATE_LOGIN_MOBILENO:
