@@ -66,10 +66,10 @@ export const updatePassword = password => (dispatch) => {
   });
 };
 
-export const logout = password => (dispatch) => {
-  PlatformStorage.clear();
-  Navigation.resetToLogin();
-  dispatch(retrieveAuthToken());
+export const logout = password => async(dispatch) => {
+  await PlatformStorage.clear();
+  // Navigation.resetToLogin();
+   dispatch(retrieveAuthToken());
 };
 
 export const updateConfirmPassword = password => (dispatch) => {

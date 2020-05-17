@@ -1,10 +1,6 @@
-
-
 import PlatformStorage from '../storage';
 import { createApi } from './api';
 import Navigation from "../navigation/NavigationService";
-
-
 export const SELECTED_MURCHANT = "order/SELECTED_MURCHANT";
 export const GET_NEARBY_SUCCESS = "order/GET_NEARBY_SUCCESS";
 export const ON_ADD_ITEMS = "order/ON_ADD_ITEMS";
@@ -92,7 +88,7 @@ export const updateOrderAddress = val => (dispatch) =>{
 }
 
 export const onSelectedItemRemove = index => (dispatch) =>{
-  alert("456")
+
   dispatch({
     type:ON_SELECTED_ITEM_REMOVE,
     payload:index
@@ -102,16 +98,17 @@ export const onSelectedItemRemove = index => (dispatch) =>{
 export const onFinalizeOrder = () => async(dispatch,getState) =>{
   const state = getState();
   const {orderItem,orderQty,orderAddress,selectedMurchant} = state.order
-  console.error(selectedMurchant.merchant.merchant_id);
+
   var items = []
   orderItem.map((d)=>{
     items.push(d.item_name)
   })
+
   const OrderData = {
-    merchant_id: `{selectedMurchant.merchant.merchant_id}`,
+    merchant_id: `${selectedMurchant.merchant.merchant_id}`,
 	  items: items,
-	  quantity: orderQty,   
-	  order_address: orderAddress
+	  quantity: orderQty,
+    order_address: orderAddress
   };
   try {
     var response = await createApi(state)
@@ -121,7 +118,6 @@ export const onFinalizeOrder = () => async(dispatch,getState) =>{
       .catch((err) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
-      console.error(response);
 
     if (response.status === 200) {
       alert('Order Successfully Placed.')
@@ -131,8 +127,7 @@ export const onFinalizeOrder = () => async(dispatch,getState) =>{
       });
     }
   } catch (err) {
-    console.error(err);
-    alert(err)
+
   }
 }
 
