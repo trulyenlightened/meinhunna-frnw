@@ -84,7 +84,7 @@ export const onSendOtp = val => async(dispatch,getState) =>{
         })
         Navigation.navigate("Otp")
       }
-      // alert(response.data.message)
+      alert(response.data.message)
     }
     catch(err)
     {

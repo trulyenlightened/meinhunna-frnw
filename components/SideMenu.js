@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
 
   bigText: {
-    fontSize:60,
+    fontSize:50,
     color:"#006200",
   },
   itemContainer: {

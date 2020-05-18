@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffa500',
   },
   bigText: {
-    fontSize:60,
+    fontSize:50,
     color:"#006200",
     fontWeight:'bold'
   },

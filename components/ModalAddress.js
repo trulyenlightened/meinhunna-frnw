@@ -33,9 +33,9 @@ class ModalAddress extends Component {
               placeholderTextColor="#9D9D9D"
               autoCapitalize="none"
               secureTextEntry={false}
-              maxLength={10}
+
               fontSize={14}
-              keyboardType={"phone-pad"}
+  
               value={orderAddress}
               onChangeText={(text) => {
                 this.props.updateOrderAddress(text);
