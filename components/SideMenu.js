@@ -28,19 +28,13 @@ function SideMenu(props) {
   } = props;
   // NOTE: stackIndex must correspond to index on MainDrawer
   const defaultItems = [
+
     {
-      name: 'Profile',
-      newItems: 0,
-      stack: 'ProfileStack',
-      route: 'Profile',
-      stackIndex: 0,
-    },
-    {
-      name: 'OrderForm',
+      name: 'ऑर्डर फारम',
       newItems: 0,
       stack: 'OrdersStack',
       route: 'Orders',
-      stackIndex: 1,
+      stackIndex: 0,
     },
   ];
 
@@ -99,11 +93,9 @@ function SideMenu(props) {
       {menuElements}
       <View style={styles.footer}>
         <TouchableOpacity onPress={()=>{
-
-
         props.logout()
         }}>
-          <Text>Logout</Text>
+          <Text style= {{padding:10,color:'white',fontSize:18,fontWeight:"bold",borderWidth:0.5,borderRadius:20,borderColor:'white' }}>लॉग आउट</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -125,6 +117,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     height: '100%',
     zIndex: 100,
+        backgroundColor: '#ffa500',
+  },
+
+  bigText: {
+    fontSize:60,
+    color:"#006200",
   },
   itemContainer: {
     top: 10,
@@ -167,6 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginTop: 8,
     marginLeft: '12%',
+    color:'white',
     ...Platform.select({
       web: {
         fontSize: 24,
@@ -203,10 +202,7 @@ const styles = StyleSheet.create({
     fontFamily: 'circular-bold',
     fontSize: 10,
   },
-  bigText: {
-    fontSize:45,
-  color:"#BDB76B"
-  },
+
   closeButtonContainer: {
     zIndex: 101,
     position: 'absolute',
@@ -223,9 +219,11 @@ const styles = StyleSheet.create({
   footer: {
     position: 'absolute',
     bottom: 20,
-    right: 20,
-    justifyContent: 'space-around',
+    right: 30,
+    justifyContent: 'center',
     flexDirection: 'column',
+    padding:10
+
   },
   button: {
     width: 120,

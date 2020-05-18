@@ -68,7 +68,7 @@ const MainDrawer = DrawerNavigator(
     drawerWidth:
       Platform.OS === 'web'
         ? Math.min(height, width) * 0.4
-        : Math.min(height, width) * 0.6, // calculates X% of the smaller side of the screen.
+        : Math.min(height, width) * 0.45, // calculates X% of the smaller side of the screen.
     contentComponent: props => <SideMenu {...props} />,
   },
 );

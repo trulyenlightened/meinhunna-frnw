@@ -173,13 +173,12 @@ export const signup = () => async (dispatch, getState) => {
       .catch((err) => {
         throw new Error(err.response.data.message);
       });
-      console.log(response.data.access_token);
-      if(response.data.access_token){
+      if(response.data){
         dispatch({
           type: SIGNUP_SUCCESS,
           payload: response.data,
         });
-        alert("Thanks For Registering")
+        alert("हमारे साथ जुड़ने के लिए आभार, आप हमारे "+`${response.data.user.user_count}  वे ग्राहक है`)
         Navigation.navigate('Login')
       }
 

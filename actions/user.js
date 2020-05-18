@@ -84,7 +84,7 @@ export const onSendOtp = val => async(dispatch,getState) =>{
         })
         Navigation.navigate("Otp")
       }
-      alert(response.data.message)
+      // alert(response.data.message)
     }
     catch(err)
     {
@@ -109,8 +109,7 @@ export const onMatchOtp = () => (dispatch,getState) => {
   if(otp.toString() === otpCode.toString()){
     Navigation.navigate('Register')
   } else {
-    alert('OTP Does not match.')
+    alert('गलत OTP, फिर से डाले')
   }
 
 }
-

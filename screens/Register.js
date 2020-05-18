@@ -35,7 +35,7 @@ class Register extends Component {
                      this.props.updateFullName(text);
                   }}
                 />
-  
+
          <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -47,9 +47,9 @@ class Register extends Component {
                   editable={false}
                   keyboardType={"phone-pad"}
                   value={registerMobileno}
-                  
+
                 />
-  
+
           <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -62,7 +62,7 @@ class Register extends Component {
                      this.props.updateEmail(text);
                   }}
                 />
-  
+
           <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -109,7 +109,7 @@ class Register extends Component {
               else{
                 alert('Password Does not Match')
               }
-              
+
             }}
             >
               <Text style={styles.buttonText}>आगे बढ़ें</Text>
@@ -122,14 +122,18 @@ class Register extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E5E5E5',
+    backgroundColor: '#ffa500',
+    padding:20
   },
   bigText: {
-    fontSize:45,
-  color:"#BDB76B"
+    fontSize:60,
+    color:"#006200",
+    fontWeight:'bold'
   },
+
   inputStyle:{
     width: "93%",
     borderRadius: 10,
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E5E5E5",
     height: 44,
     width: 256,
-    borderRadius: 10,
+  borderRadius: 20,
     borderColor: "#000000",
     borderWidth: 1,
     alignItems: "center",
@@ -179,4 +183,3 @@ export default connect(
     signup
   }
 )(Register);
-

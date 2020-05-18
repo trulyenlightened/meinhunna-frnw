@@ -36,7 +36,7 @@ class OrderForm extends Component {
    }
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
-     
+
        this.props.getNearby(loc);
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
     }
@@ -48,9 +48,9 @@ class OrderForm extends Component {
     .catch(()=>{
       this.props.getNearby(loc);
     })
-    
-    
-    
+
+
+
   };
   render() {
     const { murchantList, orderItem, orderQty } = this.props;
@@ -62,15 +62,15 @@ class OrderForm extends Component {
         data.push({ value: d.merchant.name, d });
       });
     }
-    
+
 
     return (
       <View style={styles.container}>
-        <Text style={{position:'absolute',top:15,fontSize:22}}>Order</Text>
+        <Text style={{position:'absolute',top:15,fontSize:22}}>ऑर्डर फारम</Text>
         <MenuButton style={styles.menubutton} onPress={openDrawer} />
         <View style={styles.mainContainer}>
           <Dropdown
-            label="Merchant "
+            label="मरचंट"
             data={data}
             onChangeText={(value, index) => {
               this.props.onSelectedMurchant(index);
@@ -80,7 +80,7 @@ class OrderForm extends Component {
           < View style={{flex:0.8,justifyContent:orderItem.length?'flex-start':'center',alignItems:'center',borderColor:'grey',borderWidth:1,borderRadius:20,padding:20,marginTop:20,marginBottom:20}} >
             <ScrollView style={{marginBottom:20,width:'100%'}}>
           {!orderItem.length?
-              <Text style={styles.buttonText}>No items added yet</Text>:
+              <Text style={styles.buttonText}>कोई आइटम नहीं जोड़ा गया</Text>:
               orderItem.map((d, i) => {
                 return (
                   <View key={i} style={styles.listCard}>
@@ -88,12 +88,11 @@ class OrderForm extends Component {
                      {d.item_name}
                     </Text>
                     <Text style={{ fontSize: 16, marginTop: 5 }}>
-                      Qty: {orderQty[i]} {" " + d.item_unit}
+                      मात्रा: {orderQty[i]}
                     </Text>
                     <TouchableOpacity
                     style={{width:35}}
                       onPress={() => {
-                        alert("sorry!!!!");
                         this.props.onSelectedItemRemove(i)
                       }}
                     >
@@ -108,7 +107,7 @@ class OrderForm extends Component {
             style={styles.addButton}
             onPress={() => {
               console.log(murchantList);
-              
+
               if(murchantList.length > 0){
               this.props.onAddItems();
             } else {
@@ -116,7 +115,7 @@ class OrderForm extends Component {
             }
             }}
           >
-            <Text style={styles.buttonText}>+ Add item</Text>
+            <Text style={styles.buttonText}>+ आईटम जोड़े</Text>
           </TouchableOpacity>
         </View>
         {
@@ -124,16 +123,14 @@ class OrderForm extends Component {
           <TouchableOpacity
             style={styles.addButton}
             onPress={() => {
-              
               this.props.onPlaceOrder()
-              
             }}
           >
-            <Text style={styles.buttonText}>Place Order</Text>
+            <Text style={styles.buttonText}>ऑर्डर करे</Text>
           </TouchableOpacity>
           :null
         }
-        
+
 
 
 

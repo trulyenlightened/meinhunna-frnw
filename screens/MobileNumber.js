@@ -35,7 +35,7 @@ class MobileNumber extends Component  {
             if(hh === 10){
             this.props.onSendOtp(true)
             } else {
-              alert('Enter correct Mmobile number')
+              alert('सही फोन नंबर डाले')
             }
           }}
           >
@@ -54,12 +54,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E5E5E5',
+    backgroundColor: '#ffa500',
   },
   bigText: {
-    fontSize:45,
-  color:"#BDB76B"
+    fontSize:60,
+    color:"#006200",
+    fontWeight:'bold'
   },
+
   cardContainer:{
     width:'90%',
     alignItems: "center",
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E5E5E5",
     height: 44,
     width: 256,
-    borderRadius: 10,
+  borderRadius: 20,
     borderColor: "#000000",
     borderWidth: 1,
     alignItems: "center",

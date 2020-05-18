@@ -10,9 +10,7 @@ import Navigation from "../navigation/NavigationService";
 
 class Login extends Component {
 
-  componentDidMount(){
-    this.props.retrieveAuthToken();
-  }
+
   render(){
     const { loginMobileNo,loginPassword } = this.props;
   return (
@@ -71,11 +69,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E5E5E5',
+    backgroundColor: '#ffa500',
   },
   bigText: {
-    fontSize:55,
-    color:"#BDB76B"
+    fontSize:60,
+    color:"#006200",
+    fontWeight:'bold'
   },
   buttonView:{
     position:'absolute',right:15,top:20
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderColor:"#000000",
     borderWidth:0.5,
-    borderRadius: 10,
+      borderRadius: 20,
     padding: 20,
     shadowColor: "#000000",
     shadowOffset: { width: 1, height: 3 },
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     height: 44,
     width: 256,
-    borderRadius: 10,
+    borderRadius: 20,
       backgroundColor: '#E5E5E5',
     borderWidth: 1,
     alignItems: "center",

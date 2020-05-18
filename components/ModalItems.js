@@ -26,11 +26,11 @@ class ModalItem extends Component {
     if (selectedMurchant) {
       selectedMurchant.items.map((d) => {
         data.push({ value: d.item_name, d });
-        
+
       });
     }
     console.log(data1);
-    
+
     return (
       <Modal
         visible={isModalItem}
@@ -41,24 +41,24 @@ class ModalItem extends Component {
         <View style={styles.container}>
           <View style={styles.mainContainer}>
             <Dropdown
-              label="Items "
+              label="आइटम"
               data={data}
               onChangeText={async(value, index) => {
                 this.props.onChangeTextItemSelect(index);
                 mI = index
                 // data1 = [...selectedMurchant.items[index].sub_items];
-                
+
                 // data1.map((d)=>{
-                    
+
                 //     data2.push({value:d.item_name})
                 // })
                 // console.error(data2);
               }}
             />
-            <Dropdown style={{width:'100%'}} label="sub Items" data={sunCatagory} 
+            <Dropdown style={{width:'100%'}} label="उप आइटम" data={sunCatagory}
             onChangeText={async(value, index) => {
               // console.error(index +"  "+ mI);
-              
+
               this.props.onChangeSubItemSelect(index);}}/>
 
             <TextInput
@@ -84,7 +84,7 @@ class ModalItem extends Component {
                 this.props.onSelectedItem();
               }}
             >
-              <Text style={styles.buttonText}>+ Add item</Text>
+              <Text style={styles.buttonText}>+ आईटम जोड़े</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -95,7 +95,7 @@ class ModalItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '50%',
+    marginTop: '30%',
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "space-around",

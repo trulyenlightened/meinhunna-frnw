@@ -14,12 +14,11 @@ export const ON_SELECTED_ITEM_REMOVE = "Order/ON_SELECTED_ITEM_REMOVE";
 export const ON_CHANGE_SUB_ITEM_SELECT = "Order/ON_CHANGE_SUB_ITEM_SELECT"
 
 export const getNearby = (location) => async (dispatch, getState) => {
-  // console.error(location.coords.latitude);
   const state = getState();
 
   const LocationData = {
-    latitude: `${location.coords.latitude}`,
-    longitude: `${location.coords.longitude}`,
+    latitude: location.coords.latitude?`${location.coords.latitude}`:null,
+    longitude: location.coords.longitude?`${location.coords.longitude}`:null,
   };
   try {
     var response = await createApi(state)
@@ -29,7 +28,7 @@ export const getNearby = (location) => async (dispatch, getState) => {
       .catch((err) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
-      //console.error(response);
+
 
     if (response.status === 200) {
       dispatch({
@@ -44,7 +43,6 @@ export const getNearby = (location) => async (dispatch, getState) => {
 
 export const onSelectedMurchant = (index) => (dispatch, getState) => {
   const { murchantList } = getState().order;
-  console.log(murchantList[index]);
   dispatch({
     type: SELECTED_MURCHANT,
     payload: murchantList[index],
@@ -62,18 +60,18 @@ export const onAddItems = () => async(dispatch, getState) => {
 };
 
 export const onSelectedItem = () => (dispatch, getState) => {
-  const { finalItem, finalQty } = getState().order;
+  const { finalItem, finalQty,finalUnit } = getState().order;
 
   dispatch({
     type: ON_SELECTED_ITEM,
-    payload: { finalItem, finalQty },
+    payload: { finalItem, finalQty,finalUnit },
   });
 };
 
 export const onChangeTextItemSelect = (index) => async(dispatch, getState) => {
   const { selectedMurchant } = getState().order;
-  
-  
+
+
   dispatch({
     type: ON_CHANGE_TEXT_ITEM_SELECT,
     payload: {item:selectedMurchant.items[index],index},
@@ -82,14 +80,14 @@ export const onChangeTextItemSelect = (index) => async(dispatch, getState) => {
 
 export const onChangeSubItemSelect = (index) => (dispatch,getState) =>{
   const { selectedMurchant,mI } = getState().order;
-  
-  
+
+
   dispatch({
     type:ON_CHANGE_SUB_ITEM_SELECT,
     payload: selectedMurchant.items[mI].sub_items[index]
   })
-  console.error(selectedMurchant.items[mI].sub_items[index]);
-  
+
+
 }
 
 export const updateQTY = (val) => (dispatch) => {
@@ -119,9 +117,11 @@ export const onFinalizeOrder = () => async(dispatch,getState) =>{
   const {orderItem,orderQty,orderAddress,selectedMurchant} = state.order
 
   var items = []
+
   orderItem.map((d)=>{
     items.push(d.item_name)
   })
+
 
   const OrderData = {
     merchant_id: `${selectedMurchant.merchant.merchant_id}`,
@@ -139,7 +139,7 @@ export const onFinalizeOrder = () => async(dispatch,getState) =>{
       });
 
     if (response.status === 200) {
-      alert('Order Successfully Placed.')
+      alert('ऑर्डर सफलतापूर्वक हो गया')
       dispatch({
         type: GET_ORDER_SUCCESS,
         payload: response.data,

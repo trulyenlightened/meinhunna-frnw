@@ -24,7 +24,7 @@ class ModalAddress extends Component {
       >
         <View style={styles.container}>
           <View style={styles.mainContainer}>
-         
+
 
             <TextInput
               style={styles.inputStyle}
@@ -42,14 +42,14 @@ class ModalAddress extends Component {
               }}
             />
             <Text style={{fontSize:19,marginTop:10,marginBottom:10,alignSelf:'center'}}> Or </Text>
-            <Text style={{fontSize:16,marginTop:10,marginBottom:10,alignSelf:'center',color: "grey",}}> Leave it we are place your order in your Register Address </Text>
+            <Text style={{fontSize:16,marginTop:10,marginBottom:10,alignSelf:'center',color: "grey",}}> विशिष्ट पता डाले या अपने रजिस्टर हुए पते पर डिलीवरी प्राप्त करे</Text>
             <TouchableOpacity
               style={styles.addButton}
               onPress={() => {
                   this.props.onFinalizeOrder()
               }}
             >
-              <Text style={styles.buttonText}>Finalize Order</Text>
+              <Text style={styles.buttonText}>संपूर्ण ऑर्डर करे</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -60,7 +60,7 @@ class ModalAddress extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: '50%',
+      marginTop: '30%',
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "space-around",

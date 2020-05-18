@@ -5,6 +5,7 @@ import Login from '../screens/Login';
 import Otp from '../screens/Otp';
 import MobileNumber from '../screens/MobileNumber';
 import ForgotPassword from '../screens/ForgotPassword';
+import Splash from '../screens/Splash';
 
 
 const transitionConfig = () => ({
@@ -33,6 +34,7 @@ const transitionConfig = () => ({
 });
 const AppLoginNavigator = StackNavigator(
   {
+    Splash: { screen: Splash },
     Login: { screen: Login },
     Register:   { screen: Register },
 

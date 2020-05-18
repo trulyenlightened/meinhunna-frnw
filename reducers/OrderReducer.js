@@ -21,6 +21,7 @@ const initialState = {
   isModalItem:false,
   finalItem:"",
   finalQty:"",
+  finalUnit:"",
   orderItem:[],
   orderQty:[],
   orderAddress:"",
@@ -60,10 +61,10 @@ export default (state = initialState, action) => {
         case ON_SELECTED_ITEM:
         {
           var items = state.orderItem
+          // console.error(items);
           items.push(action.payload.finalItem)
           var qty = state.orderQty
-          qty.push(action.payload.finalQty)
-          console.log(qty);
+          qty.push(`${action.payload.finalQty} ${state.finalItem.item_unit}`)
 
           return {
             ...state,
@@ -79,12 +80,12 @@ export default (state = initialState, action) => {
         {
           var selectedMurchan = state.selectedMurchant
           var data1 = [...selectedMurchan.items[action.payload.index].sub_items];
-          var data2 = []    
+          var data2 = []
                 data1.map((d)=>{
-                    
+
                     data2.push({value:d.item_name})
                 })
-                
+
           return {
             ...state,
             finalItem:action.payload.item,
@@ -95,8 +96,8 @@ export default (state = initialState, action) => {
 
         case ON_CHANGE_SUB_ITEM_SELECT:
         {
-          console.error(action.payload);
-          
+          // console.error(action.payload);
+
           return {
             ...state,
             finalItem:action.payload
@@ -131,7 +132,6 @@ export default (state = initialState, action) => {
         {
           return {
             ...state,
-            murchantList:[],
             selectedMurchant:"",
             isModalItem:false,
             finalItem:"",
@@ -142,7 +142,7 @@ export default (state = initialState, action) => {
             isModalAddres:false
           }
         }
-        
+
         case ON_SELECTED_ITEM_REMOVE:
         {
           var itemsOr = state.orderItem

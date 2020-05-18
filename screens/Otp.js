@@ -11,16 +11,16 @@ class Otp extends Component {
         <View style={styles.buttonView}>
         </View>
            <Text style={styles.bigText}>मैं हूँ ना</Text>
-           
+
           <View style={styles.cardContainer}>
-          
+
               <OtpInputs
                 handleChange={code => this.props.onChangeOTP(code)}
                 numberOfInputs={4}
                 inputStyles={styles.otpInputStyle}
                 inputContainerStyles={{ backgroundColor: "white", }}
                 />
-    
+
           <TouchableOpacity
             style={styles.buttonLogin}
             onPress={()=>{this.props.onMatchOtp()}}
@@ -34,20 +34,22 @@ class Otp extends Component {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E5E5E5',
+    backgroundColor: '#ffa500',
   },
   buttonView:{
     position:'absolute',right:15,top:20
 
   },
   bigText: {
-    fontSize:45,
-  color:"#BDB76B"
+    fontSize:60,
+    color:"#006200",
+    fontWeight:'bold'
   },
   cardContainer:{
     width:'90%',
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E5E5E5",
     height: 44,
     width: 256,
-    borderRadius: 10,
+  borderRadius: 20,
     borderColor: "#000000",
     borderWidth: 1,
     alignItems: "center",
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({auth}) => ({
-  
+
 });
 
 
