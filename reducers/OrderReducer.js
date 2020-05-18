@@ -9,7 +9,8 @@ import {
   UPDATE_ORDER_ADDRESS,
   ON_PLACE_ORDER,
   GET_ORDER_SUCCESS,
-  ON_SELECTED_ITEM_REMOVE
+  ON_SELECTED_ITEM_REMOVE,
+  ON_CHANGE_SUB_ITEM_SELECT
 } from '../actions/order';
 
 
@@ -23,7 +24,9 @@ const initialState = {
   orderItem:[],
   orderQty:[],
   orderAddress:"",
-  isModalAddres:false
+  isModalAddres:false,
+  sunCatagory:[],
+  mI:0
 };
 
 export default (state = initialState, action) => {
@@ -67,12 +70,33 @@ export default (state = initialState, action) => {
             isModalItem:false,
             orderItem:[...items],
             orderQty:[...qty],
-            finalQty:""
+            finalQty:"",
+            finalItem:""
           }
         }
 
         case ON_CHANGE_TEXT_ITEM_SELECT:
         {
+          var selectedMurchan = state.selectedMurchant
+          var data1 = [...selectedMurchan.items[action.payload.index].sub_items];
+          var data2 = []    
+                data1.map((d)=>{
+                    
+                    data2.push({value:d.item_name})
+                })
+                
+          return {
+            ...state,
+            finalItem:action.payload.item,
+            sunCatagory:[...data2],
+            mI:action.payload.index
+          }
+        }
+
+        case ON_CHANGE_SUB_ITEM_SELECT:
+        {
+          console.error(action.payload);
+          
           return {
             ...state,
             finalItem:action.payload

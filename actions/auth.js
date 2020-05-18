@@ -179,6 +179,7 @@ export const signup = () => async (dispatch, getState) => {
           type: SIGNUP_SUCCESS,
           payload: response.data,
         });
+        alert("Thanks For Registering")
         Navigation.navigate('Login')
       }
 

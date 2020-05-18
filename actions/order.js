@@ -10,7 +10,8 @@ export const UPDATE_QTY = "order/UPDATE_QTY";
 export const UPDATE_ORDER_ADDRESS = "order/UPDATE_ORDER_ADDRESS";
 export const ON_PLACE_ORDER = "order/ON_PLACE_ORDER";
 export const GET_ORDER_SUCCESS = "order/GET_ORDER_SUCCESS";
-export const ON_SELECTED_ITEM_REMOVE = "Order/ON_SELECTED_ITEM_REMOVE"
+export const ON_SELECTED_ITEM_REMOVE = "Order/ON_SELECTED_ITEM_REMOVE";
+export const ON_CHANGE_SUB_ITEM_SELECT = "Order/ON_CHANGE_SUB_ITEM_SELECT"
 
 export const getNearby = (location) => async (dispatch, getState) => {
   // console.error(location.coords.latitude);
@@ -41,16 +42,20 @@ export const getNearby = (location) => async (dispatch, getState) => {
   }
 };
 
-export const selectedMurchant = (index) => (dispatch, getState) => {
+export const onSelectedMurchant = (index) => (dispatch, getState) => {
   const { murchantList } = getState().order;
-  //console.log(murchantList[index]);
+  console.log(murchantList[index]);
   dispatch({
     type: SELECTED_MURCHANT,
     payload: murchantList[index],
   });
 };
 
-export const onAddItems = () => (dispatch, getState) => {
+export const onAddItems = () => async(dispatch, getState) => {
+  const{selectedMurchant} = getState().order
+  if(selectedMurchant === ""){
+    await dispatch(onSelectedMurchant(0))
+  }
   dispatch({
     type: ON_ADD_ITEMS,
   });
@@ -65,13 +70,27 @@ export const onSelectedItem = () => (dispatch, getState) => {
   });
 };
 
-export const onChangeTextItemSelect = (index) => (dispatch, getState) => {
+export const onChangeTextItemSelect = (index) => async(dispatch, getState) => {
   const { selectedMurchant } = getState().order;
+  
+  
   dispatch({
     type: ON_CHANGE_TEXT_ITEM_SELECT,
-    payload: selectedMurchant.items[index],
+    payload: {item:selectedMurchant.items[index],index},
   });
 };
+
+export const onChangeSubItemSelect = (index) => (dispatch,getState) =>{
+  const { selectedMurchant,mI } = getState().order;
+  
+  
+  dispatch({
+    type:ON_CHANGE_SUB_ITEM_SELECT,
+    payload: selectedMurchant.items[mI].sub_items[index]
+  })
+  console.error(selectedMurchant.items[mI].sub_items[index]);
+  
+}
 
 export const updateQTY = (val) => (dispatch) => {
   dispatch({

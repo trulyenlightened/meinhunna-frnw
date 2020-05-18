@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import * as Location from "expo-location";
-import * as Permissions from "expo-permissions";
-import { Dropdown } from "react-native-material-dropdown";
 import MenuButton from "../components/MenuButton";
-import ModalItem from "../components/ModalItems";
-import { getNearby, selectedMurchant, onAddItems } from "../actions/order";
+import { getNearby, onAddItems } from "../actions/order";
 import NavigationService from "../navigation/NavigationService";
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
 
@@ -79,6 +75,5 @@ const mapStateToProps = ({ order }) => ({
 
 export default connect(mapStateToProps, {
   getNearby,
-  selectedMurchant,
-  onAddItems,
+    onAddItems,
 })(Profile);

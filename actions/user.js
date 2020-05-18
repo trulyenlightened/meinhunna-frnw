@@ -75,7 +75,7 @@ export const onSendOtp = val => async(dispatch,getState) =>{
       .catch((err) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
-      console.log(response.data);
+      console.log(response);
       if(response.data.message === "success")
       {
         dispatch({
@@ -84,6 +84,7 @@ export const onSendOtp = val => async(dispatch,getState) =>{
         })
         Navigation.navigate("Otp")
       }
+      alert(response.data.message)
     }
     catch(err)
     {

@@ -7,7 +7,7 @@ import { Dropdown } from "react-native-material-dropdown";
 import MenuButton from "../components/MenuButton";
 import ModalItem from "../components/ModalItems";
 import ModalAddress from "../components/ModalAddress";
-import { getNearby, selectedMurchant, onAddItems,onPlaceOrder,onSelectedItemRemove } from "../actions/order";
+import { getNearby, onSelectedMurchant, onAddItems,onPlaceOrder,onSelectedItemRemove } from "../actions/order";
 import NavigationService from "../navigation/NavigationService";
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
 
@@ -22,13 +22,35 @@ class OrderForm extends Component {
   };
 
   _getLocationAsync = async () => {
+    var loc = {
+      coords:{
+      accuracy: 16.038999557495117,
+      altitude: 0,
+      heading: 0,
+      latitude: null,
+      longitude: null,
+      speed: 0,
+    },
+    mocked: false,
+    timestamp: 1589776337833,
+   }
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
+     
+       this.props.getNearby(loc);
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
     }
 
-    let location = await Location.getCurrentPositionAsync({})
-    this.props.getNearby(location);
+    await Location.getCurrentPositionAsync({})
+    .then((res)=>{
+      this.props.getNearby(res);
+    })
+    .catch(()=>{
+      this.props.getNearby(loc);
+    })
+    
+    
+    
   };
   render() {
     const { murchantList, orderItem, orderQty } = this.props;
@@ -51,7 +73,7 @@ class OrderForm extends Component {
             label="Merchant "
             data={data}
             onChangeText={(value, index) => {
-              this.props.selectedMurchant(index);
+              this.props.onSelectedMurchant(index);
             }}
           />
 
@@ -85,7 +107,13 @@ class OrderForm extends Component {
           <TouchableOpacity
             style={styles.addButton}
             onPress={() => {
+              console.log(murchantList);
+              
+              if(murchantList.length > 0){
               this.props.onAddItems();
+            } else {
+              alert("No any Merchant Present!")
+            }
             }}
           >
             <Text style={styles.buttonText}>+ Add item</Text>
@@ -96,7 +124,9 @@ class OrderForm extends Component {
           <TouchableOpacity
             style={styles.addButton}
             onPress={() => {
+              
               this.props.onPlaceOrder()
+              
             }}
           >
             <Text style={styles.buttonText}>Place Order</Text>
@@ -174,7 +204,7 @@ const mapStateToProps = ({ order }) => ({
 
 export default connect(mapStateToProps, {
   getNearby,
-  selectedMurchant,
+  onSelectedMurchant,
   onAddItems,
   onPlaceOrder,
   onSelectedItemRemove

@@ -13,19 +13,24 @@ import {
   onSelectedItem,
   onChangeTextItemSelect,
   updateQTY,
+  onChangeSubItemSelect
 } from "../actions/order";
 
 class ModalItem extends Component {
   render() {
-    const { selectedMurchant, isModalItem, finalItem, finalQty } = this.props;
-    let data = [];
-    let data1 = [];
+    const { selectedMurchant, isModalItem, finalItem, finalQty,sunCatagory } = this.props;
+    var data = [];
+    var data1 = [];
+    var data2 = [];
+    var mI = 0;
     if (selectedMurchant) {
       selectedMurchant.items.map((d) => {
         data.push({ value: d.item_name, d });
-        data1.push({ value: d.sub_items?d.sub_items:"", d });
+        
       });
     }
+    console.log(data1);
+    
     return (
       <Modal
         visible={isModalItem}
@@ -38,11 +43,23 @@ class ModalItem extends Component {
             <Dropdown
               label="Items "
               data={data}
-              onChangeText={(value, index) => {
+              onChangeText={async(value, index) => {
                 this.props.onChangeTextItemSelect(index);
+                mI = index
+                // data1 = [...selectedMurchant.items[index].sub_items];
+                
+                // data1.map((d)=>{
+                    
+                //     data2.push({value:d.item_name})
+                // })
+                // console.error(data2);
               }}
             />
-            <Dropdown style={{width:'100%'}} label="sub Items" data={data1} />
+            <Dropdown style={{width:'100%'}} label="sub Items" data={sunCatagory} 
+            onChangeText={async(value, index) => {
+              // console.error(index +"  "+ mI);
+              
+              this.props.onChangeSubItemSelect(index);}}/>
 
             <TextInput
               style={styles.inputStyle}
@@ -143,10 +160,12 @@ const mapStateToProps = ({ order }) => ({
   isModalItem: order.isModalItem,
   finalItem: order.finalItem,
   finalQty: order.finalQty,
+  sunCatagory:order.sunCatagory
 });
 
 export default connect(mapStateToProps, {
   onSelectedItem,
   onChangeTextItemSelect,
   updateQTY,
+  onChangeSubItemSelect
 })(ModalItem);
