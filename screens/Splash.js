@@ -34,7 +34,7 @@ class Splash extends Component {
         <View style={styles.mainContainer}>
         <TouchableOpacity
           style={styles.buttonLogin}
-        onPress={()=>{NavigationService.navigate('MobileNumber')}}
+        onPress={()=>{NavigationService.navigate('MobileNumber',{path:'register'})}}
           >
             <Text style={styles.buttonText}>साइन अप करें</Text>
           </TouchableOpacity>

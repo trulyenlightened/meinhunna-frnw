@@ -6,6 +6,7 @@ import {onMatchOtp,onChangeOTP} from "../actions/user"
 
 class Otp extends Component {
   render(){
+
     return (
       <View style={styles.container}>
         <View style={styles.buttonView}>
@@ -23,7 +24,7 @@ class Otp extends Component {
 
           <TouchableOpacity
             style={styles.buttonLogin}
-            onPress={()=>{this.props.onMatchOtp()}}
+            onPress={()=>{this.props.onMatchOtp(this.props.navigation.state.params.path)}}
             >
               <Text style={styles.buttonText}>आगे बढ़ें</Text>
             </TouchableOpacity>

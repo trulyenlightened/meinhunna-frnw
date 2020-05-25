@@ -38,7 +38,7 @@ function goBack(route) {
 function resetToLogin() {
   _navigator.dispatch(NavigationActions.reset({
     index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    actions: [NavigationActions.navigate({ routeName: 'Splash' })],
     key: null,
   }));
 }

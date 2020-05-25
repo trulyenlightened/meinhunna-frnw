@@ -36,19 +36,7 @@ class Register extends Component {
                   }}
                 />
 
-         <TextInput
-                  style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
-                  placeholder="मोबाइल नंबर"
-                  placeholderTextColor="#9D9D9D"
-                  autoCapitalize="none"
-                  secureTextEntry={false}
-                  maxLength={10}
-                  editable={false}
-                  keyboardType={"phone-pad"}
-                  value={registerMobileno}
 
-                />
 
           <TextInput
                   style={styles.inputStyle}
@@ -78,7 +66,7 @@ class Register extends Component {
           <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
-                  placeholder="पासवर्ड"
+                  placeholder="पासवर्ड, छह अक्षर अनिवार्य"
                   placeholderTextColor="#9D9D9D"
                   autoCapitalize="none"
                   secureTextEntry={true}
@@ -90,7 +78,7 @@ class Register extends Component {
           <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
-                  placeholder="कन्फर्म पासवर्ड"
+                  placeholder="कन्फर्म पासवर्ड, छह अक्षर अनिवार्य"
                   placeholderTextColor="#9D9D9D"
                   autoCapitalize="none"
                   secureTextEntry={true}
@@ -102,6 +90,10 @@ class Register extends Component {
           <TouchableOpacity
             style={styles.buttonLogin}
             onPress={()=>{
+              if(password&&confirmPassword&&fullAddress&&fullName)
+              {
+
+
               if(password.toString() === confirmPassword.toString())
               {
                 this.props.signup()
@@ -109,6 +101,9 @@ class Register extends Component {
               else{
                 alert('Password Does not Match')
               }
+            }else{
+              alert('आवश्यक विवरण भरें')
+            }
 
             }}
             >

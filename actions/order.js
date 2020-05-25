@@ -12,6 +12,7 @@ export const ON_PLACE_ORDER = "order/ON_PLACE_ORDER";
 export const GET_ORDER_SUCCESS = "order/GET_ORDER_SUCCESS";
 export const ON_SELECTED_ITEM_REMOVE = "Order/ON_SELECTED_ITEM_REMOVE";
 export const ON_CHANGE_SUB_ITEM_SELECT = "Order/ON_CHANGE_SUB_ITEM_SELECT"
+export const UPDATE_ORDER_DESCRIPTION="Order/UPDATE_ORDER_DESCRIPTION";
 
 export const getNearby = (location) => async (dispatch, getState) => {
   const state = getState();
@@ -60,11 +61,11 @@ export const onAddItems = () => async(dispatch, getState) => {
 };
 
 export const onSelectedItem = () => (dispatch, getState) => {
-  const { finalItem, finalQty,finalUnit } = getState().order;
+  const { finalItem, finalQty,finalUnit,orderDescription } = getState().order;
 
   dispatch({
     type: ON_SELECTED_ITEM,
-    payload: { finalItem, finalQty,finalUnit },
+    payload: { finalItem, finalQty,finalUnit,orderDescription },
   });
 };
 
@@ -111,10 +112,17 @@ export const onSelectedItemRemove = index => (dispatch) =>{
     payload:index
   })
 }
+export const updateDescription = index => (dispatch) =>{
+
+  dispatch({
+    type:UPDATE_ORDER_DESCRIPTION,
+    payload:index
+  })
+}
 
 export const onFinalizeOrder = () => async(dispatch,getState) =>{
   const state = getState();
-  const {orderItem,orderQty,orderAddress,selectedMurchant} = state.order
+  const {orderItem,orderQty,orderAddress,selectedMurchant,orderDescriptionArr} = state.order
 
   var items = []
 
@@ -127,7 +135,8 @@ export const onFinalizeOrder = () => async(dispatch,getState) =>{
     merchant_id: `${selectedMurchant.merchant.merchant_id}`,
 	  items: items,
 	  quantity: orderQty,
-    order_address: orderAddress
+    order_address: orderAddress,
+    description:orderDescriptionArr
   };
   try {
     var response = await createApi(state)

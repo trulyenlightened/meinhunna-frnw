@@ -10,7 +10,8 @@ import {
   ON_PLACE_ORDER,
   GET_ORDER_SUCCESS,
   ON_SELECTED_ITEM_REMOVE,
-  ON_CHANGE_SUB_ITEM_SELECT
+  ON_CHANGE_SUB_ITEM_SELECT,
+  UPDATE_ORDER_DESCRIPTION
 } from '../actions/order';
 
 
@@ -27,6 +28,8 @@ const initialState = {
   orderAddress:"",
   isModalAddres:false,
   sunCatagory:[],
+  orderDescription:'',
+  orderDescriptionArr:[],
   mI:0
 };
 
@@ -50,6 +53,14 @@ export default (state = initialState, action) => {
           }
         }
 
+        case UPDATE_ORDER_DESCRIPTION
+      :
+        {
+          return {
+            ...state,
+            orderDescription:action.payload,
+          }
+        }
         case ON_ADD_ITEMS:
         {
           return {
@@ -71,6 +82,8 @@ export default (state = initialState, action) => {
             isModalItem:false,
             orderItem:[...items],
             orderQty:[...qty],
+            orderDescriptionArr:[...state.orderDescriptionArr,state.orderDescription],
+            orderDescription:'',
             finalQty:"",
             finalItem:""
           }
@@ -139,6 +152,8 @@ export default (state = initialState, action) => {
             orderItem:[],
             orderQty:[],
             orderAddress:"",
+            orderDescription:'',
+            orderDescriptionArr:[],
             isModalAddres:false
           }
         }

@@ -18,6 +18,7 @@ export const SIGNUP_FORM_SUBMITTED = 'user/SIGNUP_FORM_SUBMITTED';
 export const UPDATE_REGISTER_MOBILENO = 'user/UPDATE_REGISTER_MOBILENO';
 export const ON_SEND_OTP_SUCCESS = "user/ON_SEND_OTP_SUCCESS";
 export const ON_CHANGE_OTP = "user/ON_CHANGE_OTP";
+export const ON_FORGOT_PASSWORD_SUCCESS = "user/ON_FORGOT_PASSWORD_SUCCESS";
 
 
 
@@ -63,7 +64,71 @@ export const updateRegisterMobileNo = val => dispatch =>{
   })
 }
 
+
+
+export const forgotPasswordApi = val => async(dispatch,getState) =>{
+  const {registerMobileno,confirmPassword} = getState().user;
+  const authData = {
+    phone_number:registerMobileno,
+    password:confirmPassword
+  };
+  let response = null;
+  try {
+    response = await createApi()
+      .post('/users/forgotpassword', authData).then(res => res)
+      .catch((err) => {
+        throw new Error(err.response ? err.response.data.message : err.message);
+      });
+
+
+          alert(response.data.message)
+        dispatch({
+          type:ON_FORGOT_PASSWORD_SUCCESS,
+        })
+        Navigation.resetToLogin();
+
+    }
+    catch(err)
+    {
+      console.log(err);
+
+    }
+}
+
+
+export const onSendForgotOtp = val => async(dispatch,getState) =>{
+  const {registerMobileno} = getState().user;
+  const authData = {
+    phone_number:registerMobileno,
+  };
+  let response = null;
+  try {
+    response = await createApi()
+      .post('/users/forgotpasswordotp', authData).then(res => res)
+      .catch((err) => {
+        throw new Error(err.response ? err.response.data.message : err.message);
+      });
+      console.log(response);
+      if(response.data.message === "success")
+      {
+        dispatch({
+          type:ON_SEND_OTP_SUCCESS,
+          payload:response.data.OTP
+        })
+        Navigation.navigate("Otp",{path:''})
+      }
+      else{
+      alert(response.data.message)
+    }
+    }
+    catch(err)
+    {
+      console.log(err);
+
+    }
+}
 export const onSendOtp = val => async(dispatch,getState) =>{
+
   const {registerMobileno} = getState().user;
   const authData = {
     phone_number:registerMobileno,
@@ -75,16 +140,18 @@ export const onSendOtp = val => async(dispatch,getState) =>{
       .catch((err) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
-      console.log(response);
+
       if(response.data.message === "success")
       {
         dispatch({
           type:ON_SEND_OTP_SUCCESS,
           payload:response.data.OTP
         })
-        Navigation.navigate("Otp")
+        Navigation.navigate("Otp",{path:'register'})
       }
+      else{
       alert(response.data.message)
+    }
     }
     catch(err)
     {
@@ -101,13 +168,12 @@ export const onChangeOTP = code => (dispatch) => {
   })
 }
 
-export const onMatchOtp = () => (dispatch,getState) => {
+export const onMatchOtp = (path) => (dispatch,getState) => {
   const {otp,otpCode} = getState().user;
   console.log("otp"+otp);
   console.log("code :"+otpCode);
-
   if(otp.toString() === otpCode.toString()){
-    Navigation.navigate('Register')
+  path==='register'?  Navigation.navigate('Register'):Navigation.navigate('ForgotPassword')
   } else {
     alert('गलत OTP, फिर से डाले')
   }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity, } from 'react-native';
 import { connect } from 'react-redux';
 
-import {updateRegisterMobileNo,onSendOtp} from "../actions/user";
+import {updateRegisterMobileNo,onSendOtp,onSendForgotOtp} from "../actions/user";
 
 class MobileNumber extends Component  {
   render(){
+
     const {registerMobileno} = this.props;
     return (
       <View style={styles.container}>
@@ -33,7 +34,9 @@ class MobileNumber extends Component  {
           onPress={()=>{
             var hh = registerMobileno.length
             if(hh === 10){
-            this.props.onSendOtp(true)
+            
+            this.props.navigation.state.params.path==='register'?
+            this.props.onSendOtp(true):this.props.onSendForgotOtp(true)
             } else {
               alert('सही फोन नंबर डाले')
             }
@@ -125,6 +128,7 @@ export default connect(
   mapStateToProps,
   {
     updateRegisterMobileNo,
-    onSendOtp
+    onSendOtp,
+    onSendForgotOtp
   }
 )(MobileNumber);

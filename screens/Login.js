@@ -18,9 +18,9 @@ class Login extends Component {
     <View style={styles.buttonView}>
     <TouchableOpacity
     style={styles.buttonSignUp}
-      onPress={()=>{Navigation.navigate('MobileNumber')}}
+      onPress={()=>{Navigation.navigate('MobileNumber',{path:''})}}
     >
-      <Text style={styles.buttonSignUpText}>साइन अप करें</Text>
+      <Text style={styles.buttonSignUpText}>पासवर्ड बदलें</Text>
     </TouchableOpacity>
     </View>
       <Text style={styles.bigText}>मैं हूँ ना</Text>
