@@ -11,7 +11,8 @@ import {
   GET_ORDER_SUCCESS,
   ON_SELECTED_ITEM_REMOVE,
   ON_CHANGE_SUB_ITEM_SELECT,
-  UPDATE_ORDER_DESCRIPTION
+  UPDATE_ORDER_DESCRIPTION,
+  ON_CLOSE_ORDER_MODAL
 } from '../actions/order';
 
 
@@ -170,6 +171,14 @@ export default (state = initialState, action) => {
             orderItem:[...itemsOr],
             orderQty:[...QtyOr]
 
+          }
+        }
+
+        case ON_CLOSE_ORDER_MODAL:
+        {
+          return {
+            ...state,
+            isModalItem:false
           }
         }
 

@@ -22,6 +22,7 @@ const initialState = {
   signup: {
     touched: false,
     submitted: false,
+    
   },
   id: null,
   fullName: null,
@@ -33,6 +34,8 @@ const initialState = {
   registerMobileno:'',
   otp:'',
   otpCode:'',
+  passwordChange:false,
+  passwordConfirmChange:false,
 };
 
 export default (state = initialState, action) => {
@@ -64,6 +67,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         password: action.payload,
+        passwordChange:true,
         signup: {
           touched: true,
           submitted: false,
@@ -83,9 +87,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         confirmPassword: action.payload,
+        passwordConfirmChange:true,
         signup: {
           touched: true,
           submitted: false,
+          
         },
       };
 

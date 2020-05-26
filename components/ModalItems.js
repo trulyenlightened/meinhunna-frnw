@@ -15,6 +15,7 @@ import {
   updateQTY,
   onChangeSubItemSelect,
   updateDescription,
+  onCloseOrderModal
 } from "../actions/order";
 
 class ModalItem extends Component {
@@ -45,9 +46,16 @@ class ModalItem extends Component {
         visible={isModalItem}
         onRequestClose={() => {}}
         animationType="slide"
-        transparent={true}
+        transparent={false}
+        
       >
         <View style={styles.container}>
+        <TouchableOpacity 
+        style={{height:20,width:20,alignSelf:'flex-end',right:15,top:10}}
+        onPress={()=>{this.props.onCloseOrderModal()}}
+        >
+            <Text style={{fontSize:18,color:'grey'}}>X</Text>
+          </TouchableOpacity>
           <View style={styles.mainContainer}>
             <Dropdown
               label="आइटम"
@@ -187,8 +195,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "space-around",
-    height: 390,
-    borderWidth: 1,
+    height: 420,
+    borderWidth: 0,
     borderColor: "#000",
     borderRadius: 20,
     margin: 15,
@@ -257,4 +265,5 @@ export default connect(mapStateToProps, {
   updateQTY,
   onChangeSubItemSelect,
   updateDescription,
+  onCloseOrderModal
 })(ModalItem);

@@ -19,7 +19,10 @@ class Register extends Component {
       fullAddress,
       password,
       confirmPassword,
+      passwordChange,
+      passwordConfirmChange
     } = this.props;
+    
     return (
       <View style={styles.container}>
         <Text style={styles.bigText}>मैं हूँ ना</Text>
@@ -73,8 +76,18 @@ class Register extends Component {
                   value={password}
                   onChangeText={text => {
                      this.props.updatePassword(text);
+                     
                   }}
                 />
+                {
+                  passwordChange?(
+                    password.length <6?
+                    <Text style={{color:'red',marginTop:-18,marginLeft:18,alignSelf:'flex-start'}}>छह अक्षर अनिवार्य</Text>
+                    :null
+                  )
+                  :null
+                }
+          
           <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -87,6 +100,14 @@ class Register extends Component {
                      this.props.updateConfirmPassword(text);
                   }}
                 />
+            {
+                  passwordConfirmChange?(
+                    confirmPassword.length <6?
+                    <Text style={{color:'red',marginTop:-18,marginLeft:18,alignSelf:'flex-start'}}>Password Does not Match</Text>
+                    :null
+                  )
+                  :null
+                }
           <TouchableOpacity
             style={styles.buttonLogin}
             onPress={()=>{
@@ -96,7 +117,12 @@ class Register extends Component {
 
               if(password.toString() === confirmPassword.toString())
               {
-                this.props.signup()
+                if(password.length > 6){
+                  this.props.signup()
+                } else{
+                  alert('पासवर्ड, छह अक्षर अनिवार्य')    
+                }
+                
               }
               else{
                 alert('Password Does not Match')
@@ -163,7 +189,9 @@ const mapStateToProps = ({user}) => ({
   email:user.email,
   fullAddress:user.fullAddress,
   password:user.password,
-  confirmPassword:user.confirmPassword
+  confirmPassword:user.confirmPassword,
+  passwordChange:user.passwordChange,
+  passwordConfirmChange:user.passwordConfirmChange
 });
 
 

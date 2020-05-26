@@ -9,6 +9,7 @@ import {
   Platform,
   TouchableOpacityBase,
 } from 'react-native';
+import call from "react-native-phone-call";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
@@ -34,6 +35,13 @@ function SideMenu(props) {
       newItems: 0,
       stack: 'OrdersStack',
       route: 'Orders',
+      stackIndex: 0,
+    },
+    {
+      name: 'Profile',
+      newItems: 0,
+      stack: 'Profile',
+      route: 'Profile',
       stackIndex: 0,
     },
   ];
@@ -91,6 +99,18 @@ function SideMenu(props) {
       </View>
 
       {menuElements}
+      <Text style={{color:'#fff',alignSelf:'center',marginTop:'80%'}}>Help Line No.</Text>
+      <TouchableOpacity onPress={()=>{
+        const args = {
+          number: '1800000222333',
+          prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
+        };
+    
+        call(args).catch(console.error);
+        }}
+        style={{marginBottom:15,color:'#fff',alignSelf:'center'}}>
+      <Text style={{color:'#fff',fontSize:18,alignSelf:'center'}}>1800 000 222 333</Text>
+      </TouchableOpacity>
       <View style={styles.footer}>
         <TouchableOpacity onPress={()=>{
         props.logout()

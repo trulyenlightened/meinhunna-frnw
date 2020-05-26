@@ -1,6 +1,7 @@
 import PlatformStorage from '../storage';
 import { createApi } from './api';
 import Navigation from "../navigation/NavigationService";
+import { exp } from 'react-native-reanimated';
 export const SELECTED_MURCHANT = "order/SELECTED_MURCHANT";
 export const GET_NEARBY_SUCCESS = "order/GET_NEARBY_SUCCESS";
 export const ON_ADD_ITEMS = "order/ON_ADD_ITEMS";
@@ -13,6 +14,7 @@ export const GET_ORDER_SUCCESS = "order/GET_ORDER_SUCCESS";
 export const ON_SELECTED_ITEM_REMOVE = "Order/ON_SELECTED_ITEM_REMOVE";
 export const ON_CHANGE_SUB_ITEM_SELECT = "Order/ON_CHANGE_SUB_ITEM_SELECT"
 export const UPDATE_ORDER_DESCRIPTION="Order/UPDATE_ORDER_DESCRIPTION";
+export const ON_CLOSE_ORDER_MODAL="Order/ON_CLOSE_ORDER_MODAL";
 
 export const getNearby = (location) => async (dispatch, getState) => {
   const state = getState();
@@ -163,5 +165,11 @@ export const onPlaceOrder = () => (dispatch) =>{
   dispatch({
     type:ON_PLACE_ORDER,
 
+  })
+}
+
+export const onCloseOrderModal = () => (dispatch) =>{
+  dispatch({
+    type:ON_CLOSE_ORDER_MODAL
   })
 }

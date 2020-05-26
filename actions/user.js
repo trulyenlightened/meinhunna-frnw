@@ -179,3 +179,50 @@ export const onMatchOtp = (path) => (dispatch,getState) => {
   }
 
 }
+
+export const updateProfile = () => async (dispatch,getState) =>{
+  const {
+    fullName,
+    email,
+    password,
+    registerMobileno,
+    fullAddress
+  } = getState().user;
+
+  const signupData = {
+  phone_number: registerMobileno,
+	email: email,
+	name: fullName,
+	address: fullAddress,
+	password: password
+  };
+
+  // dispatch({
+  //   type: SIGNUP_STARTED,
+  //   payload: signupData,
+  // });
+
+  try {
+    const response = await createApi()
+      .put('/users', signupData)
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+      if(response.data){
+        // dispatch({
+        //   type: SIGNUP_SUCCESS,
+        //   payload: response.data,
+        // });
+        // alert("हमारे साथ जुड़ने के लिए आभार, आप हमारे "+`${response.data.user.user_count}  वे ग्राहक है`)
+        // Navigation.navigate('Login')
+      }
+
+  } catch (err) {
+    dispatch({
+      type: SIGNUP_FAILURE,
+      payload: err.message,
+    });
+  }
+
+  return null;
+}

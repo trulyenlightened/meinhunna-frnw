@@ -14,6 +14,7 @@ class ForgotPassword extends Component {
     const {
       password,
       confirmPassword,
+      passwordChange
     } = this.props;
     return (
       <View style={styles.container}>
@@ -31,6 +32,14 @@ class ForgotPassword extends Component {
                      this.props.updatePassword(text);
                   }}
                 />
+            {
+                  passwordChange?(
+                    password.length <6?
+                    <Text style={{color:'red',marginTop:-18,marginLeft:18,alignSelf:'flex-start'}}>छह अक्षर अनिवार्य</Text>
+                    :null
+                  )
+                  :null
+                }
           <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -50,7 +59,11 @@ class ForgotPassword extends Component {
 
               if(password.toString() === confirmPassword.toString())
               {
+                if(password.length >= 6){
                 this.props.forgotPasswordApi()
+                } else{
+                  alert('पासवर्ड, छह अक्षर अनिवार्य')
+                }
               }
               else{
                 alert('Password Does not Match')
@@ -110,7 +123,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({user}) => ({
   password:user.password,
-  confirmPassword:user.confirmPassword
+  confirmPassword:user.confirmPassword,
+  passwordChange:user.passwordChange
 });
 
 

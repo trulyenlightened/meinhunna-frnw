@@ -4496,6 +4496,11 @@ react-native-otp-inputs@^5.0.1:
   resolved "https://registry.yarnpkg.com/react-native-otp-inputs/-/react-native-otp-inputs-5.0.1.tgz#59362997a9b32c16a15dde1ede52301c304bc9b9"
   integrity sha512-mJk6cEuJKcQtfkJOCdQHFTfIoQcz5GEVAbQ3C02UWtqHhDrfokLrnJcFapAdxthVdxx6M1g9hCSbhQ8sNwdewA==
 
+react-native-phone-call@1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-phone-call/-/react-native-phone-call-1.0.9.tgz#4468ec6f95856557fbff9bd69a0db04b54c35e1d"
+  integrity sha512-OPWYg8qeWNG/U4bWGMAKcQTH/ifqJnsvUPCH4lOkvWFHbQS3fbH5M8rFhXCzcfS0GVNzHhZX9ZByMM368TFAUQ==
+
 react-native-reanimated@~1.7.0:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.7.1.tgz#6363c7f3ebbabc56a05d5dccaf09d95f3b6a2d69"
