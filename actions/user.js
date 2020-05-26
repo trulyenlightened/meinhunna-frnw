@@ -6,6 +6,7 @@ import { Alert, Platform } from 'react-native';
 import { createApi } from './api';
 import Navigation from "../navigation/NavigationService";
 import NavigationService from '../navigation/NavigationService';
+import PlatformStorage from '../storage';
 
 
 export const UPDATE_FULL_NAME = 'user/UPDATE_FULL_NAME';
@@ -19,6 +20,7 @@ export const UPDATE_REGISTER_MOBILENO = 'user/UPDATE_REGISTER_MOBILENO';
 export const ON_SEND_OTP_SUCCESS = "user/ON_SEND_OTP_SUCCESS";
 export const ON_CHANGE_OTP = "user/ON_CHANGE_OTP";
 export const ON_FORGOT_PASSWORD_SUCCESS = "user/ON_FORGOT_PASSWORD_SUCCESS";
+export const GET_USER_DATA = "user/GET_USER_DATA";
 
 
 
@@ -194,7 +196,6 @@ export const updateProfile = () => async (dispatch,getState) =>{
 	email: email,
 	name: fullName,
 	address: fullAddress,
-	password: password
   };
 
   // dispatch({
@@ -218,11 +219,42 @@ export const updateProfile = () => async (dispatch,getState) =>{
       }
 
   } catch (err) {
-    dispatch({
-      type: SIGNUP_FAILURE,
-      payload: err.message,
-    });
+    //console.error(err);
+    
+    // dispatch({
+    //   type: SIGNUP_FAILURE,
+    //   payload: err.message,
+    // });
   }
 
   return null;
+}
+
+export const getUserData = () => async(dispatch) =>{
+
+  try {
+    const response = await createApi()
+      .get('/users')
+      .catch((err) => {
+        console.error(err);
+        //throw new Error(err.response.data.message);
+      });
+      if(response.data){
+       
+      }
+
+  } catch (err) {
+    //console.error(err);
+    
+  }
+
+  var address = await PlatformStorage.get('address');
+  var name = await PlatformStorage.get('name');
+  var phone_number = await PlatformStorage.get('phone_number');
+  var loginPassword = await PlatformStorage.get('loginPassword');
+
+  dispatch({
+    type:GET_USER_DATA,
+    payload:{name,address,phone_number,loginPassword}
+  })
 }

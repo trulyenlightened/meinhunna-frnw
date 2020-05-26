@@ -70,6 +70,7 @@ export const logout = password => async(dispatch) => {
   await PlatformStorage.clear();
   // Navigation.resetToLogin();
    dispatch(retrieveAuthToken());
+
 };
 
 export const updateConfirmPassword = password => (dispatch) => {
@@ -91,7 +92,6 @@ export const authenticate = isValid => async (dispatch, getState) => {
     loginMobileNo,
     loginPassword,
   } = getState().auth;
-  console.log(loginMobileNo);
 
 
   const authData = {
@@ -110,8 +110,15 @@ export const authenticate = isValid => async (dispatch, getState) => {
       .catch((err) => {
         throw new Error(err.response ? err.response.data.message : err.message);
       });
-      console.log(response);
-
+      console.log(response.data.user);
+      // "user": Object {
+      //        "address": "nikol",
+      //     "created_at": "2020-05-24T04:42:39.856614",
+      //     "id": 54,
+      //     "name": "Hiren patel",
+      //     "phone_number": "9601944914",
+      //    },
+        
     if(response.data.access_token){
       dispatch({
         type: LOGIN_SUCCESS,
@@ -119,9 +126,14 @@ export const authenticate = isValid => async (dispatch, getState) => {
       });
       Navigation.navigate('OrderForm')
       await PlatformStorage.set('authToken', response.data.access_token);
+      
       dispatch({
         type: TOKEN_SAVED,
       });
+      await PlatformStorage.set('address', response.data.user.address);
+      await PlatformStorage.set('name', response.data.user.name);
+      await PlatformStorage.set('phone_number', response.data.user.phone_number);
+      await PlatformStorage.set('loginPassword', loginPassword);
       dispatch(retrieveAuthToken());
     }
   } catch (err) {

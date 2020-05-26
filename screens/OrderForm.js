@@ -8,6 +8,7 @@ import MenuButton from "../components/MenuButton";
 import ModalItem from "../components/ModalItems";
 import ModalAddress from "../components/ModalAddress";
 import { getNearby, onSelectedMurchant, onAddItems,onPlaceOrder,onSelectedItemRemove } from "../actions/order";
+import {getUserData} from "../actions/user";
 import NavigationService from "../navigation/NavigationService";
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
 
@@ -15,7 +16,7 @@ class OrderForm extends Component {
   componentWillMount() {
     this._getLocationAsync();
     // this.props.getNearby({coords:{latitude:null,longitude:null}});
-   
+   this.props.getUserData()
   }
 
   static navigationOptions = {
@@ -224,5 +225,6 @@ export default connect(mapStateToProps, {
   onSelectedMurchant,
   onAddItems,
   onPlaceOrder,
-  onSelectedItemRemove
+  onSelectedItemRemove,
+  getUserData
 })(OrderForm);

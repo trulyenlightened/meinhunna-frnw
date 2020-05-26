@@ -13,7 +13,8 @@ import {
   GET_NEARBY_SUCCESS,
   ON_SELECTED_ITEM,
   ON_CHANGE_TEXT_ITEM_SELECT,
-  UPDATE_QTY
+  UPDATE_QTY,
+  GET_USER_DATA
 } from '../actions/user';
 
 import { SIGNUP_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth';
@@ -127,6 +128,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         otpCode:action.payload
+      }
+    }
+
+    case GET_USER_DATA:
+    {
+      console.log(action.payload);
+      
+      return {
+        ...state,
+        fullName:action.payload.name,
+        registerMobileno:action.payload.phone_number,
+        fullAddress:action.payload.address,
+        password:action.payload.loginPassword,
+        confirmPassword:action.payload.loginPassword
+
       }
     }
 
