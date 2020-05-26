@@ -27,13 +27,15 @@ class ModalItem extends Component {
       finalQty,
       sunCatagory,
       orderDescription,
+      sub_Selectitems
     } = this.props;
     var data = [];
     var data1 = [];
     var data2 = [];
     var mI = 0;
 
-
+    //console.error(sunCatagory);
+    
     if (selectedMurchant) {
       selectedMurchant.items.map((d) => {
         data.push({ value: d.item_name, d });
@@ -58,8 +60,11 @@ class ModalItem extends Component {
           </TouchableOpacity>
           <View style={styles.mainContainer}>
             <Dropdown
+            id="item"
+            key="items"
               label="आइटम"
               data={data}
+
               onChangeText={async (value, index) => {
                 this.props.onChangeTextItemSelect(index);
                 mI = index;
@@ -69,13 +74,16 @@ class ModalItem extends Component {
 
                 //     data2.push({value:d.item_name})
                 // })
-                // console.error(data2);
+                
               }}
             />
             <Dropdown
+            id="subItem"
+            key="subItems"
               style={{ width: "100%" }}
               label="उप आइटम"
-              data={sunCatagory}
+              value={sub_Selectitems?sub_Selectitems:''}
+              data={sunCatagory.length > 0?sunCatagory:[]}
               onChangeText={async (value, index) => {
                 // console.error(index +"  "+ mI);
 
@@ -257,6 +265,7 @@ const mapStateToProps = ({ order }) => ({
   finalQty: order.finalQty,
   sunCatagory: order.sunCatagory,
   orderDescription: order.orderDescription,
+  sub_Selectitems:order.sub_Selectitems
 });
 
 export default connect(mapStateToProps, {

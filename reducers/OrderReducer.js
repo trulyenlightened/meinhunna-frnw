@@ -31,7 +31,8 @@ const initialState = {
   sunCatagory:[],
   orderDescription:'',
   orderDescriptionArr:[],
-  mI:0
+  mI:0,
+  sub_Selectitems:null
 };
 
 export default (state = initialState, action) => {
@@ -99,21 +100,24 @@ export default (state = initialState, action) => {
 
                     data2.push({value:d.item_name})
                 })
-
+                //console.error(data2);
+                
           return {
             ...state,
             finalItem:action.payload.item,
             sunCatagory:[...data2],
-            mI:action.payload.index
+            mI:action.payload.index,
+            sub_Selectitems:''
           }
         }
 
         case ON_CHANGE_SUB_ITEM_SELECT:
         {
-          // console.error(action.payload);
+           //console.error(action.payload);
 
           return {
             ...state,
+            sub_Selectitems:action.payload.item_name,
             finalItem:action.payload
           }
         }
