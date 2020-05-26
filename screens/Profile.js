@@ -81,40 +81,13 @@ class Profile extends Component {
                      this.props.updateAddress(text);
                   }}
                 />
-          <TextInput
-                  style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
-                  placeholder="पासवर्ड"
-                  placeholderTextColor="#9D9D9D"
-                  autoCapitalize="none"
-                  secureTextEntry={true}
-                  value={password}
-                  onChangeText={text => {
-                     this.props.updatePassword(text);
-                  }}
-                />
-          <TextInput
-                  style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
-                  placeholder="कन्फर्म पासवर्ड"
-                  placeholderTextColor="#9D9D9D"
-                  autoCapitalize="none"
-                  secureTextEntry={true}
-                  value={confirmPassword}
-                  onChangeText={text => {
-                     this.props.updateConfirmPassword(text);
-                  }}
-                />
+         
           <TouchableOpacity
             style={styles.buttonLogin}
             onPress={()=>{
-              if(password.toString() === confirmPassword.toString())
-              {
+             
                 this.props.updateProfile()
-              }
-              else{
-                alert('Password Does not Match')
-              }
+              
               
             }}
             >
@@ -196,11 +169,12 @@ const mapStateToProps = ({ order,user }) => ({
   murchantList: order.murchantList,
   orderItem: order.orderItem,
   orderQty: order.orderQty,
-  password:user.password,
+  
   fullName:user.fullName,
   fullAddress:user.fullAddress,
-  confirmPassword:user.confirmPassword,
-  registerMobileno:user.registerMobileno
+  
+  registerMobileno:user.registerMobileno,
+  email:user.email
 });
 
 export default connect(mapStateToProps, {

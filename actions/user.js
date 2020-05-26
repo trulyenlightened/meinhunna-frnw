@@ -190,7 +190,7 @@ export const updateProfile = () => async (dispatch,getState) =>{
     registerMobileno,
     fullAddress
   } = getState().user;
-
+  const state = getState();
   const signupData = {
   phone_number: registerMobileno,
 	email: email,
@@ -198,53 +198,50 @@ export const updateProfile = () => async (dispatch,getState) =>{
 	address: fullAddress,
   };
 
-  // dispatch({
-  //   type: SIGNUP_STARTED,
-  //   payload: signupData,
-  // });
-
   try {
-    const response = await createApi()
+    const response = await createApi(state)
       .put('/users', signupData)
       .catch((err) => {
         throw new Error(err.response.data.message);
       });
-      if(response.data){
-        // dispatch({
-        //   type: SIGNUP_SUCCESS,
-        //   payload: response.data,
-        // });
-        // alert("हमारे साथ जुड़ने के लिए आभार, आप हमारे "+`${response.data.user.user_count}  वे ग्राहक है`)
-        // Navigation.navigate('Login')
+      //console.error(response);
+      
+      if(response.data.user){
+       alert("Profile Successfully Updated.")
       }
 
   } catch (err) {
-    //console.error(err);
+    alert(err)
     
-    // dispatch({
-    //   type: SIGNUP_FAILURE,
-    //   payload: err.message,
-    // });
+    
   }
 
   return null;
 }
 
-export const getUserData = () => async(dispatch) =>{
-
+export const getUserData = () => async(dispatch,getState) =>{
+  const state = getState();
   try {
-    const response = await createApi()
+    const response = await createApi(state)
       .get('/users')
       .catch((err) => {
-        console.error(err);
-        //throw new Error(err.response.data.message);
+        //console.error(err);
+      throw new Error(err.response.data.message);
       });
+      //console.error(response.data[0]);
+      var address = response.data[0].address;
+      var name = response.data[0].name;
+      var phone_number = response.data[0].phone_number;
+      var email = response.data[0].email
       if(response.data){
-       
+        dispatch({
+          type:GET_USER_DATA,
+          payload:{name,address,phone_number,email}
+        })
       }
 
   } catch (err) {
-    //console.error(err);
+    console.error(err);
     
   }
 
@@ -253,8 +250,5 @@ export const getUserData = () => async(dispatch) =>{
   var phone_number = await PlatformStorage.get('phone_number');
   var loginPassword = await PlatformStorage.get('loginPassword');
 
-  dispatch({
-    type:GET_USER_DATA,
-    payload:{name,address,phone_number,loginPassword}
-  })
+ 
 }

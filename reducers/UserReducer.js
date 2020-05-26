@@ -140,8 +140,7 @@ export default (state = initialState, action) => {
         fullName:action.payload.name,
         registerMobileno:action.payload.phone_number,
         fullAddress:action.payload.address,
-        password:action.payload.loginPassword,
-        confirmPassword:action.payload.loginPassword
+        email:action.payload.email
 
       }
     }

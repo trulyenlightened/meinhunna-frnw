@@ -130,10 +130,10 @@ export const authenticate = isValid => async (dispatch, getState) => {
       dispatch({
         type: TOKEN_SAVED,
       });
-      await PlatformStorage.set('address', response.data.user.address);
-      await PlatformStorage.set('name', response.data.user.name);
-      await PlatformStorage.set('phone_number', response.data.user.phone_number);
-      await PlatformStorage.set('loginPassword', loginPassword);
+      // await PlatformStorage.set('address', response.data.user.address);
+      // await PlatformStorage.set('name', response.data.user.name);
+      // await PlatformStorage.set('phone_number', response.data.user.phone_number);
+      // await PlatformStorage.set('loginPassword', loginPassword);
       dispatch(retrieveAuthToken());
     }
   } catch (err) {
