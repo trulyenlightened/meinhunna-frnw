@@ -87,7 +87,8 @@ export default (state = initialState, action) => {
             orderDescriptionArr:[...state.orderDescriptionArr,state.orderDescription],
             orderDescription:'',
             finalQty:"",
-            finalItem:""
+            finalItem:"",
+            sub_Selectitems:''
           }
         }
 
@@ -101,7 +102,7 @@ export default (state = initialState, action) => {
                     data2.push({value:d.item_name})
                 })
                 //console.error(data2);
-                
+
           return {
             ...state,
             finalItem:action.payload.item,
@@ -182,7 +183,8 @@ export default (state = initialState, action) => {
         {
           return {
             ...state,
-            isModalItem:false
+            isModalItem:false,
+            sub_Selectitems:''
           }
         }
 

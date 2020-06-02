@@ -15,6 +15,10 @@ import NavigationService from "../navigation/NavigationService";
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
 
 class Profile extends Component {
+
+  static navigationOptions = {
+    header: null,
+  };
   render() {
     const {
       fullName,
@@ -26,7 +30,7 @@ class Profile extends Component {
     } = this.props
     return (
       <View style={styles.container}>
-        <Text style={{position:'absolute',top:15,fontSize:22}}>Profile</Text>
+        <Text style={{position:'absolute',top:15,fontSize:22}}>प्रोफ़ाइल</Text>
         <MenuButton style={styles.menubutton} onPress={openDrawer} />
         <ScrollView style={styles.mainContainer}>
         <TextInput
@@ -41,7 +45,7 @@ class Profile extends Component {
                      this.props.updateFullName(text);
                   }}
                 />
-  
+
          <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -53,9 +57,9 @@ class Profile extends Component {
                   editable={false}
                   keyboardType={"phone-pad"}
                   value={registerMobileno}
-                  
+
                 />
-  
+
           <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -68,7 +72,7 @@ class Profile extends Component {
                      this.props.updateEmail(text);
                   }}
                 />
-  
+
           <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -81,14 +85,14 @@ class Profile extends Component {
                      this.props.updateAddress(text);
                   }}
                 />
-         
+
           <TouchableOpacity
             style={styles.buttonLogin}
             onPress={()=>{
-             
+
                 this.props.updateProfile()
-              
-              
+
+
             }}
             >
               <Text style={styles.buttonText}>आगे बढ़ें</Text>
@@ -114,8 +118,9 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    marginTop: -10,
+    marginTop: 20,
     width:'100%',
+
   },
   addButton: {
     backgroundColor: "transparent",
@@ -169,10 +174,10 @@ const mapStateToProps = ({ order,user }) => ({
   murchantList: order.murchantList,
   orderItem: order.orderItem,
   orderQty: order.orderQty,
-  
+
   fullName:user.fullName,
   fullAddress:user.fullAddress,
-  
+
   registerMobileno:user.registerMobileno,
   email:user.email
 });

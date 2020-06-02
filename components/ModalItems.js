@@ -35,7 +35,7 @@ class ModalItem extends Component {
     var mI = 0;
 
     //console.error(sunCatagory);
-    
+
     if (selectedMurchant) {
       selectedMurchant.items.map((d) => {
         data.push({ value: d.item_name, d });
@@ -49,10 +49,10 @@ class ModalItem extends Component {
         onRequestClose={() => {}}
         animationType="slide"
         transparent={false}
-        
+
       >
         <View style={styles.container}>
-        <TouchableOpacity 
+        <TouchableOpacity
         style={{height:20,width:20,alignSelf:'flex-end',right:15,top:10}}
         onPress={()=>{this.props.onCloseOrderModal()}}
         >
@@ -74,7 +74,7 @@ class ModalItem extends Component {
 
                 //     data2.push({value:d.item_name})
                 // })
-                
+
               }}
             />
             <Dropdown
@@ -93,7 +93,7 @@ class ModalItem extends Component {
 
             <Dropdown
               style={{ width: "100%" }}
-              label="Qty"
+              label="मूल्यवर्ग"
               data={
                 finalItem
                   ? finalItem.item_unit === "gram"
@@ -165,7 +165,7 @@ class ModalItem extends Component {
             <TextInput
               style={styles.inputStyle}
               underlineColorAndroid="grey"
-              placeholder="आइटम विवरण."
+              placeholder="आइटम विवरण तथा तादाद"
               placeholderTextColor="#9D9D9D"
               autoCapitalize="none"
               secureTextEntry={false}

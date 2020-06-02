@@ -108,7 +108,7 @@ class OrderForm extends Component {
           <TouchableOpacity
             style={styles.addButton}
             onPress={() => {
-              
+
               if(murchantList.length > 0){
 
               this.props.onAddItems();
@@ -125,24 +125,26 @@ class OrderForm extends Component {
           <TouchableOpacity
             style={styles.addButton}
             onPress={() => {
-              
+
               console.log(murchantList);
               var time = new Date().getHours();
               var minute = new Date().getMinutes()
-              //console.error(time);
-              if(time=>10 && time<=19){
+
+              if(time>=10 && time<=19){
                   if(time === 19){
                       if(minute <=30){
                         this.props.onPlaceOrder()
                       } else {
-                        alert("not Allow")
+                        alert("आप केवल सुबह 10 बजे से शाम 7 बजे के बीच ऑर्डर कर सकते हैं")
                       }
                   } else {
+
                     this.props.onPlaceOrder()
                   }
-              
-              } else {
-                
+
+              }else {
+                  
+                alert("आप केवल सुबह 10 बजे से शाम 7 बजे के बीच ऑर्डर कर सकते हैं")
               }
 
             }}
