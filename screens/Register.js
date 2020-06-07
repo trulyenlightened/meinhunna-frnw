@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity, ScrollView,Image,Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import{
   updateFullName,
@@ -8,7 +8,10 @@ import{
   updatePassword,
   updateConfirmPassword
 } from "../actions/user";
-import {signup} from "../actions/auth"
+import {signup} from "../actions/auth";
+import {IMAGEREGISTER} from "../assets";
+
+let screenHeight = Dimensions.get('window').height;
 
 class Register extends Component {
   render(){
@@ -24,10 +27,11 @@ class Register extends Component {
     } = this.props;
 
     return (
+      <ScrollView style={{height:screenHeight}}>
       <View style={styles.container}>
         <Text style={styles.bigText}>मैंहूँन</Text>
         <TextInput
-                  style={styles.inputStyle}
+                  style={[styles.inputStyle,{}]}
                   underlineColorAndroid="#000000"
                   placeholder="पूरा नाम"
                   placeholderTextColor="#9D9D9D"
@@ -121,7 +125,9 @@ class Register extends Component {
             >
               <Text style={styles.buttonText}>आगे बढ़ें</Text>
             </TouchableOpacity>
+            <Image source={IMAGEREGISTER} resizeMode='center' style={{height:'50%'}} />
       </View>
+      </ScrollView>
     );
   }
 }
@@ -132,14 +138,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    
+    height:screenHeight,
     padding:20
   },
   bigText: {
     fontSize:60,
     color:"#000",
-    position:'absolute',
-    top:10
+    marginTop:50
+    //position:'absolute',
+    //top:30,
+    //marginBottom:15
     //fontWeight:'bold'
   },
 
@@ -154,20 +162,20 @@ const styles = StyleSheet.create({
     paddingRight: 5
   },
   buttonLogin:{
-    backgroundColor: "#E5E5E5",
+    backgroundColor: "#FF905F",
     height: 44,
     width: 256,
   borderRadius: 20,
     borderColor: "#000000",
-    borderWidth: 1,
+    //borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10
   },
   buttonText:{
     fontSize:18,
-    color:"grey",
-    fontWeight:'bold'
+    color:"#fff",
+    //fontWeight:'bold'
   },
 });
 

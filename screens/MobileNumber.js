@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,Image,ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-
+import {IMAGEMOBILE} from "../assets"
 import {updateRegisterMobileNo,onSendOtp,onSendForgotOtp} from "../actions/user";
 
 class MobileNumber extends Component  {
@@ -45,7 +45,9 @@ class MobileNumber extends Component  {
           >
             <Text style={styles.buttonText}>आगे बढ़ें</Text>
           </TouchableOpacity>
+          
         </View>
+        <Image source={IMAGEMOBILE} resizeMode='center' style={styles.imageStyle} />
       </View>
     );
   }
@@ -119,6 +121,9 @@ const styles = StyleSheet.create({
     color:"grey",
     fontWeight:'bold'
   },
+  imageStyle:{
+    height:'45%'
+  }
 });
 
 const mapStateToProps = ({user}) => ({

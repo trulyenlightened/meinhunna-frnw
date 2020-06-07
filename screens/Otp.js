@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import OtpInputs from "react-native-otp-inputs";
-import {onMatchOtp,onChangeOTP} from "../actions/user"
+import {onMatchOtp,onChangeOTP} from "../actions/user";
+import {IMAGEOTP} from "../assets";
 
 class Otp extends Component {
   render(){
@@ -33,6 +34,7 @@ class Otp extends Component {
               <Text style={styles.buttonResendText}>फिर से भेजे OTP</Text>
             </TouchableOpacity>
           </View>
+          <Image source={IMAGEOTP} resizeMode='center' style={{height:'40%',bottom:0,width:'100%'}} />
       </View>
     );
   }
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    height: '100%',
   },
   buttonView:{
     position:'absolute',right:15,top:20

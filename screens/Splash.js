@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity,Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity,Image,ImageBackground  } from "react-native";
 import { connect } from "react-redux";
 import MenuButton from "../components/MenuButton";
 import { retrieveAuthToken } from "../actions/auth";
 import NavigationService from "../navigation/NavigationService";
-import {IMAGEBOY,IMAGEUSER} from "../assets"
+import {IMAGEBOY,IMAGEUSER,SPLACHBACK} from "../assets"
 
 class Splash extends Component {
   componentDidMount(){
@@ -16,7 +16,9 @@ class Splash extends Component {
 
     return (
       <View style={styles.container}>
+        
       <View style={styles.mainContainer}>
+      <Image source={SPLACHBACK} resizeMode='center' style={styles.backImage} />
         <Text style={styles.bigText}>मैंहूँन</Text>
         <Image source={IMAGEBOY} resizeMode='contain' style={styles.imagestyle}/>
         <Text style={styles.smallText}>तेज़ डीलीवरी</Text>
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
   smallText:{
     fontSize:18,
     color:"#fff",
+    margin:10
   },
   buttonLogin:{
     backgroundColor: "transparent",
@@ -70,18 +73,25 @@ const styles = StyleSheet.create({
     borderRadius: 20,
      // backgroundColor: '#E5E5E5',
     borderWidth: 2,
-    borderColor:'#573985',
+    borderColor:'#572179',
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
     marginTop:10
   },
+backImage:{
+  flex:1,
+  top:0,
+  height:'100%',
+  position:'absolute',
+  padding:20,
+},
   buttonSignup:{
     backgroundColor: "transparent",
     height: 44,
     width: 256,
     borderRadius: 20,
-    backgroundColor: '#573985',
+    backgroundColor: '#572179',
     borderWidth: 2,
     //borderColor:'#573985',
     alignItems: "center",
@@ -91,12 +101,12 @@ const styles = StyleSheet.create({
   },
   imagestyle:{
     width:'80%',
-    height:'60%'
+    height:'50%'
   },
   imageUser:{
     width:50,
-    height:50,
-    tintColor:'#573985'
+    height:57,
+    //tintColor:'#573985'
   },
   headerText: {
     top: 2,
@@ -105,10 +115,10 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    padding: 10,
+    
     justifyContent:'space-between',
     alignItems:'center',
-    backgroundColor:'#FF905F',
+    //backgroundColor:'#FF905F',
     width:'100%',
     borderBottomLeftRadius:30,
     borderBottomRightRadius:30
@@ -134,7 +144,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: "#573985",
+    color: "#572179",
     //fontWeight: "bold",
 
   },
