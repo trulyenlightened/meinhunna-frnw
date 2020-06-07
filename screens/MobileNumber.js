@@ -10,9 +10,10 @@ class MobileNumber extends Component  {
     const {registerMobileno} = this.props;
     return (
       <View style={styles.container}>
+        <Text style={styles.bigText}>मैंहूँन</Text>
       <View style={styles.buttonView}>
       </View>
-         <Text style={styles.bigText}>मैं हूँ ना</Text>
+         
         <View style={styles.cardContainer}>
           <TextInput
                 style={styles.inputStyle}
@@ -57,12 +58,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffa500',
+    backgroundColor: '#fff',
   },
   bigText: {
+    top:5,
+    position:'absolute',
     fontSize:60,
-    color:"#006200",
-    fontWeight:'bold'
+    color:"#000",
+    //fontWeight:'bold'
   },
 
   cardContainer:{
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     backgroundColor: "white",
     borderColor:"#000000",
-    borderWidth:1,
+    //borderWidth:1,
     borderRadius: 10,
     padding: 20,
     shadowColor: "#000000",
@@ -94,20 +97,19 @@ const styles = StyleSheet.create({
     paddingRight: 5
   },
   buttonLogin:{
-    backgroundColor: "#E5E5E5",
+    backgroundColor: "#FF905F",
     height: 44,
     width: 256,
   borderRadius: 20,
     borderColor: "#000000",
-    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10
   },
   buttonText:{
     fontSize:18,
-    color:"grey",
-    fontWeight:'bold'
+    color:"#fff",
+    //fontWeight:'bold'
   },
   buttonSignUp:{
   width:100,

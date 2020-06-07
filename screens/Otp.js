@@ -9,9 +9,10 @@ class Otp extends Component {
 
     return (
       <View style={styles.container}>
+        <Text style={styles.bigText}>मैंहूँन</Text>
         <View style={styles.buttonView}>
         </View>
-           <Text style={styles.bigText}>मैं हूँ ना</Text>
+           
 
           <View style={styles.cardContainer}>
 
@@ -28,6 +29,9 @@ class Otp extends Component {
             >
               <Text style={styles.buttonText}>आगे बढ़ें</Text>
             </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.buttonResendText}>फिर से भेजे OTP</Text>
+            </TouchableOpacity>
           </View>
       </View>
     );
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffa500',
+    backgroundColor: '#fff',
   },
   buttonView:{
     position:'absolute',right:15,top:20
@@ -49,8 +53,10 @@ const styles = StyleSheet.create({
   },
   bigText: {
     fontSize:60,
-    color:"#006200",
-    fontWeight:'bold'
+    color:"#000",
+    top:10,
+    position:'absolute'
+    //fontWeight:'bold'
   },
   cardContainer:{
     width:'90%',
@@ -58,7 +64,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     backgroundColor: "white",
     borderColor:"#000000",
-    borderWidth:1,
     borderRadius: 10,
     padding: 20,
     shadowColor: "#000000",
@@ -69,12 +74,11 @@ const styles = StyleSheet.create({
     height:200
   },
   buttonLogin:{
-    backgroundColor: "#E5E5E5",
+    backgroundColor: "#FF905F",
     height: 44,
     width: 256,
   borderRadius: 20,
     borderColor: "#000000",
-    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     marginTop:15,
@@ -82,8 +86,12 @@ const styles = StyleSheet.create({
   },
   buttonText:{
     fontSize:18,
-    color:"grey",
-    fontWeight:'bold'
+    color:"#fff",
+    //fontWeight:'bold'
+  },
+  buttonResendText:{
+    color:"#573985",
+    fontSize:18
   },
   buttonSignUp:{
   width:100,
@@ -94,15 +102,16 @@ const styles = StyleSheet.create({
     fontWeight:'bold'
   },
   otpInputStyle: {
-    width:25,
-    padding:5,
+    width:45,
+    height:55,
+    padding:1,
     backgroundColor: "white",
-    borderBottomWidth: 1,
+    borderWidth: 2,
     color: "black",
     borderColor: "#573985",
     fontSize: 19,
     marginLeft:25,
-    backgroundColor: "#E5E5E5",
+    //backgroundColor: "#E5E5E5",
   }
 });
 

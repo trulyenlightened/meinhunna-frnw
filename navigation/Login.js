@@ -34,9 +34,10 @@ const transitionConfig = () => ({
 });
 const AppLoginNavigator = StackNavigator(
   {
+    Register:   { screen: Register },
     Splash: { screen: Splash },
     Login: { screen: Login },
-    Register:   { screen: Register },
+    
 
     Otp: { screen: Otp },
     MobileNumber: { screen: MobileNumber },

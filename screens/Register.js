@@ -25,7 +25,7 @@ class Register extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैं हूँ ना</Text>
+        <Text style={styles.bigText}>मैंहूँन</Text>
         <TextInput
                   style={styles.inputStyle}
                   underlineColorAndroid="#000000"
@@ -132,13 +132,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffa500',
+    
     padding:20
   },
   bigText: {
     fontSize:60,
-    color:"#006200",
-    fontWeight:'bold'
+    color:"#000",
+    position:'absolute',
+    top:10
+    //fontWeight:'bold'
   },
 
   inputStyle:{
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 48,
 
-    marginBottom: 20,
+    marginBottom: 5,
     fontSize: 19,
     paddingLeft: 15,
     paddingRight: 5
