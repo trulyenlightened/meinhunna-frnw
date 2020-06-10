@@ -1,16 +1,29 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity,Image, ScrollView } from "react-native";
+import React, { Component, useReducer } from "react";
+import { StyleSheet, Text, View, TouchableOpacity,Image,Modal, ScrollView,Dimensions } from "react-native";
 import { connect } from "react-redux";
+import call from "react-native-phone-call";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import { Dropdown } from "react-native-material-dropdown";
 import MenuButton from "../components/MenuButton";
 import ModalItem from "../components/ModalItems";
 import ModalAddress from "../components/ModalAddress";
-import { getNearby, onSelectedMurchant, onAddItems,onPlaceOrder,onSelectedItemRemove } from "../actions/order";
+import MyButton from "../components/MyButton";
+import { 
+  getNearby, 
+  onSelectedMurchant, 
+  onAddItems,
+  onPlaceOrder,
+  onSelectedItemRemove,
+  
+ } from "../actions/order";
 import {getUserData} from "../actions/user";
 import NavigationService from "../navigation/NavigationService";
+import {HOMEICON} from "../assets";
+
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
+
+let screenHeight = Dimensions.get('window').height;
 
 class OrderForm extends Component {
   componentWillMount() {
@@ -67,45 +80,27 @@ class OrderForm extends Component {
 
 
     return (
-      <View style={styles.container}>
-        <Text style={{position:'absolute',top:15,fontSize:22}}>ऑर्डर फारम</Text>
+      <ScrollView>
+      <View style={[styles.container,{opacity:this.props.isHelpLineModal?0.3:1}]}>
+        <View style={{flexDirection:'row',paddingLeft:20,paddingRight:20}}>
+        <TouchableOpacity style={{alignSelf:'flex-start',width:35,marginTop:15}}>
+          <Image source={HOMEICON} style={{height:30,width:30,alignSelf:'flex-start'}} />
+        </TouchableOpacity>
         <MenuButton style={styles.menubutton} onPress={openDrawer} />
+        </View>
         <View style={styles.mainContainer}>
+        <Text style={{position:'absolute',top:-40,fontSize:20,color:'#572179',alignSelf:'center'}}>आदेश परपतर</Text>
           <Dropdown
             label="मरचंट"
             data={data}
             onChangeText={(value, index) => {
               this.props.onSelectedMurchant(index);
             }}
+            style={{ borderColor:'#572179', tintColor:'#572179' }}
           />
 
-          < View style={{flex:0.8,justifyContent:orderItem.length?'flex-start':'center',alignItems:'center',borderColor:'grey',borderWidth:1,borderRadius:20,padding:20,marginTop:20,marginBottom:20}} >
-            <ScrollView style={{marginBottom:20,width:'100%'}}>
-          {!orderItem.length?
-              <Text style={styles.buttonText}>कोई आइटम नहीं जोड़ा गया</Text>:
-              orderItem.map((d, i) => {
-                return (
-                  <View key={i} style={styles.listCard}>
-                    <Text style={{ fontSize: 22, right: 10 }}>
-                     {d.item_name}
-                    </Text>
-                    <Text style={{ fontSize: 16, marginTop: 5 }}>
-                      मात्रा: {orderQty[i]}
-                    </Text>
-                    <TouchableOpacity
-                    style={{width:35}}
-                      onPress={() => {
-                        this.props.onSelectedItemRemove(i)
-                      }}
-                    >
-                    <Image style={{height:30,width:30}} source={require('../assets/delete.png')} />
-                    </TouchableOpacity>
-                  </View>
-                );
-              })
-          }
-            </ScrollView>
-          <TouchableOpacity
+          < View style={{flex:0.8,justifyContent:orderItem.length?'flex-start':'center',alignItems:'center',borderRadius:20,padding:20,marginTop:20,marginBottom:20}} >
+          {/* <TouchableOpacity
             style={styles.addButton}
             onPress={() => {
 
@@ -118,12 +113,50 @@ class OrderForm extends Component {
             }}
           >
             <Text style={styles.buttonText}>+ आईटम जोड़े</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <MyButton
+            myButtonText="+ आईटम जोड़े"
+            onPress={() => {
+
+              if(murchantList.length > 0){
+
+              this.props.onAddItems();
+            } else {
+              alert("No any Merchant Present!")
+            }
+            }}
+           />
+            <ScrollView style={{marginBottom:5,width:'100%',flex:1}}>
+          {!orderItem.length?
+              <Text style={styles.buttonText}></Text>:
+              orderItem.map((d, i) => {
+                return (
+                  <View key={i} style={styles.listCard}>
+                    <Text style={{ fontSize: 22, right: 10,color:'#572179' }}>
+                     {d.item_name}
+                    </Text>
+                    <Text style={{ fontSize: 16, marginTop: 5,color:'#572179' }}>
+                      मात्रा: {orderQty[i]}
+                    </Text>
+                    <TouchableOpacity
+                    style={{width:35}}
+                      onPress={() => {
+                        this.props.onSelectedItemRemove(i)
+                      }}
+                    >
+                    <Image style={{height:30,width:30, tintColor:'#572179'}} source={require('../assets/delete.png')} />
+                    </TouchableOpacity>
+                  </View>
+                );
+              })
+          }
+            </ScrollView>
+          
         </View>
         {
           orderItem.length > 0?
-          <TouchableOpacity
-            style={styles.addButton}
+          <MyButton
+            myButtonText="ऑर्डर करे"
             onPress={() => {
 
               console.log(murchantList);
@@ -148,20 +181,21 @@ class OrderForm extends Component {
               }
 
             }}
-          >
-            <Text style={styles.buttonText}>ऑर्डर करे</Text>
-          </TouchableOpacity>
+           />
           :null
         }
+       </View>
+       <View style ={styles.bottomContainer}>
+            <View style={{width:250,height:90,backgroundColor:'#572179', marginTop:20,borderRadius:10}}>
 
-
-
-
+            </View>
         </View>
-
         <ModalItem />
         <ModalAddress />
+        
       </View>
+    
+      </ScrollView>
     );
   }
 }
@@ -172,12 +206,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    height:screenHeight,
+    
   },
 
   headerText: {
     top: 2,
     fontSize: 35,
-    color: "#BDB76B",
+    color: "#572179",
   },
   mainContainer: {
     flex: 1,
@@ -186,27 +222,33 @@ const styles = StyleSheet.create({
     paddingLeft:40,
     width: '100%',
   },
+  bottomContainer:{
+    backgroundColor:'#FF905F', 
+    width:'90%', 
+    height:'20%', 
+    bottom:0,
+    alignSelf:'center',
+    alignItems:'center',
+    borderTopLeftRadius:25,
+    borderTopRightRadius:25
+    },
   addButton: {
-    backgroundColor: "transparent",
+    backgroundColor: "#FF905F",
     height: 44,
     width: '100%',
     borderRadius: 10,
-
-
-    backgroundColor: "#E5E5E5",
-    borderWidth: 1,
+    borderWidth: 0,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
   },
   buttonText: {
     fontSize: 18,
-    color: "grey",
-    fontWeight: "bold",
+    color: "#fff",
+    //fontWeight: "bold",
   },
   listCard: {
     flexDirection: "row",
-
     margin: 5,
     padding: 5,
     width: "100%",
@@ -216,10 +258,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ order }) => ({
+const mapStateToProps = ({ order,auth }) => ({
   murchantList: order.murchantList,
   orderItem: order.orderItem,
   orderQty: order.orderQty,
+  isHelpLineModal:auth.isHelpLineModal
 });
 
 export default connect(mapStateToProps, {

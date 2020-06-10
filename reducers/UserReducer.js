@@ -17,7 +17,7 @@ import {
   GET_USER_DATA
 } from '../actions/user';
 
-import { SIGNUP_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth';
+import { SIGNUP_SUCCESS, LOGOUT_SUCCESS, } from '../actions/auth';
 
 const initialState = {
   signup: {
@@ -37,6 +37,7 @@ const initialState = {
   otpCode:'',
   passwordChange:false,
   passwordConfirmChange:false,
+  
 };
 
 export default (state = initialState, action) => {
@@ -144,6 +145,8 @@ export default (state = initialState, action) => {
 
       }
     }
+
+   
 
 
     default:

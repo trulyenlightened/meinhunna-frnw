@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Image,View } from 'react-native';
 import PropTypes from 'prop-types';
+import {MENUICON} from "../assets";
 
 
 export default function MenuButton(props) {
@@ -14,7 +15,7 @@ export default function MenuButton(props) {
       shadowOffset: { width: 1, height: 3 },
       shadowRadius: 5}}>
     <TouchableOpacity style={[styles.menu, style]} onPress={onPress}>
-      <Image style={styles.menuImage} source={require('../assets/menu.png')} />
+      <Image style={styles.menuImage} resizeMode='center' source={MENUICON} />
     </TouchableOpacity>
     </View>
   );

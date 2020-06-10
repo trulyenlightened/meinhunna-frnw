@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   TextInput,
+  Image
 } from "react-native";
 import { connect } from "react-redux";
 import { Dropdown } from "react-native-material-dropdown";
@@ -17,7 +18,9 @@ import {
   updateDescription,
   onCloseOrderModal
 } from "../actions/order";
-
+import {CANCELICON,MODALIMAGEITEM} from "../assets";
+import MyButton from "./MyButton";
+ 
 class ModalItem extends Component {
   render() {
     const {
@@ -49,14 +52,30 @@ class ModalItem extends Component {
         onRequestClose={() => {}}
         animationType="slide"
         transparent={false}
+        style={{backgroundColor:'#fff'}}
 
       >
+        <Text style={{
+          zIndex:10,
+          borderWidth:5,
+          borderRadius:25, 
+          alignSelf:'center',
+          backgroundColor:'#fff',
+          borderColor: "#572179",
+          marginTop:45,
+          padding:10,
+          position:'absolute',
+          fontSize:15,
+          color:'#572179',
+          justifyContent:'center',
+          paddingTop:15
+          }}>+ आईटम जोड़े</Text>
         <View style={styles.container}>
         <TouchableOpacity
-        style={{height:20,width:20,alignSelf:'flex-end',right:15,top:10}}
+        style={{height:25,width:25,alignSelf:'flex-end',right:15,top:10,justifyContent:'center',alignItems:'center'}}
         onPress={()=>{this.props.onCloseOrderModal()}}
         >
-            <Text style={{fontSize:18,color:'grey'}}>X</Text>
+            <Image style={{height:12,width:12}} source={CANCELICON} />
           </TouchableOpacity>
           <View style={styles.mainContainer}>
             <Dropdown
@@ -68,13 +87,6 @@ class ModalItem extends Component {
               onChangeText={async (value, index) => {
                 this.props.onChangeTextItemSelect(index);
                 mI = index;
-                // data1 = [...selectedMurchant.items[index].sub_items];
-
-                // data1.map((d)=>{
-
-                //     data2.push({value:d.item_name})
-                // })
-
               }}
             />
             <Dropdown
@@ -93,7 +105,7 @@ class ModalItem extends Component {
 
             <Dropdown
               style={{ width: "100%" }}
-              label="मूल्यवर्ग"
+              label="आइटम तादाद"
               data={
                 finalItem
                   ? finalItem.item_unit === "gram"
@@ -176,22 +188,29 @@ class ModalItem extends Component {
                 this.props.updateDescription(text);
               }}
             />
-            <Text style={{ fontSize: 19, marginTop: 10, marginBottom: 10 }}>
+            <Text style={{ fontSize: 10, marginTop: 5, marginBottom: 5 }}>
               {" "}
               Unit : {finalItem ? finalItem.item_unit : null}
             </Text>
-            <TouchableOpacity
-              style={styles.addButton}
-              disabled={ false }
-              onPress={() => {
-
-                this.props.onSelectedItem();
-              }}
-            >
-              <Text style={styles.buttonText}>+ आईटम जोड़े</Text>
-            </TouchableOpacity>
+            
+            <MyButton
+            myButtonText="+ आईटम जोड़े"
+            onPress={() => {
+              this.props.onSelectedItem();
+            }}
+           />
           </View>
+          
         </View>
+        <Image source={MODALIMAGEITEM}
+                  
+                 style={{
+                     position:'absolute',
+                     bottom:0,
+                     left:27,
+                     width:'100%',
+                     height:'29%'
+                     }} resizeMode="contain" />
       </Modal>
     );
   }
@@ -199,13 +218,13 @@ class ModalItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: "8%",
+    marginTop: "18%",
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "space-around",
     height: 420,
-    borderWidth: 0,
-    borderColor: "#000",
+    borderWidth: 5,
+    borderColor: "#572179",
     borderRadius: 20,
     margin: 15,
     width: "80%",
@@ -222,7 +241,8 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    padding: 20,
+    paddingRight: 20,
+    paddingLeft:20,
     width: "100%",
   },
   inputStyle: {

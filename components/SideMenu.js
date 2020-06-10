@@ -8,12 +8,15 @@ import {
   Dimensions,
   Platform,
   TouchableOpacityBase,
+  Image,
+  Modal
 } from 'react-native';
-import call from "react-native-phone-call";
+import HelpModal from "./HelpModal";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { logout } from '../actions/auth';
+import { logout,onHelpLineMenu } from '../actions/auth';
 import NavigationService from '../navigation/NavigationService';
+import {SIDEMENUBACK,MENUICON} from "../assets";
 
 
 const closeDrawer = () => NavigationService.navigate('DrawerClose');
@@ -89,35 +92,35 @@ function SideMenu(props) {
 
   return (
     <View style={styles.menuContainer}>
+      <Image source={SIDEMENUBACK} style={{position:'absolute',zIndex:-2,height:'100%'}} />
       <View style={styles.logoContainer}>
         <TouchableOpacity
           style={styles.closeButtonContainer}
           onPress={closeDrawer}
         >
-          <Text style={styles.bigText}>मैं हूँ ना</Text>
+         <Image source={MENUICON} style={{height:28,alignSelf:'flex-start',tintColor:'#fff'}} resizeMode='center' /> 
         </TouchableOpacity>
+        <Text style={styles.bigText}>माजाहरि रंगवाला</Text>
       </View>
 
       {menuElements}
-      <Text style={{color:'#fff',alignSelf:'center',marginTop:'80%'}}>Help Line No.</Text>
-      <TouchableOpacity onPress={()=>{
-        const args = {
-          number: '8795290744',
-          prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
-        };
-
-        call(args).catch(console.error);
-        }}
-        style={{marginBottom:15,color:'#fff',alignSelf:'center'}}>
-      <Text style={{color:'#fff',fontSize:18,alignSelf:'center'}}>8795290744</Text>
-      </TouchableOpacity>
-      <View style={styles.footer}>
-        <TouchableOpacity onPress={()=>{
+      <TouchableOpacity style={{marginTop:10,borderWidth:0,marginLeft:8}} onPress={()=>{
         props.logout()
         }}>
-          <Text style= {{padding:10,color:'white',fontSize:18,fontWeight:"bold",borderWidth:0.5,borderRadius:20,borderColor:'white' }}>लॉग आउट</Text>
+          <Text style= {{padding:10,color:'white',fontSize:18,fontWeight:"bold",borderRadius:20,borderColor:'white' }}>लॉग आउट</Text>
         </TouchableOpacity>
+      
+      <View style={styles.footer}>
+      
+      <TouchableOpacity onPress={()=>{
+        props.onHelpLineMenu(true);
+        
+        }}
+        style={{marginBottom:15,color:'#fff',alignSelf:'flex-start'}}>
+      <Text style={{color:'#fff',fontSize:18,alignSelf:'center'}}>हेल्पलाइन</Text>
+      </TouchableOpacity>  
       </View>
+      <HelpModal />
     </View>
   );
 }
@@ -141,8 +144,11 @@ const styles = StyleSheet.create({
   },
 
   bigText: {
-    fontSize:50,
-    color:"#006200",
+    marginTop:29,
+    marginLeft:20,
+    fontSize:20,
+    color:"#572179",
+    alignSelf:'center'
   },
   itemContainer: {
     top: 10,
@@ -161,6 +167,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 0.33,
+    alignSelf:'flex-start'
   },
 
   logo: {
@@ -237,12 +244,13 @@ const styles = StyleSheet.create({
     height: 42,
   },
   footer: {
+    left:0,
     position: 'absolute',
     bottom: 20,
     right: 30,
-    justifyContent: 'center',
+    alignItems:'flex-start',
     flexDirection: 'column',
-    padding:10
+    padding:10,
 
   },
   button: {
@@ -271,9 +279,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ logout }, dispatch);
+  bindActionCreators({ logout,onHelpLineMenu }, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(SideMenu);

@@ -24,6 +24,7 @@ export const GET_USER_DATA = "user/GET_USER_DATA";
 
 
 
+
 export const updateFullName = val => dispatch =>{
   dispatch({
     type:UPDATE_FULL_NAME,
@@ -252,3 +253,4 @@ export const getUserData = () => async(dispatch,getState) =>{
 
  
 }
+

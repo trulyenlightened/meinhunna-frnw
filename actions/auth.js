@@ -22,7 +22,7 @@ export const LOGIN_FORM_SUBMITTED = 'auth/SIGNUP_FORM_SUBMITTED';
 export const RESET_PASSWORD_SUCCESS = 'auth/RESET_PASSWORD_SUCCESS';
 export const UPDATE_LOGIN_MOBILENO = 'auth/UPDATE_LOGIN_MOBILENO';
 export const UPDATE_LOGIN_PASSWORD = 'auth/UPDATE_LOGIN_PASSWORD';
-
+export const ON_HELP_LINE = "auth/ON_HELP_LINE";
 
 
 export const retrieveAuthToken = () => async (dispatch) => {
@@ -215,5 +215,12 @@ export const updateLoginPassword = (val) => dispatch =>{
   dispatch({
     type:UPDATE_LOGIN_PASSWORD,
     payload:val
+  })
+}
+
+export const onHelpLineMenu = (bool) => async(dispatch) =>{
+  dispatch({
+    type:ON_HELP_LINE,
+    payload:bool
   })
 }

@@ -4,7 +4,7 @@ import {
   UPDATE_PASSWORD,
   UPDATE_LOGIN_MOBILENO,
   UPDATE_LOGIN_PASSWORD,
-
+  ON_HELP_LINE
 } from '../actions/auth';
 
 const initialState = {
@@ -23,7 +23,7 @@ const initialState = {
   socialToken: '',
   loginMobileNo:"",
   loginPassword:"",
-
+  isHelpLineModal:false
 };
 
 export default (state = initialState, action) => {
@@ -53,6 +53,13 @@ export default (state = initialState, action) => {
       }
     }
 
+    case ON_HELP_LINE: 
+    {
+      return {
+        ...state,
+        isHelpLineModal:action.payload
+      }
+    }
 
 
     default:
