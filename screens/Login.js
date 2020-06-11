@@ -7,6 +7,7 @@ import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handl
 import {updateLoginMobileNo,updateLoginPassword,authenticate,retrieveAuthToken} from "../actions/auth";
 import Navigation from "../navigation/NavigationService";
 import NavigationService from "../navigation/NavigationService";
+import MyButton from "../components/MyButton";
 
 
 class Login extends Component {
@@ -45,12 +46,16 @@ class Login extends Component {
                 this.props.updateLoginPassword(text);
               }}
             />
-        <TouchableOpacity
+        {/* <TouchableOpacity
         style={styles.buttonLogin}
         onPress={()=>{this.props.authenticate(true)}}
         >
           <Text style={styles.buttonText}>लॉग इन करें</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <MyButton
+         myButtonText="लॉग इन करें"
+         onPress={()=>{this.props.authenticate(true)}}
+         />
         <TouchableOpacity
     style={styles.buttonSignUp}
       onPress={()=>{Navigation.navigate('MobileNumber',{path:''})}}
