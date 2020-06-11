@@ -1,16 +1,25 @@
 import React, { Component } from "react";
+import Carousel from 'react-native-snap-carousel';
 import { StyleSheet, Text, View, TouchableOpacity,Image,ImageBackground  } from "react-native";
 import { connect } from "react-redux";
 import MenuButton from "../components/MenuButton";
 import { retrieveAuthToken } from "../actions/auth";
 import NavigationService from "../navigation/NavigationService";
-import {IMAGEBOY,IMAGEUSER,SPLACHBACK} from "../assets"
+import {IMAGEBOY,IMAGEUSER,SPLACHBACK,MODALIMAGEITEM,IMAGEREGISTER} from "../assets"
 
 class Splash extends Component {
   componentDidMount(){
     this.props.retrieveAuthToken();
   }
 
+  _renderItem = ({item, index}) => {
+    return (
+        <View style={{width:'100%',height:'100%'}}>
+            <Image source={item.image} resizeMode='contain' style={styles.imagestyle}/>
+            <Text style={styles.smallText}>तेज़ डीलीवरी</Text>
+        </View>
+    );
+}
   render() {
 
 
@@ -20,8 +29,14 @@ class Splash extends Component {
       <View style={styles.mainContainer}>
       <Image source={SPLACHBACK} resizeMode='center' style={styles.backImage} />
         <Text style={styles.bigText}>मैंहूँन</Text>
-        <Image source={IMAGEBOY} resizeMode='contain' style={styles.imagestyle}/>
-        <Text style={styles.smallText}>तेज़ डीलीवरी</Text>
+        <Carousel
+          data={[{image:IMAGEBOY},{image:MODALIMAGEITEM},{image:IMAGEREGISTER}]}
+          renderItem={this._renderItem}
+          sliderWidth={200}
+          itemWidth={180}
+         />
+        {/* <Image source={IMAGEBOY} resizeMode='contain' style={styles.imagestyle}/> */}
+        
       </View>
         <View style={styles.mainContainer1}>
         
@@ -64,7 +79,8 @@ const styles = StyleSheet.create({
   smallText:{
     fontSize:18,
     color:"#fff",
-    margin:10
+    margin:10,
+    alignSelf:'center'
   },
   buttonLogin:{
     backgroundColor: "transparent",
@@ -100,8 +116,8 @@ backImage:{
     marginTop:10
   },
   imagestyle:{
-    width:'80%',
-    height:'50%'
+    width:'100%',
+    height:'80%'
   },
   imageUser:{
     width:50,
