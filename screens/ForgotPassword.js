@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import{
 
@@ -7,7 +7,9 @@ import{
   updateConfirmPassword,
   forgotPasswordApi
 } from "../actions/user";
-import {signup} from "../actions/auth"
+import {signup} from "../actions/auth";
+import MyButton from "../components/MyButton";
+import {FORGOTIMAGE} from "../assets";
 
 class ForgotPassword extends Component {
   render(){
@@ -18,7 +20,7 @@ class ForgotPassword extends Component {
     } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैं हूँ ना</Text>
+        <Text style={styles.bigText}>मैंहूँन</Text>
 
           <TextInput
                   style={styles.inputStyle}
@@ -52,27 +54,26 @@ class ForgotPassword extends Component {
                      this.props.updateConfirmPassword(text);
                   }}
                 />
-          <TouchableOpacity
-            style={styles.buttonLogin}
-            onPress={()=>{
+          
+            <MyButton
+                myButtonText='आगे बढ़ें'
+                onPress={()=>{
 
 
-              if(password.toString() === confirmPassword.toString())
-              {
-                if(password.length >= 6){
-                this.props.forgotPasswordApi()
-                } else{
-                  alert('पासवर्ड, छह अक्षर अनिवार्य')
-                }
-              }
-              else{
-                alert('Password Does not Match')
-              }
-            }
-            }
-            >
-              <Text style={styles.buttonText}>आगे बढ़ें</Text>
-            </TouchableOpacity>
+                  if(password.toString() === confirmPassword.toString())
+                  {
+                    if(password.length >= 6){
+                    this.props.forgotPasswordApi()
+                    } else{
+                      alert('पासवर्ड, छह अक्षर अनिवार्य')
+                    }
+                  }
+                  else{
+                    alert('Password Does not Match')
+                  }
+                }}
+              />
+              <Image source={FORGOTIMAGE} resizeMode="center" style={{height:'70%'}} />
       </View>
     );
   }
@@ -83,14 +84,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ffa500',
+    justifyContent: 'flex-start',
+    //backgroundColor: '#ffa500',
     padding:20
   },
   bigText: {
     fontSize:60,
-    color:"#006200",
-    fontWeight:'bold'
+    color:"#000",
+    //fontWeight:'bold'
   },
 
   inputStyle:{

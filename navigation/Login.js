@@ -34,7 +34,7 @@ const transitionConfig = () => ({
 });
 const AppLoginNavigator = StackNavigator(
   {
-    
+    ForgotPassword: { screen: ForgotPassword },
     Splash: { screen: Splash },
     Login: { screen: Login },
     Register:   { screen: Register },

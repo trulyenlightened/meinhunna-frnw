@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import OtpInputs from "react-native-otp-inputs";
 import {onMatchOtp,onChangeOTP} from "../actions/user";
 import {IMAGEOTP} from "../assets";
+import MyButton from "../components/MyButton";
 
 class Otp extends Component {
   render(){
@@ -23,16 +24,14 @@ class Otp extends Component {
                 inputStyles={styles.otpInputStyle}
                 inputContainerStyles={{ backgroundColor: "white", }}
                 />
-
-          <TouchableOpacity
-            style={styles.buttonLogin}
-            onPress={()=>{this.props.onMatchOtp(this.props.navigation.state.params.path)}}
-            >
-              <Text style={styles.buttonText}>आगे बढ़ें</Text>
-            </TouchableOpacity>
+            <MyButton
+                myButtonText='आगे बढ़ें'
+                onPress={()=>{this.props.onMatchOtp(this.props.navigation.state.params.path)}}
+              />
             <TouchableOpacity>
               <Text style={styles.buttonResendText}>फिर से भेजे OTP</Text>
             </TouchableOpacity>
+            
           </View>
           <Image source={IMAGEOTP} resizeMode='center' style={{height:'40%',bottom:0,width:'100%'}} />
       </View>

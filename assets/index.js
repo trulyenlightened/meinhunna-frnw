@@ -10,3 +10,4 @@ export const BUTTONIMAGE = require('./button_back.png');
 export const CANCELICON = require('./cancel_icon.png');
 export const MODALIMAGEITEM = require('./Item_Modal_Image.png');
 export const SIDEMENUBACK = require('./sidemenu_back.png');
+export const FORGOTIMAGE = require('./forgot_Image.png');

@@ -10,6 +10,7 @@ import{
 } from "../actions/user";
 import {signup} from "../actions/auth";
 import {IMAGEREGISTER} from "../assets";
+import MyButton from "../components/MyButton";
 
 let screenHeight = Dimensions.get('window').height;
 
@@ -97,10 +98,9 @@ class Register extends Component {
                      this.props.updateConfirmPassword(text);
                   }}
                 />
-
-          <TouchableOpacity
-            style={styles.buttonLogin}
-            onPress={()=>{
+            <MyButton
+             myButtonText='आगे बढ़ें'
+             onPress={()=>{
               if(password&&confirmPassword&&fullAddress&&fullName)
               {
 
@@ -122,9 +122,7 @@ class Register extends Component {
             }
 
             }}
-            >
-              <Text style={styles.buttonText}>आगे बढ़ें</Text>
-            </TouchableOpacity>
+             />
             <Image source={IMAGEREGISTER} resizeMode='center' style={{height:'50%'}} />
       </View>
       </ScrollView>

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View,TextInput,TouchableOpacity,Image,ScrollView } fr
 import { connect } from 'react-redux';
 import {IMAGEMOBILE} from "../assets"
 import {updateRegisterMobileNo,onSendOtp,onSendForgotOtp} from "../actions/user";
+import MyButton from "../components/MyButton";
 
 class MobileNumber extends Component  {
   render(){
@@ -30,21 +31,19 @@ class MobileNumber extends Component  {
                 }}
               />
 
-          <TouchableOpacity
-          style={styles.buttonLogin}
-          onPress={()=>{
-            var hh = registerMobileno.length
-            if(hh === 10){
+          <MyButton
+           myButtonText='आगे बढ़ें'
+           onPress={()=>{
+              var hh = registerMobileno.length
+              if(hh === 10){
             
-            this.props.navigation.state.params.path==='register'?
-            this.props.onSendOtp(true):this.props.onSendForgotOtp(true)
-            } else {
-              alert('सही फोन नंबर डाले')
-            }
-          }}
-          >
-            <Text style={styles.buttonText}>आगे बढ़ें</Text>
-          </TouchableOpacity>
+              this.props.navigation.state.params.path==='register'?
+              this.props.onSendOtp(true):this.props.onSendForgotOtp(true)
+              } else {
+                alert('सही फोन नंबर डाले')
+              }
+            }}
+           />
           
         </View>
         <Image source={IMAGEMOBILE} resizeMode='center' style={styles.imageStyle} />
