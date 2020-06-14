@@ -4,7 +4,8 @@ import {
   View,
   Modal,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from "react-native";
 import { connect } from "react-redux";
 import call from "react-native-phone-call";
@@ -12,7 +13,7 @@ import MyButton from "./MyButton";
 import { onHelpLineMenu } from '../actions/auth';
 import {CANCELICON} from "../assets"
 
- 
+let screenHeight = Dimensions.get('window').height;
 class HelpModal extends Component {
   render() {
     
@@ -23,7 +24,7 @@ class HelpModal extends Component {
         transparent={true}
        
         >
-            <View style={{height:'100%',backgroundColor:'rgba(0,0,0,0.4)'}}>
+            <View style={{height:screenHeight+10,backgroundColor:'rgba(280,280,280,0.7)'}}>
             <TouchableOpacity
                 onPress={()=>{
                     this.props.onHelpLineMenu(false);}}

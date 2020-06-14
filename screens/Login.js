@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View,TextInput } from 'react-native';
+import { StyleSheet, Text, View,TextInput, Image,Dimensions } from 'react-native';
 import Card from 'react-navigation/src/views/CardStack/Card';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import {updateLoginMobileNo,updateLoginPassword,authenticate,retrieveAuthToken} from "../actions/auth";
 import Navigation from "../navigation/NavigationService";
 import NavigationService from "../navigation/NavigationService";
 import MyButton from "../components/MyButton";
+import {LOGINIMAGE} from "../assets";
 
+let screenHeight = Dimensions.get('window').height;
 
 class Login extends Component {
 
@@ -16,15 +18,16 @@ class Login extends Component {
   render(){
     const { loginMobileNo,loginPassword } = this.props;
   return (
+    <ScrollView>
     <View style={styles.container}>
-      <Text style={styles.bigText}>मैंहूँन</Text>
+      <Text style={styles.bigText}>मैंहूँना</Text>
       
       <View style={styles.cardContainer}>
         <TextInput
         style={styles.inputStyle}
-        underlineColorAndroid="#9D9D9D"
+        underlineColorAndroid="#573985"
         placeholder="उपयोगकरता नाम/नंबर"
-        placeholderTextColor="#9D9D9D"
+        placeholderTextColor="#573985"
         autoCapitalize="none"
         maxLength={10}
         keyboardType={"phone-pad"}
@@ -36,9 +39,9 @@ class Login extends Component {
             />
             <TextInput
             style={styles.inputStyle}
-            underlineColorAndroid="#9D9D9D"
+            underlineColorAndroid="#573985"
             placeholder="पासवर्ड"
-            placeholderTextColor="#9D9D9D"
+            placeholderTextColor="#573985"
             autoCapitalize="none"
             secureTextEntry={true}
               value={loginPassword}
@@ -54,15 +57,32 @@ class Login extends Component {
         </TouchableOpacity> */}
         <MyButton
          myButtonText="लॉग इन करें"
-         onPress={()=>{this.props.authenticate(true)}}
+         onPress={()=>{
+           if(loginMobileNo === "" || loginPassword === "" || loginMobileNo.length < 10){
+              if(loginPassword === ""){
+                alert('कृपया पासवर्ड नंबर डाले |')
+              } else if(loginMobileNo === ""){
+                alert('कृपया मोबाइल नंबर डाले |')
+                
+              } else if(loginMobileNo.length < 10){
+                alert('कृपया मोबाइल नंबर ठीक से डाले |')
+              }
+           } else{
+            this.props.authenticate(true)
+           }
+           
+          }}
          />
         <TouchableOpacity
     style={styles.buttonSignUp}
       onPress={()=>{Navigation.navigate('MobileNumber',{path:''})}}
     >
       <Text style={styles.buttonSignUpText}>पासवर्ड भूल गये?</Text>
+      
     </TouchableOpacity>
+    
       </View>
+      <Image source={LOGINIMAGE} style={{height:screenHeight*0.18,marginTop:2}} resizeMode='contain' />
       <View style={styles.bottomContainer}>
         <Text>रजिस्टर नहीं? </Text>
         <TouchableOpacity
@@ -72,29 +92,32 @@ class Login extends Component {
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
  }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height:screenHeight,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
   },
   bigText: {
-    fontSize:60,
+    fontSize:40,
     color:"#000",
-    //fontWeight:'bold'
+    fontWeight:'bold'
   },
   buttonView:{
     position:'absolute',right:15,top:20
 
   },
   cardContainer:{
-    width:'90%',
+    width:'100%',
+    paddingLeft:20,
+    paddingRight:20,
     alignItems: "center",
     marginTop: 16,
     backgroundColor: "white",
@@ -111,17 +134,16 @@ const styles = StyleSheet.create({
     width: "93%",
     borderRadius: 5,
     height: 48,
-    marginBottom: 10,
+    marginBottom: 5,
     fontSize: 19,
     paddingLeft: 15,
     paddingRight: 5,
     borderColor:'#573985',
-    color:'#573985'
   },
   buttonLogin:{
     backgroundColor: "transparent",
     height: 44,
-    width: 256,
+    width: 230,
     borderRadius: 20,
       backgroundColor: '#FF905F',
     alignItems: "center",
@@ -129,7 +151,10 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   buttonSignUp:{
-  width:'60%',
+  width:'100%',
+  alignSelf:'center',
+  marginBottom:5,
+  borderWidth:0
   },
   buttonSignUpText:{
     fontSize:18,

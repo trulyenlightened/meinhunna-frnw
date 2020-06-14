@@ -92,7 +92,7 @@ function SideMenu(props) {
 
   return (
     <View style={styles.menuContainer}>
-      <Image source={SIDEMENUBACK} style={{position:'absolute',zIndex:-2,height:'100%'}} />
+      <Image source={SIDEMENUBACK} resizeMode="stretch" style={{position:'absolute',zIndex:-2,height:'100%'}} />
       <View style={styles.logoContainer}>
         <TouchableOpacity
           style={styles.closeButtonContainer}
@@ -100,14 +100,15 @@ function SideMenu(props) {
         >
          <Image source={MENUICON} style={{height:28,alignSelf:'flex-start',tintColor:'#fff'}} resizeMode='center' /> 
         </TouchableOpacity>
-        <Text style={styles.bigText}>माजाहरि रंगवाला</Text>
+  <Text style={styles.bigText}>{props.user.fullName}</Text>
       </View>
 
       {menuElements}
-      <TouchableOpacity style={{marginTop:10,borderWidth:0,marginLeft:8}} onPress={()=>{
+      <View style={[styles.divider,{marginTop:-5}]} />
+      <TouchableOpacity style={{marginTop:-3,borderWidth:0,marginLeft:14}} onPress={()=>{
         props.logout()
         }}>
-          <Text style= {{padding:10,color:'white',fontSize:18,fontWeight:"bold",borderRadius:20,borderColor:'white' }}>लॉग आउट</Text>
+          <Text style= {{padding:10,color:'white',fontSize:18 }}>लॉग आउट</Text>
         </TouchableOpacity>
       
       <View style={styles.footer}>
@@ -116,7 +117,7 @@ function SideMenu(props) {
         props.onHelpLineMenu(true);
         
         }}
-        style={{marginBottom:15,color:'#fff',alignSelf:'flex-start'}}>
+        style={{marginBottom:15,color:'#fff',alignSelf:'flex-start',marginLeft:10,fontWeight:'bold'}}>
       <Text style={{color:'#fff',fontSize:18,alignSelf:'center'}}>हेल्पलाइन</Text>
       </TouchableOpacity>  
       </View>
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     height: '100%',
     zIndex: 100,
-        backgroundColor: '#ffa500',
+        //backgroundColor: '#ffa500',
   },
 
   bigText: {
@@ -148,10 +149,11 @@ const styles = StyleSheet.create({
     marginLeft:20,
     fontSize:20,
     color:"#572179",
-    alignSelf:'center'
+    alignSelf:'center',
+    fontWeight:'bold'
   },
   itemContainer: {
-    top: 10,
+    top: -10,
   },
   menuItem: {
     display: 'flex',
@@ -167,7 +169,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 0.33,
-    alignSelf:'flex-start'
+    alignSelf:'flex-start',
+    
   },
 
   logo: {
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
   },
   text: {
 
-    fontSize: 22,
+    fontSize: 18,
     marginTop: 8,
     marginLeft: '12%',
     color:'white',
@@ -203,7 +206,7 @@ const styles = StyleSheet.create({
 
   },
   divider: {
-    marginTop: 8,
+    marginTop: 2,
     marginLeft: '12%',
     marginRight: '12%',
     borderBottomColor: 'rgba(34,33,46,0.15)',
@@ -233,11 +236,9 @@ const styles = StyleSheet.create({
   closeButtonContainer: {
     zIndex: 101,
     position: 'absolute',
-    right: 20,
+    left:-20,
     top: 35,
-    alignItems:'center',
-    justifyContent:'center',
-    alignContent:'center'
+    alignSelf:'flex-start',
   },
   closeButton: {
     width: 42,
@@ -276,6 +277,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   user: state.user,
+  
 });
 
 const mapDispatchToProps = dispatch =>

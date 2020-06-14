@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import {updateOrderAddress,onFinalizeOrder} from "../actions/order"
 import { or } from "react-native-reanimated";
+import MyButton from "../components/MyButton";
 
 
 class ModalAddress extends Component {
@@ -22,15 +23,16 @@ class ModalAddress extends Component {
         animationType="slide"
         transparent={true}
       >
+        <View style={{height:"100%",backgroundColor:'rgba(280,280,280,0.8)'}}>
         <View style={styles.container}>
           <View style={styles.mainContainer}>
 
 
             <TextInput
               style={styles.inputStyle}
-              underlineColorAndroid="grey"
+              underlineColorAndroid="#573985"
               placeholder="Address"
-              placeholderTextColor="#9D9D9D"
+              placeholderTextColor="#573985"
               autoCapitalize="none"
               secureTextEntry={false}
 
@@ -42,16 +44,16 @@ class ModalAddress extends Component {
               }}
             />
             <Text style={{fontSize:19,marginTop:10,marginBottom:10,alignSelf:'center'}}> Or </Text>
-            <Text style={{fontSize:16,marginTop:10,marginBottom:10,alignSelf:'center',color: "grey",}}> विशिष्ट पता डाले या अपने रजिस्टर हुए पते पर डिलीवरी प्राप्त करे</Text>
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => {
-                  this.props.onFinalizeOrder()
+            <Text style={{fontSize:16,marginTop:10,marginBottom:10,alignSelf:'center',color: "#573985",}}> विशिष्ट पता डाले या अपने रजिस्टर हुए पते पर डिलीवरी प्राप्त करे</Text>
+           
+            <MyButton
+            myButtonText="संपूर्ण ऑर्डर करे"
+            onPress={() => {
+              this.props.onFinalizeOrder()
               }}
-            >
-              <Text style={styles.buttonText}>संपूर्ण ऑर्डर करे</Text>
-            </TouchableOpacity>
+            />
           </View>
+        </View>
         </View>
       </Modal>
     );
@@ -65,8 +67,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     height: 390,
-    borderWidth: 1,
-    borderColor: "#000",
+    borderWidth: 3,
+    borderColor: "#573985",
     borderRadius: 20,
     margin: 15,
     width:'80%',

@@ -19,7 +19,7 @@ import {
  } from "../actions/order";
 import {getUserData} from "../actions/user";
 import NavigationService from "../navigation/NavigationService";
-import {HOMEICON} from "../assets";
+import {HOMEICON,BOTTOMCON} from "../assets";
 
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
 
@@ -82,7 +82,7 @@ class OrderForm extends Component {
     return (
       <ScrollView>
       <View style={[styles.container,{opacity:this.props.isHelpLineModal?0.3:1}]}>
-        <View style={{flexDirection:'row',paddingLeft:20,paddingRight:20}}>
+        <View style={{flexDirection:'row',borderWidth:0,paddingLeft:20,paddingRight:20}}>
         <TouchableOpacity style={{alignSelf:'flex-start',width:35,marginTop:15}}>
           <Image source={HOMEICON} style={{height:30,width:30,alignSelf:'flex-start'}} />
         </TouchableOpacity>
@@ -92,6 +92,8 @@ class OrderForm extends Component {
         <Text style={{position:'absolute',top:-40,fontSize:20,color:'#572179',alignSelf:'center'}}>आदेश परपतर</Text>
           <Dropdown
             label="मरचंट"
+            baseColor="#573985"
+            textColor="#573985"
             data={data}
             onChangeText={(value, index) => {
               this.props.onSelectedMurchant(index);
@@ -132,10 +134,10 @@ class OrderForm extends Component {
               orderItem.map((d, i) => {
                 return (
                   <View key={i} style={styles.listCard}>
-                    <Text style={{ fontSize: 22, right: 10,color:'#572179' }}>
+                    <Text style={{ fontSize: 18, right: 10,color:'#572179' }}>
                      {d.item_name}
                     </Text>
-                    <Text style={{ fontSize: 16, marginTop: 5,color:'#572179' }}>
+                    <Text style={{ fontSize: 14, marginTop: 5,color:'#572179' }}>
                       मात्रा: {orderQty[i]}
                     </Text>
                     <TouchableOpacity
@@ -144,7 +146,7 @@ class OrderForm extends Component {
                         this.props.onSelectedItemRemove(i)
                       }}
                     >
-                    <Image style={{height:30,width:30, tintColor:'#572179'}} source={require('../assets/delete.png')} />
+                    <Image style={{height:25,width:25, tintColor:'#572179'}} source={require('../assets/delete.png')} />
                     </TouchableOpacity>
                   </View>
                 );
@@ -156,6 +158,7 @@ class OrderForm extends Component {
         {
           orderItem.length > 0?
           <MyButton
+            style={{width:'65%',alignSelf:'center'}}
             myButtonText="ऑर्डर करे"
             onPress={() => {
 
@@ -185,14 +188,16 @@ class OrderForm extends Component {
           :null
         }
        </View>
-       <View style ={styles.bottomContainer}>
-            <View style={{width:250,height:90,backgroundColor:'#572179', marginTop:20,borderRadius:10}}>
+       
+        <ModalItem />
+        <ModalAddress />
+        <View style ={styles.bottomContainer}>
+         <Image source={BOTTOMCON} resizeMode='stretch' 
+         style={{width:'100%',height:'100%',position:'absolute',marginTop:20}} />
+            <View style={{width:250,height:90,backgroundColor:'#572179', marginTop:40,borderRadius:10}}>
 
             </View>
         </View>
-        <ModalItem />
-        <ModalAddress />
-        
       </View>
     
       </ScrollView>
@@ -202,11 +207,10 @@ class OrderForm extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    height:screenHeight,
+    height:screenHeight+3,
     
   },
 
@@ -223,9 +227,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bottomContainer:{
-    backgroundColor:'#FF905F', 
+    //backgroundColor:'#FF905F', 
     width:'90%', 
-    height:'20%', 
+    height:'28%', 
     bottom:0,
     alignSelf:'center',
     alignItems:'center',
@@ -249,8 +253,8 @@ const styles = StyleSheet.create({
   },
   listCard: {
     flexDirection: "row",
-    margin: 5,
-    padding: 5,
+    marginLeft: 5,
+    paddingLeft: 5,
     width: "100%",
     backgroundColor: "#fff",
     justifyContent:'space-between'

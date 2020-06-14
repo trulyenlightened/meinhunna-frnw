@@ -28,14 +28,16 @@ class Register extends Component {
     } = this.props;
 
     return (
-      <ScrollView style={{height:screenHeight}}>
+      <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैंहूँन</Text>
+        <Text style={styles.bigText}>मैंहूँना</Text>
+        <View style={{width:'100%',alignItems:'center', marginTop:0.14*screenHeight}}>
         <TextInput
                   style={[styles.inputStyle,{}]}
-                  underlineColorAndroid="#000000"
+                  fontSize={16}
+                  underlineColorAndroid="#573985"
                   placeholder="पूरा नाम"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={false}
                   value={fullName}
@@ -47,10 +49,11 @@ class Register extends Component {
 
 
           <TextInput
+                  fontSize={16}
                   style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
+                  underlineColorAndroid="#573985"
                   placeholder="ई-मेल"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={false}
                   value={email}
@@ -60,10 +63,11 @@ class Register extends Component {
                 />
 
           <TextInput
+          fontSize={16}
                   style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
+                  underlineColorAndroid="#573985"
                   placeholder="पता"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={false}
                   value={fullAddress}
@@ -72,10 +76,11 @@ class Register extends Component {
                   }}
                 />
           <TextInput
+          fontSize={16}
                   style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
+                  underlineColorAndroid="#573985"
                   placeholder="पासवर्ड, छह अक्षर अनिवार्य"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={true}
                   value={password}
@@ -85,12 +90,20 @@ class Register extends Component {
                   }}
                 />
 
-
+              {
+                  passwordChange?(
+                    password.length <6?
+                    <Text style={{color:'red',marginTop:-9,marginLeft:40,alignSelf:'flex-start',marginBottom:5}}>छह अक्षर अनिवार्य</Text>
+                    :null
+                  )
+                  :null
+                }
           <TextInput
+          fontSize={16}
                   style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
+                  underlineColorAndroid="#573985"
                   placeholder="कन्फर्म पासवर्ड, छह अक्षर अनिवार्य"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={true}
                   value={confirmPassword}
@@ -98,7 +111,16 @@ class Register extends Component {
                      this.props.updateConfirmPassword(text);
                   }}
                 />
+              {
+                  passwordConfirmChange?(
+                    password !== confirmPassword ?
+                    <Text style={{color:'red',marginTop:-9,marginLeft:40,alignSelf:'flex-start',marginBottom:5}}> पासवर्ड मैच नहीं हो रहा | </Text>
+                    :null
+                  )
+                  :null
+                }
             <MyButton
+             style={{width:'60%'}}
              myButtonText='आगे बढ़ें'
              onPress={()=>{
               if(password&&confirmPassword&&fullAddress&&fullName)
@@ -123,6 +145,7 @@ class Register extends Component {
 
             }}
              />
+             </View>
             <Image source={IMAGEREGISTER} resizeMode='center' style={{height:'50%'}} />
       </View>
       </ScrollView>
@@ -132,29 +155,27 @@ class Register extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    height:screenHeight,
-    padding:20
+    justifyContent: 'space-between',
+    height:screenHeight+3,
+    
   },
   bigText: {
-    fontSize:60,
+    fontSize:40,
     color:"#000",
-    marginTop:50
     //position:'absolute',
     //top:30,
     //marginBottom:15
-    //fontWeight:'bold'
+    fontWeight:'bold'
   },
 
   inputStyle:{
-    width: "93%",
+    width: "80%",
     borderRadius: 10,
-    height: 48,
+    height: 37,
 
-    marginBottom: 5,
+    marginBottom: 0,
     fontSize: 19,
     paddingLeft: 15,
     paddingRight: 5

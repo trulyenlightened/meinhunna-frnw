@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity,Image,ScrollView } from 'react-native';
+import { Dimensions,StyleSheet, Text, View,TextInput,TouchableOpacity,Image,ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import {IMAGEMOBILE} from "../assets"
 import {updateRegisterMobileNo,onSendOtp,onSendForgotOtp} from "../actions/user";
 import MyButton from "../components/MyButton";
 
+let screenHeight = Dimensions.get('window').height;
 class MobileNumber extends Component  {
   render(){
 
     const {registerMobileno} = this.props;
     return (
+      <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैंहूँन</Text>
+        <Text style={styles.bigText}>मैंहूँना</Text>
       <View style={styles.buttonView}>
       </View>
          
         <View style={styles.cardContainer}>
           <TextInput
                 style={styles.inputStyle}
-                underlineColorAndroid="#000000"
-                placeholder="मोबाइल नंबर"
-                placeholderTextColor="#9D9D9D"
+                underlineColorAndroid="#573985"
+                placeholder="नंबर*"
+                placeholderTextColor="#573985"
                 autoCapitalize="none"
                 secureTextEntry={false}
                 maxLength={10}
@@ -32,6 +34,7 @@ class MobileNumber extends Component  {
               />
 
           <MyButton
+          style={{width:'80%'}}
            myButtonText='आगे बढ़ें'
            onPress={()=>{
               var hh = registerMobileno.length
@@ -48,6 +51,7 @@ class MobileNumber extends Component  {
         </View>
         <Image source={IMAGEMOBILE} resizeMode='center' style={styles.imageStyle} />
       </View>
+      </ScrollView>
     );
   }
 
@@ -55,24 +59,25 @@ class MobileNumber extends Component  {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height:screenHeight+3,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: '#fff',
   },
   bigText: {
-    top:5,
-    position:'absolute',
-    fontSize:60,
+    top:15,
+    fontSize:40,
     color:"#000",
-    //fontWeight:'bold'
+    fontWeight:'bold'
   },
 
   cardContainer:{
     width:'90%',
+    borderWidth:0,
+    height:0.22*screenHeight,
     alignItems: "center",
-    marginTop: 16,
+    marginTop: 0.19*screenHeight,
     backgroundColor: "white",
     borderColor:"#000000",
     //borderWidth:1,
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
   buttonLogin:{
     backgroundColor: "#FF905F",
     height: 44,
-    width: 256,
+    width: 200,
   borderRadius: 20,
     borderColor: "#000000",
     alignItems: "center",
@@ -121,7 +126,9 @@ const styles = StyleSheet.create({
     fontWeight:'bold'
   },
   imageStyle:{
-    height:'45%'
+    position:'absolute',
+    height:'50%',
+    bottom:0,
   }
 });
 

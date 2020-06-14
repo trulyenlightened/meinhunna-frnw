@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   Modal,
   TextInput,
-  Image
+  Image,
+  ScrollView,
+  Dimensions
 } from "react-native";
 import { connect } from "react-redux";
 import { Dropdown } from "react-native-material-dropdown";
@@ -20,7 +22,8 @@ import {
 } from "../actions/order";
 import {CANCELICON,MODALIMAGEITEM} from "../assets";
 import MyButton from "./MyButton";
- 
+
+let screenHeight = Dimensions.get('window').height;
 class ModalItem extends Component {
   render() {
     const {
@@ -51,10 +54,11 @@ class ModalItem extends Component {
         visible={isModalItem}
         onRequestClose={() => {}}
         animationType="slide"
-        transparent={false}
-        style={{backgroundColor:'#fff'}}
+        transparent={true}
 
       >
+        <ScrollView>
+        <View style={{backgroundColor:'rgba(280,280,280,0.8)', height:screenHeight}}>
         <Text style={{
           zIndex:10,
           borderWidth:5,
@@ -63,12 +67,14 @@ class ModalItem extends Component {
           backgroundColor:'#fff',
           borderColor: "#572179",
           marginTop:45,
-          padding:10,
+          width:150,
           position:'absolute',
           fontSize:15,
           color:'#572179',
           justifyContent:'center',
-          paddingTop:15
+          textAlign:'center',
+          paddingTop:10,
+          paddingBottom:5
           }}>+ आईटम जोड़े</Text>
         <View style={styles.container}>
         <TouchableOpacity
@@ -79,6 +85,8 @@ class ModalItem extends Component {
           </TouchableOpacity>
           <View style={styles.mainContainer}>
             <Dropdown
+            baseColor="#573985"
+            textColor="#573985"
             id="item"
             key="items"
               label="आइटम"
@@ -90,6 +98,8 @@ class ModalItem extends Component {
               }}
             />
             <Dropdown
+            baseColor="#573985"
+            textColor="#573985"
             id="subItem"
             key="subItems"
               style={{ width: "100%" }}
@@ -102,9 +112,11 @@ class ModalItem extends Component {
                 this.props.onChangeSubItemSelect(index);
               }}
             />
-
+            <View style={{width:'100%',flexDirection:'row'}}>
             <Dropdown
-              style={{ width: "100%" }}
+            baseColor="#573985"
+            textColor="#573985"
+            containerStyle={{flex:1}}
               label="आइटम तादाद"
               data={
                 finalItem
@@ -173,12 +185,17 @@ class ModalItem extends Component {
                 }
               }}
             />
-
+            <Text style={{ fontSize: 16,marginTop:35,color:'#573985' }}>
+              {" "} {finalItem ? finalItem.item_unit : null}
+            </Text>
+            </View>
+            
             <TextInput
+              underlineColorAndroid="#573985"
               style={styles.inputStyle}
               underlineColorAndroid="grey"
               placeholder="आइटम विवरण तथा तादाद"
-              placeholderTextColor="#9D9D9D"
+              placeholderTextColor="#573985"
               autoCapitalize="none"
               secureTextEntry={false}
               maxLength={10}
@@ -188,29 +205,40 @@ class ModalItem extends Component {
                 this.props.updateDescription(text);
               }}
             />
-            <Text style={{ fontSize: 10, marginTop: 5, marginBottom: 5 }}>
+            {/* <Text style={{ fontSize: 10, marginTop: 5, marginBottom: 5 }}>
               {" "}
               Unit : {finalItem ? finalItem.item_unit : null}
-            </Text>
+            </Text> */}
             
             <MyButton
+            style={{width:'75%',alignSelf:'center'}}
             myButtonText="+ आईटम जोड़े"
             onPress={() => {
-              this.props.onSelectedItem();
+              if(finalItem ==="" || finalQty === ""){
+                  if(finalQty === ""){
+                    alert("कृपया आइटम की तादाद सेलेक्ट करे |")  
+                  } else{
+                    alert("कृपया आइटम सेलेक्ट करे |")
+                  }
+                  
+              } else {
+                this.props.onSelectedItem();
+              }
+              
             }}
            />
           </View>
-          
-        </View>
-        <Image source={MODALIMAGEITEM}
+          <Image source={MODALIMAGEITEM}
                   
-                 style={{
-                     position:'absolute',
-                     bottom:0,
-                     left:27,
-                     width:'100%',
-                     height:'29%'
-                     }} resizeMode="contain" />
+                  style={{
+                      position:'absolute',
+                      bottom:0,
+                      width:'100%',
+                      height:'35%'
+                      }} resizeMode="stretch" />  
+        </View>
+        </View>
+        </ScrollView>
       </Modal>
     );
   }
@@ -222,12 +250,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "space-around",
-    height: 420,
+    height: '90%',
     borderWidth: 5,
     borderColor: "#572179",
     borderRadius: 20,
     margin: 15,
-    width: "80%",
+    width: "85%",
     alignSelf: "center",
   },
   menubutton: {

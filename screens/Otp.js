@@ -1,17 +1,20 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
+import { Dimensions,StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import OtpInputs from "react-native-otp-inputs";
-import {onMatchOtp,onChangeOTP} from "../actions/user";
+import {onMatchOtp,onChangeOTP,onSendOtp} from "../actions/user";
 import {IMAGEOTP} from "../assets";
 import MyButton from "../components/MyButton";
+import { ScrollView } from 'react-native-gesture-handler';
 
+let screenHeight = Dimensions.get('window').height;
 class Otp extends Component {
   render(){
 
     return (
+      <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैंहूँन</Text>
+        <Text style={styles.bigText}>मैंहूँना</Text>
         <View style={styles.buttonView}>
         </View>
            
@@ -25,16 +28,18 @@ class Otp extends Component {
                 inputContainerStyles={{ backgroundColor: "white", }}
                 />
             <MyButton
+                style={{width:'70%'}}
                 myButtonText='आगे बढ़ें'
                 onPress={()=>{this.props.onMatchOtp(this.props.navigation.state.params.path)}}
               />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{this.props.onSendOtp(true) }}>
               <Text style={styles.buttonResendText}>फिर से भेजे OTP</Text>
             </TouchableOpacity>
             
           </View>
-          <Image source={IMAGEOTP} resizeMode='center' style={{height:'40%',bottom:0,width:'100%'}} />
+          <Image source={IMAGEOTP} resizeMode='contain' style={{height:'48%',bottom:0}} />
       </View>
+      </ScrollView>
     );
   }
 }
@@ -42,27 +47,24 @@ class Otp extends Component {
 const styles = StyleSheet.create({
 
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
+    justifyContent: 'space-between',
+    height: screenHeight+3,
   },
   buttonView:{
     position:'absolute',right:15,top:20
 
   },
   bigText: {
-    fontSize:60,
+    fontSize:40,
     color:"#000",
-    top:10,
-    position:'absolute'
-    //fontWeight:'bold'
+    fontWeight:'bold'
   },
   cardContainer:{
     width:'90%',
     alignItems: "center",
-    marginTop: 16,
+    marginTop: 0.13 * screenHeight,
     backgroundColor: "white",
     borderColor:"#000000",
     borderRadius: 10,
@@ -105,13 +107,13 @@ const styles = StyleSheet.create({
   otpInputStyle: {
     width:45,
     height:55,
-    padding:1,
+    paddingLeft:16,
     backgroundColor: "white",
-    borderWidth: 2,
+    borderWidth: 3.5,
     color: "black",
     borderColor: "#573985",
     fontSize: 19,
-    marginLeft:25,
+    marginLeft:5,
     //backgroundColor: "#E5E5E5",
   }
 });
@@ -125,6 +127,7 @@ export default connect(
   mapStateToProps,
   {
     onMatchOtp,
-    onChangeOTP
+    onChangeOTP,
+    onSendOtp
   }
 )(Otp);

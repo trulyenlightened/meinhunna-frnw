@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity,TextInput,ScrollView } from "react-native";
+import { StyleSheet, Text, View, Image,TextInput,ScrollView,Dimensions } from "react-native";
 import { connect } from "react-redux";
 import MenuButton from "../components/MenuButton";
 import { getNearby, onAddItems } from "../actions/order";
@@ -12,6 +12,10 @@ import {
   updateProfile
       } from "../actions/user";
 import NavigationService from "../navigation/NavigationService";
+import MyButton from "../components/MyButton";
+import {IMAGEREGISTER} from "../assets";
+
+let screenHeight = Dimensions.get('window').height;
 const openDrawer = () => NavigationService.navigate("DrawerOpen");
 
 class Profile extends Component {
@@ -33,11 +37,12 @@ class Profile extends Component {
         <Text style={{position:'absolute',top:15,fontSize:22}}>प्रोफ़ाइल</Text>
         <MenuButton style={styles.menubutton} onPress={openDrawer} />
         <ScrollView style={styles.mainContainer}>
+        <View style={{height:screenHeight*0.9,borderWidth:0}}>
         <TextInput
                   style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
+                  underlineColorAndroid="#573985"
                   placeholder="पूरा नाम"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={false}
                   value={fullName}
@@ -48,9 +53,9 @@ class Profile extends Component {
 
          <TextInput
                   style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
+                  underlineColorAndroid="#573985"
                   placeholder="मोबाइल नंबर"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={false}
                   maxLength={10}
@@ -62,9 +67,9 @@ class Profile extends Component {
 
           <TextInput
                   style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
+                  underlineColorAndroid="#573985"
                   placeholder="ई-मेल"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={false}
                   value={email}
@@ -75,9 +80,9 @@ class Profile extends Component {
 
           <TextInput
                   style={styles.inputStyle}
-                  underlineColorAndroid="#000000"
+                  underlineColorAndroid="#573985"
                   placeholder="पता"
-                  placeholderTextColor="#9D9D9D"
+                  placeholderTextColor="#573985"
                   autoCapitalize="none"
                   secureTextEntry={false}
                   value={fullAddress}
@@ -86,17 +91,16 @@ class Profile extends Component {
                   }}
                 />
 
-          <TouchableOpacity
-            style={styles.buttonLogin}
+            <MyButton
+            style={{width:'70%',alignSelf:'center'}}
+            myButtonText="आगे बढ़ें"
             onPress={()=>{
-
-                this.props.updateProfile()
-
-
+              this.props.updateProfile()
             }}
-            >
-              <Text style={styles.buttonText}>आगे बढ़ें</Text>
-            </TouchableOpacity>
+             />
+            <Image source={IMAGEREGISTER} resizeMode="center" style={{width:'100%',height:'73%'}} /> 
+            </View>
+            
         </ScrollView>
       </View>
     );
@@ -151,11 +155,12 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   inputStyle:{
-    width: "90%",
+    width: "80%",
     borderRadius: 10,
-    height: 48,
+    color:"#573985",
+    height: 38,
     alignSelf:'center',
-    marginBottom: 20,
+    marginBottom: 5,
     fontSize: 19,
     paddingLeft: 15,
     paddingRight: 5
