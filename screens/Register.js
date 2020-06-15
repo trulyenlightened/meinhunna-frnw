@@ -30,7 +30,7 @@ class Register extends Component {
     return (
       <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैंहूँना</Text>
+        <Text style={styles.bigText}>मैं हूँ ना</Text>
         <View style={{width:'100%',alignItems:'center', marginTop:0.14*screenHeight}}>
         <TextInput
                   style={[styles.inputStyle,{}]}
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     height:screenHeight+3,
-    
+
   },
   bigText: {
     fontSize:40,

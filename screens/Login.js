@@ -20,8 +20,8 @@ class Login extends Component {
   return (
     <ScrollView>
     <View style={styles.container}>
-      <Text style={styles.bigText}>मैंहूँना</Text>
-      
+      <Text style={styles.bigText}>मैं हूँ ना</Text>
+
       <View style={styles.cardContainer}>
         <TextInput
         style={styles.inputStyle}
@@ -63,14 +63,14 @@ class Login extends Component {
                 alert('कृपया पासवर्ड नंबर डाले |')
               } else if(loginMobileNo === ""){
                 alert('कृपया मोबाइल नंबर डाले |')
-                
+
               } else if(loginMobileNo.length < 10){
                 alert('कृपया मोबाइल नंबर ठीक से डाले |')
               }
            } else{
             this.props.authenticate(true)
            }
-           
+
           }}
          />
         <TouchableOpacity
@@ -78,9 +78,9 @@ class Login extends Component {
       onPress={()=>{Navigation.navigate('MobileNumber',{path:''})}}
     >
       <Text style={styles.buttonSignUpText}>पासवर्ड भूल गये?</Text>
-      
+
     </TouchableOpacity>
-    
+
       </View>
       <Image source={LOGINIMAGE} style={{height:screenHeight*0.18,marginTop:2}} resizeMode='contain' />
       <View style={styles.bottomContainer}>

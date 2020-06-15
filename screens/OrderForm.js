@@ -9,13 +9,13 @@ import MenuButton from "../components/MenuButton";
 import ModalItem from "../components/ModalItems";
 import ModalAddress from "../components/ModalAddress";
 import MyButton from "../components/MyButton";
-import { 
-  getNearby, 
-  onSelectedMurchant, 
+import {
+  getNearby,
+  onSelectedMurchant,
   onAddItems,
   onPlaceOrder,
   onSelectedItemRemove,
-  
+
  } from "../actions/order";
 import {getUserData} from "../actions/user";
 import NavigationService from "../navigation/NavigationService";
@@ -26,10 +26,11 @@ const openDrawer = () => NavigationService.navigate("DrawerOpen");
 let screenHeight = Dimensions.get('window').height;
 
 class OrderForm extends Component {
-  componentWillMount() {
+  async componentWillMount() {
     this._getLocationAsync();
     // this.props.getNearby({coords:{latitude:null,longitude:null}});
-   this.props.getUserData()
+
+   await this.props.getUserData()
   }
 
   static navigationOptions = {
@@ -80,16 +81,18 @@ class OrderForm extends Component {
 
 
     return (
-      <ScrollView>
+      <View>
       <View style={[styles.container,{opacity:this.props.isHelpLineModal?0.3:1}]}>
-        <View style={{flexDirection:'row',borderWidth:0,paddingLeft:20,paddingRight:20}}>
-        <TouchableOpacity style={{alignSelf:'flex-start',width:35,marginTop:15}}>
-          <Image source={HOMEICON} style={{height:30,width:30,alignSelf:'flex-start'}} />
-        </TouchableOpacity>
+        <View style={{flexDirection:'row',borderWidth:0}}>
+      {
+        // <TouchableOpacity style={{alignSelf:'flex-start',width:35,marginTop:15}}>
+        //   <Image source={HOMEICON} style={{height:30,width:30,alignSelf:'flex-start'}} />
+        // </TouchableOpacity>
+      }
         <MenuButton style={styles.menubutton} onPress={openDrawer} />
         </View>
         <View style={styles.mainContainer}>
-        <Text style={{position:'absolute',top:-40,fontSize:20,color:'#572179',alignSelf:'center'}}>आदेश परपतर</Text>
+        <Text style={{position:'absolute',top:-60,fontSize:20,color:'#572179',alignSelf:'center'}}>आदेश पत्र</Text>
           <Dropdown
             label="मरचंट"
             baseColor="#573985"
@@ -128,16 +131,16 @@ class OrderForm extends Component {
             }
             }}
            />
-            <ScrollView style={{marginBottom:5,width:'100%',flex:1}}>
+            <ScrollView style={{marginBottom:5,width:'110%',flex:1}} >
           {!orderItem.length?
               <Text style={styles.buttonText}></Text>:
               orderItem.map((d, i) => {
                 return (
                   <View key={i} style={styles.listCard}>
-                    <Text style={{ fontSize: 18, right: 10,color:'#572179' }}>
+                    <Text numberOfLines={1} style={{ width:110,fontSize: 18, right: 10,color:'#572179' }}>
                      {d.item_name}
                     </Text>
-                    <Text style={{ fontSize: 14, marginTop: 5,color:'#572179' }}>
+                    <Text numberOfLines={1}  style={{ width:110,fontSize: 14, marginTop: 5,color:'#572179' }}>
                       मात्रा: {orderQty[i]}
                     </Text>
                     <TouchableOpacity
@@ -153,7 +156,7 @@ class OrderForm extends Component {
               })
           }
             </ScrollView>
-          
+
         </View>
         {
           orderItem.length > 0?
@@ -179,7 +182,7 @@ class OrderForm extends Component {
                   }
 
               }else {
-                  
+
                 alert("आप केवल सुबह 10 बजे से शाम 7 बजे के बीच ऑर्डर कर सकते हैं")
               }
 
@@ -188,19 +191,19 @@ class OrderForm extends Component {
           :null
         }
        </View>
-       
+
         <ModalItem />
         <ModalAddress />
         <View style ={styles.bottomContainer}>
-         <Image source={BOTTOMCON} resizeMode='stretch' 
+         <Image source={BOTTOMCON} resizeMode='stretch'
          style={{width:'100%',height:'100%',position:'absolute',marginTop:20}} />
-            <View style={{width:250,height:90,backgroundColor:'#572179', marginTop:40,borderRadius:10}}>
-
+            <View style={{width:250,height:90,backgroundColor:'#572179', marginTop:40,borderRadius:10,padding:7}}>
+             <Text style={{color:'white',fontSize:16,textAlign:'center'}}>पहले 150 कस्टमर्स को पहली पेशकश पर 1 किग्रा नमक मुफ्त मिनिमम 750 रुपये की पहली पेशकश पर 1 किग्रा चावल मुफ्त</Text>
             </View>
         </View>
       </View>
-    
-      </ScrollView>
+
+      </View>
     );
   }
 }
@@ -211,7 +214,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height:screenHeight+3,
-    
+
   },
 
   headerText: {
@@ -227,9 +230,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bottomContainer:{
-    //backgroundColor:'#FF905F', 
-    width:'90%', 
-    height:'28%', 
+    //backgroundColor:'#FF905F',
+    width:'90%',
+    height:'28%',
     bottom:0,
     alignSelf:'center',
     alignItems:'center',
@@ -257,7 +260,8 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     width: "100%",
     backgroundColor: "#fff",
-    justifyContent:'space-between'
+    justifyContent:'space-between',
+    marginTop:10
 
   },
 });

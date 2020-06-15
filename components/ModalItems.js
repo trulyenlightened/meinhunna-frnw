@@ -62,7 +62,7 @@ class ModalItem extends Component {
         <Text style={{
           zIndex:10,
           borderWidth:5,
-          borderRadius:25, 
+          borderRadius:25,
           alignSelf:'center',
           backgroundColor:'#fff',
           borderColor: "#572179",
@@ -113,6 +113,7 @@ class ModalItem extends Component {
               }}
             />
             <View style={{width:'100%',flexDirection:'row'}}>
+
             <Dropdown
             baseColor="#573985"
             textColor="#573985"
@@ -145,8 +146,35 @@ class ModalItem extends Component {
                         { value: 2000 },
                         { value: 2500 },
                       ]
-                    : []
-                  : []
+                    : finalItem.item_unit === "liter"?[
+                    {  value:0.5},
+                      {value:1},
+                      {value:1.5},
+                      {value:2},
+                      {value:2.5},
+                      {value:3},
+                      {value:3.5},
+                      {value:4},
+                      {value:4.5},
+                      {value:5},
+                    ]
+
+                  : finalItem.item_unit === "kg"?[
+                    {value:0.5},
+                    {value:1},
+                    {value:1.5},
+                    {value:2},
+                    {value:2.5},
+                    {value:3},
+                    {value:3.5},
+                    {value:4},
+                    {value:4.5},
+                    {value:5},
+                  ]:finalItem.item_unit === "packet"?[
+                  {value:  "small"},
+                  {value:  "medium"},
+                    {value:"large"}
+                  ]:finalItem.item_unit === "piece"?[{value:'1'},{value:'2'},{value:'3'},{value:'4'},{value:'5'},{value:'6'},{value:'7'},{value:'8'},{value:'9'},{value:'10'}]:[]:[]
               }
               disabled={false}
               onChangeText={async (value, index) => {
@@ -181,6 +209,49 @@ class ModalItem extends Component {
 
                     this.props.updateQTY(arr[index]);
 
+                  }else if (finalItem.item_unit == "kg") {
+                    var arr = [
+                      "0.5",
+                      "1",
+                      "1.5",
+                      "2",
+                      "2.5",
+                      "3",
+                      "3.5",
+                      "4",
+                      "4.5",
+                      "5",
+                    ];
+
+                    this.props.updateQTY(arr[index]);
+
+                  }
+                  else if (finalItem.item_unit == "liter") {
+                    var arr = [
+                      "0.5",
+                      "1",
+                      "1.5",
+                      "2",
+                      "2.5",
+                      "3",
+                      "3.5",
+                      "4",
+                      "4.5",
+                      "5",
+                    ];
+
+                    this.props.updateQTY(arr[index]);
+
+                  }
+                  else if (finalItem.item_unit == "packet") {
+                    var arr = [
+                      "small",
+                      "medium",
+                      "large"
+                    ];
+
+                    this.props.updateQTY(arr[index]);
+
                   }
                 }
               }}
@@ -189,7 +260,7 @@ class ModalItem extends Component {
               {" "} {finalItem ? finalItem.item_unit : null}
             </Text>
             </View>
-            
+
             <TextInput
               underlineColorAndroid="#573985"
               style={styles.inputStyle}
@@ -209,33 +280,33 @@ class ModalItem extends Component {
               {" "}
               Unit : {finalItem ? finalItem.item_unit : null}
             </Text> */}
-            
+
             <MyButton
             style={{width:'75%',alignSelf:'center'}}
             myButtonText="+ आईटम जोड़े"
             onPress={() => {
               if(finalItem ==="" || finalQty === ""){
                   if(finalQty === ""){
-                    alert("कृपया आइटम की तादाद सेलेक्ट करे |")  
+                    alert("कृपया आइटम की तादाद सेलेक्ट करे |")
                   } else{
                     alert("कृपया आइटम सेलेक्ट करे |")
                   }
-                  
+
               } else {
                 this.props.onSelectedItem();
               }
-              
+
             }}
            />
           </View>
           <Image source={MODALIMAGEITEM}
-                  
+
                   style={{
                       position:'absolute',
                       bottom:0,
                       width:'100%',
                       height:'35%'
-                      }} resizeMode="stretch" />  
+                      }} resizeMode="stretch" />
         </View>
         </View>
         </ScrollView>

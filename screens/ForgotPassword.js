@@ -23,7 +23,7 @@ class ForgotPassword extends Component {
     return (
       <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैंहूँना</Text>
+        <Text style={styles.bigText}>मैं हूँ ना</Text>
           <View style={{alignItems:'center',width:'100%',marginTop:0.18*screenHeight}}>
           <TextInput
                   style={styles.inputStyle}
@@ -57,7 +57,7 @@ class ForgotPassword extends Component {
                      this.props.updateConfirmPassword(text);
                   }}
                 />
-          
+
             <MyButton
                 style={{width:'65%'}}
                 myButtonText='आगे बढ़ें'

@@ -25,8 +25,8 @@ class Splash extends Component {
           {
             item.text?null:<Text style={styles.smallText}>तेज़ डीलीवरी</Text>
           }
-            
-            
+
+
         </View>
     );
 }
@@ -36,10 +36,10 @@ class Splash extends Component {
     return (
       <ScrollView>
       <View style={styles.container}>
-        
+
       <View style={styles.mainContainer}>
       <Image source={SPLACHBACK} resizeMode='contain' style={styles.backImage} />
-        <Text style={styles.bigText}>मैंहूँना</Text>
+        <Text style={styles.bigText}>मैं हूँ ना</Text>
         <Carousel
           data={[
             {image:IMAGEBOY},
@@ -50,7 +50,7 @@ class Splash extends Component {
           itemWidth={screenWidth*0.75}
          />
         {/* <Image source={IMAGEBOY} resizeMode='contain' style={styles.imagestyle}/> */}
-        
+
       </View>
         <View style={styles.mainContainer1}>
           <Image source={IMAGEUSER} style={styles.imageUser} />
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize:35,
     color:"#fff",
     //fontWeight:'bold',
-    
+
   },
   smallText:{
     fontSize:18,

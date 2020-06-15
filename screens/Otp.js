@@ -14,10 +14,10 @@ class Otp extends Component {
     return (
       <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैंहूँना</Text>
+        <Text style={styles.bigText}>मैं हूँ ना</Text>
         <View style={styles.buttonView}>
         </View>
-           
+
 
           <View style={styles.cardContainer}>
 
@@ -35,7 +35,7 @@ class Otp extends Component {
             <TouchableOpacity onPress={()=>{this.props.onSendOtp(true) }}>
               <Text style={styles.buttonResendText}>फिर से भेजे OTP</Text>
             </TouchableOpacity>
-            
+
           </View>
           <Image source={IMAGEOTP} resizeMode='contain' style={{height:'48%',bottom:0}} />
       </View>

@@ -13,10 +13,10 @@ class MobileNumber extends Component  {
     return (
       <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.bigText}>मैंहूँना</Text>
+        <Text style={styles.bigText}>मैं हूँ ना</Text>
       <View style={styles.buttonView}>
       </View>
-         
+
         <View style={styles.cardContainer}>
           <TextInput
                 style={styles.inputStyle}
@@ -39,7 +39,7 @@ class MobileNumber extends Component  {
            onPress={()=>{
               var hh = registerMobileno.length
               if(hh === 10){
-            
+
               this.props.navigation.state.params.path==='register'?
               this.props.onSendOtp(true):this.props.onSendForgotOtp(true)
               } else {
@@ -47,7 +47,7 @@ class MobileNumber extends Component  {
               }
             }}
            />
-          
+
         </View>
         <Image source={IMAGEMOBILE} resizeMode='center' style={styles.imageStyle} />
       </View>

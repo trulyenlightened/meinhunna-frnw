@@ -206,15 +206,15 @@ export const updateProfile = () => async (dispatch,getState) =>{
         throw new Error(err.response.data.message);
       });
       //console.error(response);
-      
+
       if(response.data.user){
        alert("Profile Successfully Updated.")
       }
 
   } catch (err) {
     alert(err)
-    
-    
+
+
   }
 
   return null;
@@ -226,8 +226,9 @@ export const getUserData = () => async(dispatch,getState) =>{
     const response = await createApi(state)
       .get('/users')
       .catch((err) => {
-        //console.error(err);
-      throw new Error(err.response.data.message);
+        return
+      //   console.error(err);
+      // throw new Error(err.response.data.message);
       });
       //console.error(response.data[0]);
       var address = response.data[0].address;
@@ -243,7 +244,7 @@ export const getUserData = () => async(dispatch,getState) =>{
 
   } catch (err) {
     console.error(err);
-    
+
   }
 
   var address = await PlatformStorage.get('address');
@@ -251,6 +252,5 @@ export const getUserData = () => async(dispatch,getState) =>{
   var phone_number = await PlatformStorage.get('phone_number');
   var loginPassword = await PlatformStorage.get('loginPassword');
 
- 
-}
 
+}
