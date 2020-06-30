@@ -33,7 +33,8 @@ class ModalItem extends Component {
       finalQty,
       sunCatagory,
       orderDescription,
-      sub_Selectitems
+      sub_Selectitems,
+      loadingOrder
     } = this.props;
     var data = [];
     var data1 = [];
@@ -384,7 +385,8 @@ const mapStateToProps = ({ order }) => ({
   finalQty: order.finalQty,
   sunCatagory: order.sunCatagory,
   orderDescription: order.orderDescription,
-  sub_Selectitems:order.sub_Selectitems
+  sub_Selectitems:order.sub_Selectitems,
+  loadingOrder:order.loadingOrder
 });
 
 export default connect(mapStateToProps, {

@@ -24,7 +24,8 @@ class Register extends Component {
       password,
       confirmPassword,
       passwordChange,
-      passwordConfirmChange
+      passwordConfirmChange,
+      loadingRegister
     } = this.props;
 
     return (
@@ -120,8 +121,9 @@ class Register extends Component {
                   :null
                 }
             <MyButton
-             style={{width:'60%'}}
-             myButtonText='आगे बढ़ें'
+             style={{width:'60%',opacity:loadingRegister?0.5:1}}
+             myButtonText={loadingRegister?'लोड हो रहा है':'आगे बढ़ें'}
+             disabled={loadingRegister}
              onPress={()=>{
               if(password&&confirmPassword&&fullAddress&&fullName)
               {
@@ -198,7 +200,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({user}) => ({
+const mapStateToProps = ({user,auth}) => ({
   fullName:user.fullName,
   registerMobileno:user.registerMobileno,
   email:user.email,
@@ -206,7 +208,8 @@ const mapStateToProps = ({user}) => ({
   password:user.password,
   confirmPassword:user.confirmPassword,
   passwordChange:user.passwordChange,
-  passwordConfirmChange:user.passwordConfirmChange
+  passwordConfirmChange:user.passwordConfirmChange,
+  loadingRegister:auth.loadingRegister
 });
 
 

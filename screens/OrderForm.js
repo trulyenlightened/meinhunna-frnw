@@ -197,8 +197,9 @@ class OrderForm extends Component {
         <View style ={styles.bottomContainer}>
          <Image source={BOTTOMCON} resizeMode='stretch'
          style={{width:'100%',height:'100%',position:'absolute',marginTop:20}} />
-            <View style={{width:250,height:90,backgroundColor:'#572179', marginTop:40,borderRadius:10,padding:7}}>
-             <Text style={{color:'white',fontSize:16,textAlign:'center'}}>पहले 150 कस्टमर्स को पहली पेशकश पर 1 किग्रा नमक मुफ्त मिनिमम 750 रुपये की पहली पेशकश पर 1 किग्रा चावल मुफ्त</Text>
+            <View style={{width:250,height:100,backgroundColor:'#572179', marginTop:40,borderRadius:10,padding:7}}>
+             <Text style={{color:'white',fontSize:16,textAlign:'center'}}>पहले 150 कस्टमर्स को पहली पेशकश पर 1 किग्रा नमक मुफ्त |</Text>
+             <Text style={{color:'white',fontSize:16,textAlign:'center'}}>मिनिमम 750 रुपये की पहली पेशकश पर 1 किग्रा चावल मुफ्त |</Text>
             </View>
         </View>
       </View>
@@ -270,7 +271,8 @@ const mapStateToProps = ({ order,auth }) => ({
   murchantList: order.murchantList,
   orderItem: order.orderItem,
   orderQty: order.orderQty,
-  isHelpLineModal:auth.isHelpLineModal
+  isHelpLineModal:auth.isHelpLineModal,
+  loadingOrder:order.loadingOrder 
 });
 
 export default connect(mapStateToProps, {

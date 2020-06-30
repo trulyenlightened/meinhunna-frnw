@@ -15,7 +15,7 @@ import MyButton from "../components/MyButton";
 
 class ModalAddress extends Component {
   render() {
-   const {orderAddress,isModalAddres} = this.props;
+   const {orderAddress,isModalAddres,loadingOrder} = this.props;
     return (
       <Modal
         visible={isModalAddres}
@@ -47,7 +47,9 @@ class ModalAddress extends Component {
             <Text style={{fontSize:16,marginTop:10,marginBottom:10,alignSelf:'center',color: "#573985",}}> विशिष्ट पता डाले या अपने रजिस्टर हुए पते पर डिलीवरी प्राप्त करे</Text>
            
             <MyButton
-            myButtonText="संपूर्ण ऑर्डर करे"
+            style={{opacity:loadingOrder?0.5:1}}
+            disabled={loadingOrder}
+            myButtonText={loadingOrder?'लोड हो रहा है':"संपूर्ण ऑर्डर करे"}
             onPress={() => {
               this.props.onFinalizeOrder()
               }}
@@ -124,7 +126,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ order }) => ({
     orderAddress:order.orderAddress,
-    isModalAddres:order.isModalAddres
+    isModalAddres:order.isModalAddres,
+    loadingOrder:order.loadingOrder
 });
 
 export default connect(mapStateToProps, {

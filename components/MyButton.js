@@ -5,11 +5,11 @@ import {BUTTONIMAGE} from "../assets";
 
 
 export default function MyButton(props) {
-  const { onPress, style,myButtonText } = props;
+  const { onPress, style,myButtonText,disabled } = props;
 
   return (
     
-    <TouchableOpacity style={[styles.menu, style]} onPress={onPress}>
+    <TouchableOpacity style={[styles.menu, style]} disabled={disabled} onPress={onPress}>
       <Image style={styles.buttonImage} resizeMode='center' source={BUTTONIMAGE} />
         <Text style={styles.buttonText}>{myButtonText}</Text>
     </TouchableOpacity>
@@ -24,7 +24,8 @@ MyButton.defaultProps = {
 MyButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   style: PropTypes.object,
-  myButtonText:PropTypes.string.isRequired
+  myButtonText:PropTypes.string.isRequired,
+  disabled:PropTypes.bool
 };
 
 const styles = StyleSheet.create({

@@ -12,7 +12,8 @@ import {
   ON_SELECTED_ITEM_REMOVE,
   ON_CHANGE_SUB_ITEM_SELECT,
   UPDATE_ORDER_DESCRIPTION,
-  ON_CLOSE_ORDER_MODAL
+  ON_CLOSE_ORDER_MODAL,
+  ON_FINALIZE_ORDER_STARTED
 } from '../actions/order';
 
 
@@ -32,7 +33,8 @@ const initialState = {
   orderDescription:'',
   orderDescriptionArr:[],
   mI:0,
-  sub_Selectitems:null
+  sub_Selectitems:null,
+  loadingOrder:false
 };
 
 export default (state = initialState, action) => {
@@ -160,7 +162,16 @@ export default (state = initialState, action) => {
             orderAddress:"",
             orderDescription:'',
             orderDescriptionArr:[],
-            isModalAddres:false
+            isModalAddres:false,
+            loadingOrder:false
+          }
+        }
+
+        case ON_FINALIZE_ORDER_STARTED:
+        {
+          return {
+            ...state,
+            loadingOrder:true
           }
         }
 

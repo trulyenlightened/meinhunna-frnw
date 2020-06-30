@@ -15,6 +15,7 @@ export const ON_SELECTED_ITEM_REMOVE = "Order/ON_SELECTED_ITEM_REMOVE";
 export const ON_CHANGE_SUB_ITEM_SELECT = "Order/ON_CHANGE_SUB_ITEM_SELECT"
 export const UPDATE_ORDER_DESCRIPTION="Order/UPDATE_ORDER_DESCRIPTION";
 export const ON_CLOSE_ORDER_MODAL="Order/ON_CLOSE_ORDER_MODAL";
+export const ON_FINALIZE_ORDER_STARTED = "order/ON_FINALIZE_ORDER_STARTED";
 
 export const getNearby = (location) => async (dispatch, getState) => {
   const state = getState();
@@ -131,7 +132,9 @@ export const onFinalizeOrder = () => async(dispatch,getState) =>{
   orderItem.map((d)=>{
     items.push(d.item_name)
   })
-
+  dispatch({
+    type:ON_FINALIZE_ORDER_STARTED
+  })
 
   const OrderData = {
     merchant_id: `${selectedMurchant.merchant.merchant_id}`,

@@ -4,7 +4,10 @@ import {
   UPDATE_PASSWORD,
   UPDATE_LOGIN_MOBILENO,
   UPDATE_LOGIN_PASSWORD,
-  ON_HELP_LINE
+  ON_HELP_LINE,
+  SIGNUP_STARTED,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE
 } from '../actions/auth';
 
 const initialState = {
@@ -23,7 +26,8 @@ const initialState = {
   socialToken: '',
   loginMobileNo:"",
   loginPassword:"",
-  isHelpLineModal:false
+  isHelpLineModal:false,
+  loadingRegister:false
 };
 
 export default (state = initialState, action) => {
@@ -50,6 +54,30 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loginPassword:action.payload
+      }
+    }
+
+    case SIGNUP_STARTED:
+    {
+      return {
+        ...state,
+        loadingRegister:true
+      }
+    }
+
+    case SIGNUP_SUCCESS:
+    {
+      return {
+        ...state,
+        loadingRegister:false
+      }
+    }
+
+    case SIGNUP_FAILURE:
+    {
+      return {
+        ...state,
+        loadingRegister:false
       }
     }
 
